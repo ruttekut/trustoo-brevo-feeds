@@ -23,37 +23,77 @@ https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/tips/{LAST_REQUEST_SERVI
 
 Contacten met dezelfde waarde krijgen dus dezelfde content.
 
-### Concreet voorbeeld: laadpalen
+### Concreet voorbeeld: dakdekker
 
 | | |
 | --- | --- |
-| Attribuutwaarde | `laadpalen` |
-| Bestand in deze repo | [`feeds/nl/tips/laadpalen.json`](feeds/nl/tips/laadpalen.json) |
-| Publieke URL | <https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/tips/laadpalen.json> |
-| In de template | `{{ feed.trustoo_tips.title }}` |
+| Attribuutwaarde | `dakdekker` |
+| Bestand in deze repo | [`feeds/nl/tips/dakdekker.json`](feeds/nl/tips/dakdekker.json) |
+| Publieke URL | <https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/tips/dakdekker.json> |
+| In de template | `{{ feed.tip_feed.title }}` |
+
+## Welke services staan er nu in
+
+Negen servicetips-feeds, plus een neutrale fallback. De content komt uit
+`trustoo-servicetips-content.csv` en de veldnamen komen uit
+`trustoo-servicetips-template.html`.
+
+| Slug / bestand | Variant in de CSV | `utm_campaign` |
+| --- | --- | --- |
+| `catering` | `catering_tips_mail1` | `catering_tips_mail1` |
+| `dakdekker` | `dakdekker_tips_mail1` | `dakdekker_tips_mail1` |
+| `energielabel-adviseur` | `energielabel_adviseur_tips_mail1` | `energielabel_adviseur_tips_mail1` |
+| `hovenier` | `hovenier_tips_mail1` | `hovenier_tips_mail1` |
+| `notaris` | `notaris_tips_mail1` | `notaris_tips_mail1` |
+| `schoonmaakbedrijf` | `schoonmaakbedrijf_tips_mail1` | `schoonmaakbedrijf_tips_mail1` |
+| `stratenmaker` | `stratenmaker_tips_mail1` | `stratenmaker_tips_mail1` |
+| `thuisbatterij` | `thuisbatterij_tips_mail1` | `thuisbatterij_tips_mail1` |
+| `zonwering` | `zonwering_tips_mail1` | `zonwering_tips_mail1` |
+| `default` | — | `default_tips_mail1` |
+
+De bestandsnamen zijn afgeleid van de service-slug in de `cta_url` van elke rij
+(`https://trustoo.nl/kosten/<slug>/`), omdat dat de canonical Trustoo-slug is.
+
+> **Controleer `energielabel-adviseur`.** De variantnaam in de CSV gebruikt een underscore
+> (`energielabel_adviseur`), maar de Trustoo-URL gebruikt een koppelteken
+> (`/kosten/energielabel-adviseur/`). Het bestand heet daarom `energielabel-adviseur.json`.
+> Staat er in `LAST_REQUEST_SERVICE_URL` een underscore, dan moet het bestand
+> `energielabel_adviseur.json` heten — maar dan wijkt het af van de slugregels hieronder.
+> Verifieer de werkelijke attribuutwaarde voordat je deze mail verstuurt.
+
+De `hero_image_url`-velden verwijzen naar de Brevo content library
+(`img.mailinblue.com`). Die afbeeldingen worden door Brevo gehost, niet door deze repository.
 
 ## Structuur
 
 ```text
 feeds/
-└── nl/                  # taal/markt
-    └── tips/            # mailtype
-        ├── default.json # neutrale fallbackcontent
-        └── laadpalen.json
+└── nl/                       # taal/markt
+    └── tips/                 # mailtype
+        ├── default.json      # neutrale fallbackcontent
+        ├── catering.json
+        ├── dakdekker.json
+        ├── energielabel-adviseur.json
+        ├── hovenier.json
+        ├── notaris.json
+        ├── schoonmaakbedrijf.json
+        ├── stratenmaker.json
+        ├── thuisbatterij.json
+        └── zonwering.json
 ```
 
 Later eenvoudig uitbreidbaar naar andere mailtypes:
 
 ```text
-feeds/nl/cross-sell/laadpalen.json
-feeds/nl/seasonal/laadpalen.json
-feeds/nl/follow-up/laadpalen.json
+feeds/nl/cross-sell/dakdekker.json
+feeds/nl/seasonal/dakdekker.json
+feeds/nl/follow-up/dakdekker.json
 ```
 
 En naar andere markten (Trustlocal), met een eigen Brevo-feed per taalmap:
 
 ```text
-feeds/be/tips/laadpalen.json
+feeds/be/tips/dakdekker.json
 feeds/de/tips/wallbox.json
 ```
 
@@ -91,8 +131,8 @@ Zie [`BREVO_SETUP.md`](BREVO_SETUP.md) voor het volledige overzicht per mailtype
 - Geen koppelteken aan begin of eind, geen dubbele koppeltekens.
 - Maximaal 80 tekens.
 - Altijd de extensie `.json` in kleine letters.
-- Goed: `laadpalen`, `verhuizers`, `schilders`, `stukadoors`, `zonnepanelen-plaatsen`
-- Fout: `Laadpalen`, `laadpalen_nl`, `laadpalen.json.json`, `laad palen`, `laadpalen/`
+- Goed: `dakdekker`, `hovenier`, `notaris`, `thuisbatterij`, `energielabel-adviseur`
+- Fout: `Dakdekker`, `energielabel_adviseur`, `dakdekker.json.json`, `dak dekker`, `dakdekker/`
 
 **Mappen**
 
@@ -101,19 +141,18 @@ Zie [`BREVO_SETUP.md`](BREVO_SETUP.md) voor het volledige overzicht per mailtype
 
 **JSON-velden**
 
-- Exact de 30 velden uit [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json).
+- Exact de 44 velden uit [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json).
   Niet meer, niet minder, en de namen niet wijzigen.
 - Alle waarden zijn strings. Een veld dat je niet gebruikt, krijgt een lege string `""` —
   je mag het niet weglaten.
 - Geen metadata zoals `service`, `mail_type` of `updated_at`. Geen arrays, geen geneste
   objecten.
 - URL-velden bevatten een absolute `https://`-URL of een lege string:
-  `white_panel_bg_url`, `header_link_url`, `card1_url`, `card1_image_url`, `card2_url`,
-  `card2_image_url`, `card3_url`, `card3_image_url`, `cta_url`.
+  `header_link_url`, `hero_image_url`, `cta_url` en `tile1_url` tot en met `tile6_url`.
 
 **Brevo-feedalias**
 
-- Kleine letters met underscores, afgeleid van de feednaam: `trustoo_tips`.
+- Kleine letters met underscores, afgeleid van de feednaam: `tip_feed`.
 
 ## Lokaal valideren
 
@@ -124,7 +163,7 @@ npm run validate
 ```
 
 Het script [`scripts/validate-feeds.js`](scripts/validate-feeds.js) loopt recursief door
-`feeds/` en controleert per bestand: geldige JSON, alle 30 velden aanwezig, geen onbekende
+`feeds/` en controleert per bestand: geldige JSON, alle 44 velden aanwezig, geen onbekende
 velden, alle waarden strings, niet-lege URL-velden beginnen met `https://`, en een veilige
 canonical bestandsnaam. Bij een fout krijg je bestand en veld te zien en stopt het script met
 exitcode `1`.
@@ -136,7 +175,7 @@ Dezelfde validatie loopt automatisch via GitHub Actions bij iedere push en pull 
 
 Open de URL rechtstreeks:
 
-<https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/tips/laadpalen.json>
+<https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/tips/dakdekker.json>
 
 Je moet ruwe JSON zien. Zie je de GitHub 404-pagina, dan is het bestand er niet, staat het op
 een ander pad, of wijkt het hoofdlettergebruik af.
@@ -144,7 +183,7 @@ een ander pad, of wijkt het hoofdlettergebruik af.
 Controleren via de terminal:
 
 ```bash
-curl -i https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/tips/laadpalen.json
+curl -i https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/tips/dakdekker.json
 ```
 
 Let op `HTTP/2 200` en `content-type: application/json`. Krijg je `text/html`, dan kijk je naar
@@ -155,7 +194,7 @@ een foutpagina en niet naar je feed.
 ```bash
 npm run validate
 git add -A
-git commit -m "Update laadpalen feed"
+git commit -m "Update dakdekker feed"
 git push origin main
 ```
 
@@ -231,6 +270,6 @@ geregeld als iemand van rol wisselt of vertrekt.
 | Bestand | Inhoud |
 | --- | --- |
 | [`BREVO_SETUP.md`](BREVO_SETUP.md) | Stap voor stap de feed in Brevo instellen. |
-| [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md) | Alle 30 velden van `{{title}}` naar `{{ feed.trustoo_tips.title }}`, met kopieerbaar Twig-voorbeeld. |
-| [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json) | JSON Schema met de 30 toegestane velden. |
+| [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md) | Alle 44 velden met de bijbehorende `{{ feed.tip_feed.* }}`-variabele, plus kopieerbaar Twig-voorbeeld. |
+| [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json) | JSON Schema met de 44 toegestane velden. |
 | [`scripts/validate-feeds.js`](scripts/validate-feeds.js) | Validatiescript, alleen Node.js-standaardfunctionaliteit. |

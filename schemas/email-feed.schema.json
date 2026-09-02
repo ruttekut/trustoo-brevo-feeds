@@ -1,41 +1,55 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://ruttekut.github.io/trustoo-brevo-feeds/schemas/email-feed.schema.json",
-  "title": "Trustoo Brevo e-mailfeed",
-  "description": "Plat JSON-object met exact de 30 templatevelden voor een Trustoo Brevo-e-mail. Geen metadata, geen arrays, geen geneste objecten.",
+  "title": "Trustoo Brevo e-mailfeed (servicetips)",
+  "description": "Plat JSON-object met exact de 44 templatevelden van de servicetips-mail. Geen metadata, geen arrays, geen geneste objecten.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "title",
     "preheader",
-    "white_panel_bg_url",
     "header_link_label",
     "header_link_url",
+    "hero_image_url",
+    "hero_image_alt",
     "hero_title_pre",
     "hero_title_accent",
     "hero_title_post",
     "hero_subtitle",
-    "cards_heading",
+    "tips_heading_pre",
+    "tips_heading_accent",
+    "tips_heading_post",
+    "tips_intro",
     "card1_title",
     "card1_text",
-    "card1_link_label",
-    "card1_url",
-    "card1_image_url",
-    "card1_image_alt",
     "card2_title",
     "card2_text",
-    "card2_link_label",
-    "card2_url",
-    "card2_image_url",
-    "card2_image_alt",
     "card3_title",
     "card3_text",
-    "card3_link_label",
-    "card3_url",
-    "card3_image_url",
-    "card3_image_alt",
+    "card4_title",
+    "card4_text",
+    "card5_title",
+    "card5_text",
     "cta_label",
-    "cta_url"
+    "cta_url",
+    "related_heading_pre",
+    "related_heading_accent",
+    "related_heading_post",
+    "tile1_name",
+    "tile1_url",
+    "tile2_name",
+    "tile2_url",
+    "tile3_name",
+    "tile3_url",
+    "tile4_name",
+    "tile4_url",
+    "tile5_name",
+    "tile5_url",
+    "tile6_name",
+    "tile6_url",
+    "prefs_title",
+    "prefs_text",
+    "prefs_link_label"
   ],
   "properties": {
     "title": {
@@ -44,18 +58,21 @@
     "preheader": {
       "type": "string"
     },
-    "white_panel_bg_url": {
-      "type": "string",
-      "description": "Lege string of een absolute https://-URL.",
-      "pattern": "^$|^https://[^s\"'<>`]+$"
-    },
     "header_link_label": {
       "type": "string"
     },
     "header_link_url": {
       "type": "string",
       "description": "Lege string of een absolute https://-URL.",
-      "pattern": "^$|^https://[^s\"'<>`]+$"
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "hero_image_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "hero_image_alt": {
+      "type": "string"
     },
     "hero_title_pre": {
       "type": "string"
@@ -69,7 +86,16 @@
     "hero_subtitle": {
       "type": "string"
     },
-    "cards_heading": {
+    "tips_heading_pre": {
+      "type": "string"
+    },
+    "tips_heading_accent": {
+      "type": "string"
+    },
+    "tips_heading_post": {
+      "type": "string"
+    },
+    "tips_intro": {
       "type": "string"
     },
     "card1_title": {
@@ -78,42 +104,10 @@
     "card1_text": {
       "type": "string"
     },
-    "card1_link_label": {
-      "type": "string"
-    },
-    "card1_url": {
-      "type": "string",
-      "description": "Lege string of een absolute https://-URL.",
-      "pattern": "^$|^https://[^s\"'<>`]+$"
-    },
-    "card1_image_url": {
-      "type": "string",
-      "description": "Lege string of een absolute https://-URL.",
-      "pattern": "^$|^https://[^s\"'<>`]+$"
-    },
-    "card1_image_alt": {
-      "type": "string"
-    },
     "card2_title": {
       "type": "string"
     },
     "card2_text": {
-      "type": "string"
-    },
-    "card2_link_label": {
-      "type": "string"
-    },
-    "card2_url": {
-      "type": "string",
-      "description": "Lege string of een absolute https://-URL.",
-      "pattern": "^$|^https://[^s\"'<>`]+$"
-    },
-    "card2_image_url": {
-      "type": "string",
-      "description": "Lege string of een absolute https://-URL.",
-      "pattern": "^$|^https://[^s\"'<>`]+$"
-    },
-    "card2_image_alt": {
       "type": "string"
     },
     "card3_title": {
@@ -122,20 +116,16 @@
     "card3_text": {
       "type": "string"
     },
-    "card3_link_label": {
+    "card4_title": {
       "type": "string"
     },
-    "card3_url": {
-      "type": "string",
-      "description": "Lege string of een absolute https://-URL.",
-      "pattern": "^$|^https://[^s\"'<>`]+$"
+    "card4_text": {
+      "type": "string"
     },
-    "card3_image_url": {
-      "type": "string",
-      "description": "Lege string of een absolute https://-URL.",
-      "pattern": "^$|^https://[^s\"'<>`]+$"
+    "card5_title": {
+      "type": "string"
     },
-    "card3_image_alt": {
+    "card5_text": {
       "type": "string"
     },
     "cta_label": {
@@ -144,7 +134,73 @@
     "cta_url": {
       "type": "string",
       "description": "Lege string of een absolute https://-URL.",
-      "pattern": "^$|^https://[^s\"'<>`]+$"
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "related_heading_pre": {
+      "type": "string"
+    },
+    "related_heading_accent": {
+      "type": "string"
+    },
+    "related_heading_post": {
+      "type": "string"
+    },
+    "tile1_name": {
+      "type": "string"
+    },
+    "tile1_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "tile2_name": {
+      "type": "string"
+    },
+    "tile2_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "tile3_name": {
+      "type": "string"
+    },
+    "tile3_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "tile4_name": {
+      "type": "string"
+    },
+    "tile4_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "tile5_name": {
+      "type": "string"
+    },
+    "tile5_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "tile6_name": {
+      "type": "string"
+    },
+    "tile6_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "prefs_title": {
+      "type": "string"
+    },
+    "prefs_text": {
+      "type": "string"
+    },
+    "prefs_link_label": {
+      "type": "string"
     }
   }
 }

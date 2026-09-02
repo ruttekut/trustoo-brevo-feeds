@@ -12,8 +12,8 @@ zelf uit.
 ## Wat je nodig hebt
 
 - Het contactattribuut `LAST_REQUEST_SERVICE_URL` bestaat in Brevo en is gevuld met een
-  **canonical slug**, bijvoorbeeld `laadpalen`.
-- Minstens één testcontact op je testlijst met `LAST_REQUEST_SERVICE_URL` exact `laadpalen`.
+  **canonical slug**, bijvoorbeeld `dakdekker`.
+- Minstens één testcontact op je testlijst met `LAST_REQUEST_SERVICE_URL` exact `dakdekker`.
 - De feed-URL is publiek bereikbaar (zie `README.md`).
 
 ## Stap 1 — Open Data feeds
@@ -24,11 +24,11 @@ zelf uit.
 ## Stap 2 — Maak een nieuwe feed aan
 
 1. Klik op **Add data feed**. Je komt in de feed-setupflow.
-2. Vul bij de naam in: `Trustoo tips`.
+2. Vul bij de naam in: `Tip feed`.
    Brevo genereert hieruit automatisch de alias. Verwacht:
 
    ```text
-   trustoo_tips
+   tip_feed
    ```
 
    **Controleer de werkelijk gegenereerde alias** op de pagina **Data feeds** en gebruik in de
@@ -58,7 +58,7 @@ zelf uit.
    > illustratie van het eindresultaat.
 
 4. Kies bij de preview-contactselectie een contact van je **testlijst** waarvan
-   `LAST_REQUEST_SERVICE_URL` exact `laadpalen` is.
+   `LAST_REQUEST_SERVICE_URL` exact `dakdekker` is.
 5. Bij de authenticatiemethode: kies **geen authenticatie**. De feed is een openbaar,
    statisch JSON-bestand op GitHub Pages. Vul hier **geen** API-keys of tokens in.
 6. Klik op **Continue**.
@@ -66,7 +66,7 @@ zelf uit.
 ## Stap 4 — Controleer de preview en sla op
 
 1. Brevo laat de opgehaalde JSON zien voor je preview-contact. Controleer dat je de
-   laadpaal-inhoud ziet (bijvoorbeeld het veld `title`).
+   dakdekker-inhoud ziet (bijvoorbeeld het veld `title`).
 2. Optioneel: selecteer andere testcontacten om te controleren of per contact de juiste feed
    wordt opgehaald.
 3. Klik op **Save**.
@@ -76,17 +76,17 @@ zelf uit.
 De velden zijn beschikbaar als:
 
 ```twig
-{{ feed.trustoo_tips.title }}
+{{ feed.tip_feed.title }}
 ```
 
 1. Open je e-mailtemplate of campagne en ga naar de **Design**-stap.
 2. Vervang de bestaande rootvariabelen door de feedvariabelen. De volledige mapping van alle
-   30 velden staat in [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md).
+   44 velden staat in [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md).
 3. **Gebruik geen Dynamic content block.** Deze feed is een plat object (single object data,
    non-repeatable). Dynamic content blocks zijn alleen nodig voor arrays.
 4. Klik op **Preview & test**, blijf op het tabblad **Preview**, en vul bij de vraag als welk
    contact je de e-mail wilt bekijken het e-mailadres van je testcontact in.
-   Controleer dat `{{ feed.trustoo_tips.title }}` de laadpaal-titel toont en niet leeg blijft
+   Controleer dat `{{ feed.tip_feed.title }}` de dakdekker-titel toont en niet leeg blijft
    of als ruwe tekst zichtbaar is.
 
 ## Stap 6 — Regels voor de attribuutwaarde
@@ -94,19 +94,19 @@ De velden zijn beschikbaar als:
 **De waarde van `LAST_REQUEST_SERVICE_URL` moet exact overeenkomen met de JSON-bestandsnaam
 zonder `.json`.**
 
-`LAST_REQUEST_SERVICE_URL = laadpalen` geeft `feeds/nl/tips/laadpalen.json`
+`LAST_REQUEST_SERVICE_URL = dakdekker` geeft `feeds/nl/tips/dakdekker.json`
 
 Deze waarden gaan **mis**:
 
 | Waarde | Wat er gebeurt |
 | --- | --- |
-| `Laadpalen` | Hoofdletter. GitHub Pages is case-sensitive, dus 404. |
-| `laadpalen ` (met spatie erachter) | Spatie wordt onderdeel van de URL, dus 404. |
-| `laadpalen/` | Trailing slash geeft `.../laadpalen/.json`, dus 404. |
-| `/laadpalen/` | Extra slashes, verkeerd pad, dus 404. |
-| `https://trustoo.nl/laadpalen` | Volledige URL in het attribuut geeft een onbruikbare URL. |
-| `laadpalen?utm_source=x` | Queryparameters, dus 404. |
-| `laadpalen-en-thuisbatterijen` | Werkt alleen als dat bestand ook echt bestaat. |
+| `Dakdekker` | Hoofdletter. GitHub Pages is case-sensitive, dus 404. |
+| `dakdekker ` (met spatie erachter) | Spatie wordt onderdeel van de URL, dus 404. |
+| `dakdekker/` | Trailing slash geeft `.../dakdekker/.json`, dus 404. |
+| `/dakdekker/` | Extra slashes, verkeerd pad, dus 404. |
+| `https://trustoo.nl/dakdekker` | Volledige URL in het attribuut geeft een onbruikbare URL. |
+| `dakdekker?utm_source=x` | Queryparameters, dus 404. |
+| `dakdekker-en-thuisbatterijen` | Werkt alleen als dat bestand ook echt bestaat. |
 
 Zorg dus dat het attribuut in de bron (aanvraagflow of database die naar Brevo synct) al als
 **canonical slug** wordt geschreven: kleine letters, cijfers en koppeltekens, zonder
@@ -120,7 +120,7 @@ mailtype los van elkaar te beheren:
 
 | Mailtype | Feednaam in Brevo | Alias | Bron-URL (attribuut via `{}`-kiezer) |
 | --- | --- | --- | --- |
-| Tips | `Trustoo tips` | `trustoo_tips` | `.../feeds/nl/tips/<attribuut>.json` |
+| Tips | `Tip feed` | `tip_feed` | `.../feeds/nl/tips/<attribuut>.json` |
 | Cross-sell | `Trustoo cross sell` | `trustoo_cross_sell` | `.../feeds/nl/cross-sell/<attribuut>.json` |
 | Seasonal | `Trustoo seasonal` | `trustoo_seasonal` | `.../feeds/nl/seasonal/<attribuut>.json` |
 | Follow-up | `Trustoo follow up` | `trustoo_follow_up` | `.../feeds/nl/follow-up/<attribuut>.json` |
