@@ -1,0 +1,13 @@
+{
+  "name": "trustoo-brevo-feeds",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Statische, openbare JSON-datafeeds voor dynamische Brevo-e-mails van Trustoo.",
+  "license": "UNLICENSED",
+  "scripts": {
+    "validate": "node scripts/validate-feeds.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

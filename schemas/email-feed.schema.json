@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ruttekut.github.io/trustoo-brevo-feeds/schemas/email-feed.schema.json",
+  "title": "Trustoo Brevo e-mailfeed",
+  "description": "Plat JSON-object met exact de 30 templatevelden voor een Trustoo Brevo-e-mail. Geen metadata, geen arrays, geen geneste objecten.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "preheader",
+    "white_panel_bg_url",
+    "header_link_label",
+    "header_link_url",
+    "hero_title_pre",
+    "hero_title_accent",
+    "hero_title_post",
+    "hero_subtitle",
+    "cards_heading",
+    "card1_title",
+    "card1_text",
+    "card1_link_label",
+    "card1_url",
+    "card1_image_url",
+    "card1_image_alt",
+    "card2_title",
+    "card2_text",
+    "card2_link_label",
+    "card2_url",
+    "card2_image_url",
+    "card2_image_alt",
+    "card3_title",
+    "card3_text",
+    "card3_link_label",
+    "card3_url",
+    "card3_image_url",
+    "card3_image_alt",
+    "cta_label",
+    "cta_url"
+  ],
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "preheader": {
+      "type": "string"
+    },
+    "white_panel_bg_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"'<>`]+$"
+    },
+    "header_link_label": {
+      "type": "string"
+    },
+    "header_link_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"'<>`]+$"
+    },
+    "hero_title_pre": {
+      "type": "string"
+    },
+    "hero_title_accent": {
+      "type": "string"
+    },
+    "hero_title_post": {
+      "type": "string"
+    },
+    "hero_subtitle": {
+      "type": "string"
+    },
+    "cards_heading": {
+      "type": "string"
+    },
+    "card1_title": {
+      "type": "string"
+    },
+    "card1_text": {
+      "type": "string"
+    },
+    "card1_link_label": {
+      "type": "string"
+    },
+    "card1_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"'<>`]+$"
+    },
+    "card1_image_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"'<>`]+$"
+    },
+    "card1_image_alt": {
+      "type": "string"
+    },
+    "card2_title": {
+      "type": "string"
+    },
+    "card2_text": {
+      "type": "string"
+    },
+    "card2_link_label": {
+      "type": "string"
+    },
+    "card2_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"'<>`]+$"
+    },
+    "card2_image_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"'<>`]+$"
+    },
+    "card2_image_alt": {
+      "type": "string"
+    },
+    "card3_title": {
+      "type": "string"
+    },
+    "card3_text": {
+      "type": "string"
+    },
+    "card3_link_label": {
+      "type": "string"
+    },
+    "card3_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"'<>`]+$"
+    },
+    "card3_image_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"'<>`]+$"
+    },
+    "card3_image_alt": {
+      "type": "string"
+    },
+    "cta_label": {
+      "type": "string"
+    },
+    "cta_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"'<>`]+$"
+    }
+  }
+}
