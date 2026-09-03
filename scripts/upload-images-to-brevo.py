@@ -2,7 +2,9 @@
 """Upload herobeelden uit images/nl/tips/ naar de Brevo image gallery en schrijf de URL's in de feeds.
 
 Gebruik:
-  BREVO_API_KEY=xkeysib-... python scripts/upload-images-to-brevo.py
+  python scripts/upload-images-to-brevo.py
+De API-sleutel komt uit de omgevingsvariabele BREVO_API_KEY of uit .env in de repo-root
+(kopieer .env.example naar .env). .env staat in .gitignore en wordt nooit gecommit.
 
 Werkwijze:
   1. Zet het beeld als images/nl/tips/hero-<slug>.jpg (4:3, 1200x900) en commit + push het,
@@ -20,9 +22,20 @@ FEEDS = os.path.join(ROOT, "feeds", "nl", "tips")
 PAGES_BASE = "https://ruttekut.github.io/trustoo-brevo-feeds/images/nl/tips/"
 API = "https://api.brevo.com/v3/emailCampaigns/images"
 
+def load_dotenv(path):
+    """Lees KEY=value-regels uit .env (git-ignored) zonder bestaande omgevingsvariabelen te overschrijven."""
+    if not os.path.exists(path):
+        return
+    for line in open(path, encoding="utf-8"):
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            k, v = line.split("=", 1)
+            os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+
+load_dotenv(os.path.join(ROOT, ".env"))
 key = os.environ.get("BREVO_API_KEY")
 if not key:
-    sys.exit("Zet BREVO_API_KEY in de omgeving.")
+    sys.exit("Zet BREVO_API_KEY in de omgeving of in .env (zie .env.example).")
 
 manifest = json.load(open(MANIFEST, encoding="utf-8"))
 
