@@ -59,8 +59,15 @@ voor de rest), omdat dat de canonical Trustoo-slug is.
 > `energielabel_adviseur.json` heten — maar dan wijkt het af van de slugregels hieronder.
 > Verifieer de werkelijke attribuutwaarde voordat je deze mail verstuurt.
 
-De `hero_image_url`-velden verwijzen naar de Brevo content library
-(`img.mailinblue.com`). Die afbeeldingen worden door Brevo gehost, niet door deze repository.
+De `hero_image_url`-velden verwijzen naar de Brevo image gallery (`img.mailinblue.com`).
+Brevo host de beelden die de mail toont. De bronbestanden staan in `images/nl/tips/`
+(`hero-<slug>.jpg`, 4:3, 1200x900) en zijn via de Brevo API vanaf de GitHub Pages-URL naar de
+gallery geupload met de naam `trustoo-nl-tips-hero-<slug>.jpg`. `images/nl/tips/manifest.json`
+legt per beeld vast: bronbestand, feed-slug, alt-tekst en de Brevo-URL. Veertien beelden hebben
+geen eigen feed (bijvoorbeeld `hero-verhuizer.jpg`) of zijn een tweede variant
+(bijvoorbeeld `hero-hovenier-terras.jpg`); die staan wel in de gallery en het manifest.
+Zeven feeds hebben nog een ouder herobeeld: `coaching`, `default`, `grafisch-ontwerper`,
+`incassobureau`, `keukenrenovatie`, `online-marketing` en `seo-specialist`.
 
 ## Structuur
 
