@@ -81,7 +81,7 @@ De velden zijn beschikbaar als:
 
 1. Open je e-mailtemplate of campagne en ga naar de **Design**-stap.
 2. Vervang de bestaande rootvariabelen door de feedvariabelen. De volledige mapping van alle
-   44 velden staat in [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md).
+   49 velden staat in [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md).
 3. **Gebruik geen Dynamic content block.** Deze feed is een plat object (single object data,
    non-repeatable). Dynamic content blocks zijn alleen nodig voor arrays.
 4. Klik op **Preview & test**, blijf op het tabblad **Preview**, en vul bij de vraag als welk

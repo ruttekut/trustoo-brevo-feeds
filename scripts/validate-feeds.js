@@ -7,7 +7,7 @@
  * Controleert per bestand:
  *  1. geldige JSON-syntaxis
  *  2. root is een plat object
- *  3. alle 44 verplichte velden aanwezig
+ *  3. alle 49 verplichte velden aanwezig
  *  4. geen onbekende velden
  *  5. alle waarden zijn strings
  *  6. niet-lege URL-velden beginnen met https://
@@ -30,7 +30,6 @@ const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const MAX_SLUG_LENGTH = 80;
 
 const URL_FIELDS = new Set([
-  'header_link_url',
   'hero_image_url',
   'cta_url',
   'tile1_url',

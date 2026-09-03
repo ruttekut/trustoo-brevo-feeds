@@ -1,0 +1,496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="nl">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="x-apple-disable-message-reformatting" />
+<meta name="color-scheme" content="light only" />
+<meta name="supported-color-schemes" content="light only" />
+<title>{{feed.tip_feed.title}}</title>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+<style type="text/css">
+/* Trustoo design system V3.1 - servicetips: een informatieve mail met 3 tot 5
+   tips over een dienst. Zelfde bandenopbouw als de herfstklaar-mail, maar de
+   dienstkaarten zijn vervangen door genummerde tips zonder beeld: bij vijf
+   blokken achter elkaar leest een strakke lijst beter dan vijf foto's. */
+body { margin:0; padding:0; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; background-color:#F6F8FC; }
+table { border-collapse:collapse !important; }
+/* Uitzondering: kaarten en chips hebben een radius. Met border-collapse:collapse
+   tekent de browser de rand vierkant om de afgeronde vulling heen - vandaar separate. */
+.sep { border-collapse:separate !important; border-spacing:0 !important; }
+img { border:0; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic; }
+a { color:#0205A3; }
+a:hover { color:#00754D; }
+:root { color-scheme: light only; supported-color-schemes: light only; }
+
+@media only screen and (max-width:620px) {
+.wrap { width:100% !important; max-width:100% !important; }
+.stack { display:block !important; width:100% !important; max-width:100% !important; }
+.gutter { display:none !important; width:0 !important; }
+.pad-s { padding-left:20px !important; padding-right:20px !important; }
+/* full-bleed op mobiel: zonder zijmarge is het blauwe vlak zo breed als het scherm */
+.page-pad { padding:0 !important; }
+.hdr-btn { padding:12px 14px !important; }
+.h-display { font-size:31px !important; line-height:36px !important; }
+.h-2 { font-size:22px !important; line-height:27px !important; }
+.h-3 { font-size:18px !important; line-height:23px !important; }
+.hero-pad { padding:28px 20px 32px !important; }
+/* het herobeeld schaalt mee op zijn eigen 4:3-verhouding */
+.hero-photo { width:100% !important; height:auto !important; }
+/* tip: cijferbol blijft naast de tekst staan, alleen krapper */
+.tip-num { width:52px !important; padding:20px 0 20px 16px !important; }
+.tip-txt { padding:20px 16px 20px 0 !important; }
+/* chips onder elkaar, 48px hoog */
+.chip { padding-bottom:10px !important; }
+.chip-cell { padding:0 !important; }
+.chip-a { padding:15px 0 15px 18px !important; }
+.chip-a-c { padding:15px 18px 15px 0 !important; }
+.chip-spacer { display:none !important; }
+/* Trustpilot-strip blijft op mobiel bewust op een regel (score, sterren en
+   logo horen bij elkaar) - alleen kleiner, zodat hij vanaf 320px past. */
+.tp-pill { padding:8px 12px !important; }
+.tp-cell { padding:0 !important; }
+.tp-img { height:16px !important; max-height:16px !important; }
+.tp-img-text { width:63px !important; }
+.tp-img-stars { width:85px !important; }
+.tp-img-logo { width:65px !important; }
+.tp-gap { width:4px !important; }
+.cta-a { padding:16px 20px !important; }
+}
+
+/* GEEN eigen dark-modeblok. Gmail op Android ondersteunt prefers-color-scheme
+   niet en verft de mail zelf om; de clients die het wel snappen krijgen
+   hierboven "light only". Wat Gmail-Android omkleurt vangen we met kleurkeuzes
+   op, niet met CSS: accentwoorden in oranje (blauw verschuift naar roze) en de
+   header-knop in groen met navy label (wit-met-blauw werd bruin-met-roze). */
+</style>
+</head>
+<body style="margin:0; padding:0; background-color:#F6F8FC;">
+<div style="display:none; font-size:1px; color:#F6F8FC; line-height:1px; max-height:0; max-width:0; opacity:0; overflow:hidden; mso-hide:all;">{{feed.tip_feed.preheader}}</div>
+
+<table role="presentation" class="t-page" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#F6F8FC" style="background-color:#F6F8FC;">
+<tr><td class="page-pad" align="center" style="padding:0;">
+
+<!-- HEADER - navy balk, logo links en rechts een rustige tekstlink. Bewust
+     geen knop: groen betekent in dit systeem "doe dit", en dat is de CTA
+     onderaan. Een tweede knop bovenin laat de mail met zichzelf concurreren.
+     De link heeft 12px boven- en onderpadding, zodat het tapdoel 44px haalt. -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0F0832" style="background-color:#0F0832;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:14px 32px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+    <td align="left" valign="middle" style="vertical-align:middle; font-size:0; line-height:0;"><a href="https://www.trustoo.nl" style="text-decoration:none;"><img src="https://img.mailinblue.com/9986607/images/content_library/original/69cbac5a064ccd557a1b3e35.png" width="104" height="23" alt="Trustoo" style="display:block; width:104px; height:23px;" /></a></td>
+    <td align="right" valign="middle" style="vertical-align:middle;">
+      <a href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}" style="display:inline-block; padding:12px 0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:20px; mso-line-height-rule:exactly; font-weight:600; color:#FFFFFF !important; text-decoration:none; white-space:nowrap;"><span style="color:#FFFFFF;">Mijn aanvragen&nbsp;&#8250;</span></a>
+    </td>
+  </tr></table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- HERO - beeld op 600x450, de 4:3-verhouding van de beelden in de Brevo
+     content library. Bewust geen object-fit en geen afwijkende hoogte: Gmail en
+     Outlook negeren object-fit en persen het beeld dan in de opgegeven maat.
+     Daarom staat er alleen een width en geen height: dan schaalt elke client mee
+     op de eigen verhouding van het beeld. Lever hero-beelden bij voorkeur als
+     4:3 aan (600x450 of groter), dat is het formaat in de library. -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0205A3" style="background-color:#0205A3;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td style="font-size:0; line-height:0;">
+  <img class="hero-photo" src="{{feed.tip_feed.hero_image_url}}" width="600" alt="{{feed.tip_feed.hero_image_alt}}" style="display:block; width:100%; max-width:600px; height:auto; border:0;" />
+</td></tr>
+<tr><td class="hero-pad" style="padding:32px;">
+  <h1 class="h-display" style="margin:0 0 14px 0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:34px; line-height:40px; mso-line-height-rule:exactly; letter-spacing:-0.6px; font-weight:700; color:#FFFFFF;">{{feed.tip_feed.hero_title_pre}} <em style="font-style:normal; font-weight:700; color:#FF6E1E;">{{feed.tip_feed.hero_title_accent}}</em> {{feed.tip_feed.hero_title_post}}</h1>
+  <p style="margin:0 0 24px 0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:26px; mso-line-height-rule:exactly; color:#DCD9E8;">{{feed.tip_feed.hero_subtitle}}</p>
+<!-- TRUSTPILOT - de officiele e-mailsignatuur (README par. 4), in een witte pil
+     omdat de beelden donkere inkt hebben en het herovlak blauw is. -->
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0"><tr>
+    <td class="tp-pill" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:999px; padding:9px 16px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+        <td class="tp-cell" valign="middle" style="vertical-align:middle; font-size:0; line-height:0; padding:0;"><a href="https://nl.trustpilot.com/review/trustoo.nl?utm_medium=Trustbox&utm_source=EmailSignature4" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img class="tp-img tp-img-text" src="https://emailsignature.trustpilot.com/signature/nl-NL/4/606db922ac1c7d00015b0577/text.png" width="79" height="20" border="0" alt="Uitstekend" style="display:block; width:79px; height:20px; max-height:20px; border:0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:20px; color:#232852;" /></a></td>
+        <td class="tp-gap" width="6" style="width:6px; font-size:0; line-height:0;">&nbsp;</td>
+        <td class="tp-cell" valign="middle" style="vertical-align:middle; font-size:0; line-height:0; padding:0;"><a href="https://nl.trustpilot.com/review/trustoo.nl?utm_medium=Trustbox&utm_source=EmailSignature4" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img class="tp-img tp-img-stars" src="https://emailsignature.trustpilot.com/signature/nl-NL/4/606db922ac1c7d00015b0577/stars.png" width="107" height="20" border="0" alt="Trustpilot sterrenbeoordeling" style="display:block; width:107px; height:20px; max-height:20px; border:0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:20px; color:#232852;" /></a></td>
+        <td class="tp-gap" width="6" style="width:6px; font-size:0; line-height:0;">&nbsp;</td>
+        <td class="tp-cell" valign="middle" style="vertical-align:middle; font-size:0; line-height:0; padding:0;"><a href="https://nl.trustpilot.com/review/trustoo.nl?utm_medium=Trustbox&utm_source=EmailSignature4" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img class="tp-img tp-img-logo" src="https://emailsignature.trustpilot.com/brand/s/4/logo.png" width="81" height="20" border="0" alt="Trustpilot" style="display:block; width:81px; height:20px; max-height:20px; border:0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:20px; color:#232852;" /></a></td>
+      </tr></table>
+    </td>
+  </tr></table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- MIDDENSTUK - kop -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:40px 32px 0;">
+  <h2 class="h-2 t-h" style="margin:0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:26px; line-height:31px; mso-line-height-rule:exactly; letter-spacing:-0.5px; font-weight:700; color:#0F0832;">{{feed.tip_feed.tips_heading_pre}} <em style="font-style:normal; font-weight:700; color:#FF6E1E;">{{feed.tip_feed.tips_heading_accent}}</em> {{feed.tip_feed.tips_heading_post}}</h2>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- GROEP 1 - de drie tips hieronder horen bij deze kop -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:32px 32px 4px;">
+  <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:17px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0205A3;">{{feed.tip_feed.group1_title}}</div>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- TIP 01 -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:12px 32px 0;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="tip-num" valign="top" width="66" style="width:66px; vertical-align:top; padding:20px 0 20px 20px;">
+      <div style="width:34px; height:34px; background-color:#0205A3; border-radius:999px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:34px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF; text-align:center;">1</div>
+    </td>
+    <td class="tip-txt" valign="top" style="vertical-align:top; padding:20px 20px 20px 0;">
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:18px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; padding-bottom:6px;">{{feed.tip_feed.card1_title}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#3D3757;">{{feed.tip_feed.card1_text}}</div>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- TIP 02 -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:12px 32px 0;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="tip-num" valign="top" width="66" style="width:66px; vertical-align:top; padding:20px 0 20px 20px;">
+      <div style="width:34px; height:34px; background-color:#0205A3; border-radius:999px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:34px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF; text-align:center;">2</div>
+    </td>
+    <td class="tip-txt" valign="top" style="vertical-align:top; padding:20px 20px 20px 0;">
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:18px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; padding-bottom:6px;">{{feed.tip_feed.card2_title}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#3D3757;">{{feed.tip_feed.card2_text}}</div>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- TIP 03 -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:12px 32px 0;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="tip-num" valign="top" width="66" style="width:66px; vertical-align:top; padding:20px 0 20px 20px;">
+      <div style="width:34px; height:34px; background-color:#0205A3; border-radius:999px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:34px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF; text-align:center;">3</div>
+    </td>
+    <td class="tip-txt" valign="top" style="vertical-align:top; padding:20px 20px 20px 0;">
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:18px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; padding-bottom:6px;">{{feed.tip_feed.card3_title}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#3D3757;">{{feed.tip_feed.card3_text}}</div>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- GROEP 2 - de drie tips hieronder horen bij deze kop -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:32px 32px 4px;">
+  <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:17px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0205A3;">{{feed.tip_feed.group2_title}}</div>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- TIP 04 -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:12px 32px 0;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="tip-num" valign="top" width="66" style="width:66px; vertical-align:top; padding:20px 0 20px 20px;">
+      <div style="width:34px; height:34px; background-color:#0205A3; border-radius:999px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:34px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF; text-align:center;">4</div>
+    </td>
+    <td class="tip-txt" valign="top" style="vertical-align:top; padding:20px 20px 20px 0;">
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:18px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; padding-bottom:6px;">{{feed.tip_feed.card4_title}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#3D3757;">{{feed.tip_feed.card4_text}}</div>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- TIP 05 -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:12px 32px 0;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="tip-num" valign="top" width="66" style="width:66px; vertical-align:top; padding:20px 0 20px 20px;">
+      <div style="width:34px; height:34px; background-color:#0205A3; border-radius:999px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:34px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF; text-align:center;">5</div>
+    </td>
+    <td class="tip-txt" valign="top" style="vertical-align:top; padding:20px 20px 20px 0;">
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:18px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; padding-bottom:6px;">{{feed.tip_feed.card5_title}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#3D3757;">{{feed.tip_feed.card5_text}}</div>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- TIP 06 -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:12px 32px 0;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="tip-num" valign="top" width="66" style="width:66px; vertical-align:top; padding:20px 0 20px 20px;">
+      <div style="width:34px; height:34px; background-color:#0205A3; border-radius:999px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:34px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF; text-align:center;">6</div>
+    </td>
+    <td class="tip-txt" valign="top" style="vertical-align:top; padding:20px 20px 20px 0;">
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:18px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; padding-bottom:6px;">{{feed.tip_feed.card6_title}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#3D3757;">{{feed.tip_feed.card6_text}}</div>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- GROEP 3 - de drie tips hieronder horen bij deze kop -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:32px 32px 4px;">
+  <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:17px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0205A3;">{{feed.tip_feed.group3_title}}</div>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- TIP 07 -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:12px 32px 0;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="tip-num" valign="top" width="66" style="width:66px; vertical-align:top; padding:20px 0 20px 20px;">
+      <div style="width:34px; height:34px; background-color:#0205A3; border-radius:999px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:34px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF; text-align:center;">7</div>
+    </td>
+    <td class="tip-txt" valign="top" style="vertical-align:top; padding:20px 20px 20px 0;">
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:18px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; padding-bottom:6px;">{{feed.tip_feed.card7_title}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#3D3757;">{{feed.tip_feed.card7_text}}</div>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- TIP 08 -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:12px 32px 0;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="tip-num" valign="top" width="66" style="width:66px; vertical-align:top; padding:20px 0 20px 20px;">
+      <div style="width:34px; height:34px; background-color:#0205A3; border-radius:999px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:34px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF; text-align:center;">8</div>
+    </td>
+    <td class="tip-txt" valign="top" style="vertical-align:top; padding:20px 20px 20px 0;">
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:18px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; padding-bottom:6px;">{{feed.tip_feed.card8_title}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#3D3757;">{{feed.tip_feed.card8_text}}</div>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- TIP 09 -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:12px 32px 0;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="tip-num" valign="top" width="66" style="width:66px; vertical-align:top; padding:20px 0 20px 20px;">
+      <div style="width:34px; height:34px; background-color:#0205A3; border-radius:999px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:34px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF; text-align:center;">9</div>
+    </td>
+    <td class="tip-txt" valign="top" style="vertical-align:top; padding:20px 20px 20px 0;">
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:18px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; padding-bottom:6px;">{{feed.tip_feed.card9_title}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#3D3757;">{{feed.tip_feed.card9_text}}</div>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- PRIMAIRE CTA - Green is de actiekleur, met navy label (README par. 5) -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:28px 32px 40px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#00BD7C" style="background-color:#00BD7C; border-radius:8px;">
+  <tr><td align="center" style="padding:0; mso-padding-alt:16px 24px;">
+    <a class="cta-a" href="{{feed.tip_feed.cta_url}}" style="display:block; padding:16px 24px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832 !important; text-decoration:none; text-align:center;"><span style="color:#0F0832;">{{feed.tip_feed.cta_label}}&nbsp;&rarr;</span></a>
+  </td></tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- VERWANTE DIENSTEN - navy blok met chips -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0F0832" style="background-color:#0F0832;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" style="padding:32px;">
+  <h2 class="h-2" style="margin:0 0 16px 0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:22px; line-height:27px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF;">{{feed.tip_feed.related_heading_pre}} <em style="font-style:normal; font-weight:700; color:#FF6E1E;">{{feed.tip_feed.related_heading_accent}}</em> {{feed.tip_feed.related_heading_post}}</h2>
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr><td class="stack chip" width="253" valign="top" style="width:253px; vertical-align:top;">
+      <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#272146" style="background-color:#272146; border:1px solid #524D6B; border-radius:999px;"><tr>
+        <td class="chip-cell" style="padding:0; mso-padding-alt:14px 0 14px 18px;"><a class="chip-a" href="{{feed.tip_feed.tile1_url}}" style="display:block; padding:14px 0 14px 18px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.tip_feed.tile1_name}}</span></a></td>
+        <td class="chip-cell" align="right" width="20" style="width:20px; padding:0; mso-padding-alt:14px 18px 14px 0;"><a class="chip-a-c" href="{{feed.tip_feed.tile1_url}}" style="display:block; padding:14px 18px 14px 0; text-align:right; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">&#8250;</span></a></td>
+      </tr></table></td><td class="gutter" width="10" style="width:10px; font-size:0; line-height:0;">&nbsp;</td><td class="stack chip" width="253" valign="top" style="width:253px; vertical-align:top;">
+      <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#272146" style="background-color:#272146; border:1px solid #524D6B; border-radius:999px;"><tr>
+        <td class="chip-cell" style="padding:0; mso-padding-alt:14px 0 14px 18px;"><a class="chip-a" href="{{feed.tip_feed.tile2_url}}" style="display:block; padding:14px 0 14px 18px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.tip_feed.tile2_name}}</span></a></td>
+        <td class="chip-cell" align="right" width="20" style="width:20px; padding:0; mso-padding-alt:14px 18px 14px 0;"><a class="chip-a-c" href="{{feed.tip_feed.tile2_url}}" style="display:block; padding:14px 18px 14px 0; text-align:right; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">&#8250;</span></a></td>
+      </tr></table></td></tr>
+  <tr class="chip-spacer"><td colspan="3" height="10" style="height:10px; font-size:0; line-height:0;">&nbsp;</td></tr>
+  <tr><td class="stack chip" width="253" valign="top" style="width:253px; vertical-align:top;">
+      <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#272146" style="background-color:#272146; border:1px solid #524D6B; border-radius:999px;"><tr>
+        <td class="chip-cell" style="padding:0; mso-padding-alt:14px 0 14px 18px;"><a class="chip-a" href="{{feed.tip_feed.tile3_url}}" style="display:block; padding:14px 0 14px 18px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.tip_feed.tile3_name}}</span></a></td>
+        <td class="chip-cell" align="right" width="20" style="width:20px; padding:0; mso-padding-alt:14px 18px 14px 0;"><a class="chip-a-c" href="{{feed.tip_feed.tile3_url}}" style="display:block; padding:14px 18px 14px 0; text-align:right; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">&#8250;</span></a></td>
+      </tr></table></td><td class="gutter" width="10" style="width:10px; font-size:0; line-height:0;">&nbsp;</td><td class="stack chip" width="253" valign="top" style="width:253px; vertical-align:top;">
+      <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#272146" style="background-color:#272146; border:1px solid #524D6B; border-radius:999px;"><tr>
+        <td class="chip-cell" style="padding:0; mso-padding-alt:14px 0 14px 18px;"><a class="chip-a" href="{{feed.tip_feed.tile4_url}}" style="display:block; padding:14px 0 14px 18px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.tip_feed.tile4_name}}</span></a></td>
+        <td class="chip-cell" align="right" width="20" style="width:20px; padding:0; mso-padding-alt:14px 18px 14px 0;"><a class="chip-a-c" href="{{feed.tip_feed.tile4_url}}" style="display:block; padding:14px 18px 14px 0; text-align:right; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">&#8250;</span></a></td>
+      </tr></table></td></tr>
+  <tr class="chip-spacer"><td colspan="3" height="10" style="height:10px; font-size:0; line-height:0;">&nbsp;</td></tr>
+  <tr><td class="stack chip" width="253" valign="top" style="width:253px; vertical-align:top;">
+      <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#272146" style="background-color:#272146; border:1px solid #524D6B; border-radius:999px;"><tr>
+        <td class="chip-cell" style="padding:0; mso-padding-alt:14px 0 14px 18px;"><a class="chip-a" href="{{feed.tip_feed.tile5_url}}" style="display:block; padding:14px 0 14px 18px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.tip_feed.tile5_name}}</span></a></td>
+        <td class="chip-cell" align="right" width="20" style="width:20px; padding:0; mso-padding-alt:14px 18px 14px 0;"><a class="chip-a-c" href="{{feed.tip_feed.tile5_url}}" style="display:block; padding:14px 18px 14px 0; text-align:right; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">&#8250;</span></a></td>
+      </tr></table></td><td class="gutter" width="10" style="width:10px; font-size:0; line-height:0;">&nbsp;</td><td class="stack chip" width="253" valign="top" style="width:253px; vertical-align:top;">
+      <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#272146" style="background-color:#272146; border:1px solid #524D6B; border-radius:999px;"><tr>
+        <td class="chip-cell" style="padding:0; mso-padding-alt:14px 0 14px 18px;"><a class="chip-a" href="{{feed.tip_feed.tile6_url}}" style="display:block; padding:14px 0 14px 18px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.tip_feed.tile6_name}}</span></a></td>
+        <td class="chip-cell" align="right" width="20" style="width:20px; padding:0; mso-padding-alt:14px 18px 14px 0;"><a class="chip-a-c" href="{{feed.tip_feed.tile6_url}}" style="display:block; padding:14px 18px 14px 0; text-align:right; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">&#8250;</span></a></td>
+      </tr></table></td></tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- FOOTER - hard-coded (README par. 3), met daarin het voorkeurenblok.
+     Volgorde en gewicht zijn bewust: eerst het aanbod om zelf in te stellen,
+     als knop, en pas daarna het uitschrijven als gewone regel tekst. Wie
+     "te veel mail" denkt, ziet eerst de uitweg die hem niet kwijtraakt. -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0F0832" style="background-color:#0F0832;">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px; max-width:600px;">
+<tr><td class="pad-s" align="center" style="padding:36px 28px 32px; text-align:center;">
+  <a href="https://www.trustoo.nl" style="text-decoration:none;"><img src="https://img.mailinblue.com/9986607/images/content_library/original/69cbac5a064ccd557a1b3e35.png" width="104" height="23" alt="Trustoo" style="display:block; margin:0 auto; width:104px; height:23px;" /></a>
+  <div style="padding-top:12px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#CFCBDD;">De beste bedrijven voor jou!</div>
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:16px auto 0;">
+  <tr>
+    <td style="padding:0 10px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; mso-line-height-rule:exactly; font-weight:500;"><a href="https://facebook.com/Trustoo.nl" style="color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">Facebook</span></a></td>
+    <td style="padding:0 10px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; mso-line-height-rule:exactly; font-weight:500;"><a href="https://linkedin.com/company/trustoo-de-beste-bedrijven-voor-jou" style="color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">LinkedIn</span></a></td>
+    <td style="padding:0 10px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; mso-line-height-rule:exactly; font-weight:500;"><a href="https://instagram.com/trustoo.nl" style="color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">Instagram</span></a></td>
+  </tr>
+  </table>
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:24px 0;"><tr><td height="1" bgcolor="#2B2350" style="height:1px; background-color:#2B2350; font-size:0; line-height:0;">&nbsp;</td></tr></table>
+
+  <!-- VOORKEUREN - de zachte uitstap, als knop -->
+  <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:17px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF; padding-bottom:6px;">Liever minder mail?</div>
+  <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; mso-line-height-rule:exactly; color:#CFCBDD; padding-bottom:16px;">Je hoeft je niet af te melden. Stel zelf in waarover we je mailen en hoe vaak - dan krijg je alleen nog wat je wel wilt lezen.</div>
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;"><tr>
+    <td align="center" bgcolor="#0F0832" style="background-color:#0F0832; border:1px solid #FFFFFF; border-radius:8px; mso-padding-alt:0;">
+      <a href="https://trustoo.nl/login-portal/demand/settings/account?token={{ contact.DASHBOARD_LINK_TOKEN }}" style="display:inline-block; padding:14px 24px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">Mijn e-mailvoorkeuren</span></a>
+    </td>
+  </tr></table>
+
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:24px 0;"><tr><td height="1" bgcolor="#2B2350" style="height:1px; background-color:#2B2350; font-size:0; line-height:0;">&nbsp;</td></tr></table>
+  <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:21px; mso-line-height-rule:exactly; color:#9E9AB4;">
+    Vragen? Neem contact met ons op via <a href="mailto:klantenservice@trustoo.nl" style="color:#CFCBDD !important; text-decoration:none;"><span style="color:#CFCBDD;">klantenservice@trustoo.nl</span></a><br />
+    Bereikbaar van maandag t/m vrijdag, 09:00 tot 18:00 uur
+  </div>
+  <div style="padding-top:14px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:21px; mso-line-height-rule:exactly; color:#9E9AB4;">
+    Wil je helemaal geen mail meer van ons? <a href="{{ unsubscribe }}" style="color:#9E9AB4 !important; text-decoration:underline;"><span style="color:#9E9AB4; text-decoration:underline;">Uitschrijven</span></a><br />
+    &copy; 2026 Trustoo<br />Teleportboulevard 140, 1043 EJ, Amsterdam
+  </div>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>

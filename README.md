@@ -34,9 +34,9 @@ Contacten met dezelfde waarde krijgen dus dezelfde content.
 
 ## Welke services staan er nu in
 
-Negen servicetips-feeds, plus een neutrale fallback. De content komt uit
-`trustoo-servicetips-content.csv` en de veldnamen komen uit
-`trustoo-servicetips-template.html`.
+Negen servicetips-feeds, plus een neutrale fallback. Elke feed bevat negen tips in drie groepen.
+De veldnamen komen uit de template
+[`trustoo-servicetips-template.html`](trustoo-servicetips-template.html) in deze repository.
 
 | Slug / bestand | Variant in de CSV | `utm_campaign` |
 | --- | --- | --- |
@@ -141,14 +141,14 @@ Zie [`BREVO_SETUP.md`](BREVO_SETUP.md) voor het volledige overzicht per mailtype
 
 **JSON-velden**
 
-- Exact de 44 velden uit [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json).
+- Exact de 49 velden uit [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json).
   Niet meer, niet minder, en de namen niet wijzigen.
 - Alle waarden zijn strings. Een veld dat je niet gebruikt, krijgt een lege string `""` —
   je mag het niet weglaten.
 - Geen metadata zoals `service`, `mail_type` of `updated_at`. Geen arrays, geen geneste
   objecten.
 - URL-velden bevatten een absolute `https://`-URL of een lege string:
-  `header_link_url`, `hero_image_url`, `cta_url` en `tile1_url` tot en met `tile6_url`.
+  `hero_image_url`, `cta_url` en `tile1_url` tot en met `tile6_url`.
 
 **Brevo-feedalias**
 
@@ -163,7 +163,7 @@ npm run validate
 ```
 
 Het script [`scripts/validate-feeds.js`](scripts/validate-feeds.js) loopt recursief door
-`feeds/` en controleert per bestand: geldige JSON, alle 44 velden aanwezig, geen onbekende
+`feeds/` en controleert per bestand: geldige JSON, alle 49 velden aanwezig, geen onbekende
 velden, alle waarden strings, niet-lege URL-velden beginnen met `https://`, en een veilige
 canonical bestandsnaam. Bij een fout krijg je bestand en veld te zien en stopt het script met
 exitcode `1`.
@@ -270,6 +270,6 @@ geregeld als iemand van rol wisselt of vertrekt.
 | Bestand | Inhoud |
 | --- | --- |
 | [`BREVO_SETUP.md`](BREVO_SETUP.md) | Stap voor stap de feed in Brevo instellen. |
-| [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md) | Alle 44 velden met de bijbehorende `{{ feed.tip_feed.* }}`-variabele, plus kopieerbaar Twig-voorbeeld. |
-| [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json) | JSON Schema met de 44 toegestane velden. |
+| [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md) | Alle 49 velden met de bijbehorende `{{ feed.tip_feed.* }}`-variabele. |
+| [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json) | JSON Schema met de 49 toegestane velden. |
 | [`scripts/validate-feeds.js`](scripts/validate-feeds.js) | Validatiescript, alleen Node.js-standaardfunctionaliteit. |
