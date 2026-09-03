@@ -1,6 +1,6 @@
 # Templateveld-mapping: servicetips-mail
 
-De servicetips-template gebruikt **49 feedvelden** onder één feedalias. De veldnamen in de
+De servicetips-template gebruikt **50 feedvelden** onder één feedalias. De veldnamen in de
 JSON-bestanden in deze repository zijn exact de veldnamen die de template aanspreekt.
 
 Volgens de Brevo-documentatie is de syntaxis: `{{ feed.<feedalias>.<veld> }}`.
@@ -14,7 +14,7 @@ tip_feed
 > **Let op:** de alias wordt in Brevo automatisch afgeleid van de feednaam. Noem de feed
 > `Tip feed`, dan wordt de alias `tip_feed`. Controleer de werkelijk gegenereerde alias op de
 > pagina **Data feeds** in je Brevo-account en gebruik exact die spelling en hoofdlettergebruik.
-> Wijkt de alias af, dan moet je alle 49 verwijzingen in de template aanpassen.
+> Wijkt de alias af, dan moet je alle 49 verwijzingen in de template en de twee in de campagne-instellingen aanpassen.
 
 De template [`trustoo-servicetips-template.html`](trustoo-servicetips-template.html) staat in
 deze repository en gebruikt de feedsyntaxis **al**. Er is dus geen omzetting van losse
@@ -58,14 +58,20 @@ in de feed:
 > `tips_intro`, `prefs_title`, `prefs_text` en `prefs_link_label` nog feedvelden. Die zijn
 > vervallen; de validatie weigert ze als onbekend veld.
 
-## Alle 49 velden
+## Alle 50 velden
 
 ### Meta
 
 | Veld | Templatevariabele | Type |
 | --- | --- | --- |
-| `title` | `{{ feed.tip_feed.title }}` | tekst |
-| `preheader` | `{{ feed.tip_feed.preheader }}` | tekst |
+| `title` | `{{ feed.tip_feed.title }}` | tekst, alleen de HTML-`<title>` |
+| `subject_line` | `{{ feed.tip_feed.subject_line }}` | tekst, onderwerpregel (in Brevo in het veld **Subject**, niet in de HTML) |
+| `preheader` | `{{ feed.tip_feed.preheader }}` | tekst, preview-tekst (in Brevo in het veld **Preview text** én verborgen bovenaan de mail) |
+
+> `subject_line` en `preheader` zijn geschreven op open- en klikratio: onderwerp maximaal
+> ongeveer 50 tekens met een vraag of concrete belofte, preview maximaal ongeveer 100 tekens
+> die het onderwerp aanvult met de onderwerpen uit de tips in plaats van het te herhalen.
+> Brevo laat feedvelden toe in onderwerp en preview-tekst; voeg ze daar in via de `{}`-knop.
 
 ### Hero
 
@@ -162,7 +168,7 @@ De **URL-velden** zijn er acht: `hero_image_url`, `cta_url` en `tile1_url` tot e
 - **Verander de JSON-veldnamen niet.** De veldnamen zijn het contract tussen repository en
   template. Wil je een veld anders noemen, wijzig dan schema, alle feeds én de template in
   één keer.
-- **Alle 49 velden zijn verplicht in elk bestand.** Gebruik je een veld niet, geef het dan een
+- **Alle 50 velden zijn verplicht in elk bestand.** Gebruik je een veld niet, geef het dan een
   lege string `""`. Weglaten laat de validatie falen.
 - **Vul alle negen tips.** De template heeft negen vaste kaarten; een lege `cardN_title` en
   `cardN_text` geeft een lege witte kaart met alleen een cijfer.

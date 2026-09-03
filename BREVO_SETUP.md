@@ -81,10 +81,20 @@ De velden zijn beschikbaar als:
 
 1. Open je e-mailtemplate of campagne en ga naar de **Design**-stap.
 2. Vervang de bestaande rootvariabelen door de feedvariabelen. De volledige mapping van alle
-   49 velden staat in [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md).
+   50 velden staat in [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md).
 3. **Gebruik geen Dynamic content block.** Deze feed is een plat object (single object data,
    non-repeatable). Dynamic content blocks zijn alleen nodig voor arrays.
-4. Klik op **Preview & test**, blijf op het tabblad **Preview**, en vul bij de vraag als welk
+4. Zet in de campagne-instellingen ook het **onderwerp** en de **preview-tekst** op de feed.
+   Zet de cursor in het veld **Subject**, klik op de `{}`-knop, kies **Data feeds** en dan
+   `subject_line`; doe hetzelfde in **Preview text** met `preheader`. Het resultaat is:
+
+   ```twig
+   {{ feed.tip_feed.subject_line }}
+   {{ feed.tip_feed.preheader }}
+   ```
+
+   Zie [Personalize your email subject line and preview text with real-time data](https://help.brevo.com/hc/en-us/articles/24630251167250-Personalize-your-email-subject-line-and-preview-text-with-real-time-data-data-feed).
+5. Klik op **Preview & test**, blijf op het tabblad **Preview**, en vul bij de vraag als welk
    contact je de e-mail wilt bekijken het e-mailadres van je testcontact in.
    Controleer dat `{{ feed.tip_feed.title }}` de dakdekker-titel toont en niet leeg blijft
    of als ruwe tekst zichtbaar is.

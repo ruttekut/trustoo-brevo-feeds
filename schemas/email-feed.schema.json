@@ -2,11 +2,12 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://ruttekut.github.io/trustoo-brevo-feeds/schemas/email-feed.schema.json",
   "title": "Trustoo Brevo e-mailfeed (servicetips)",
-  "description": "Plat JSON-object met exact de 49 templatevelden van de servicetips-mail (9 tips in 3 groepen). Geen metadata, geen arrays, geen geneste objecten.",
+  "description": "Plat JSON-object met exact de 50 templatevelden van de servicetips-mail (9 tips in 3 groepen). Geen metadata, geen arrays, geen geneste objecten.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "title",
+    "subject_line",
     "preheader",
     "hero_image_url",
     "hero_image_alt",
@@ -60,8 +61,13 @@
     "title": {
       "type": "string"
     },
+    "subject_line": {
+      "type": "string",
+      "description": "Onderwerpregel van de mail. In Brevo in het veld Subject als {{ feed.tip_feed.subject_line }}."
+    },
     "preheader": {
-      "type": "string"
+      "type": "string",
+      "description": "Preview-tekst (preheader). In Brevo in het veld Preview text als {{ feed.tip_feed.preheader }}; staat ook verborgen bovenaan de mail."
     },
     "hero_image_url": {
       "type": "string",

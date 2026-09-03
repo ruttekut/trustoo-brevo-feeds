@@ -7,7 +7,7 @@
  * Controleert per bestand:
  *  1. geldige JSON-syntaxis
  *  2. root is een plat object
- *  3. alle 49 verplichte velden aanwezig
+ *  3. alle 50 verplichte velden aanwezig
  *  4. geen onbekende velden
  *  5. alle waarden zijn strings
  *  6. niet-lege URL-velden beginnen met https://

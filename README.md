@@ -135,7 +135,7 @@ Zie [`BREVO_SETUP.md`](BREVO_SETUP.md) voor het volledige overzicht per mailtype
 
 **JSON-velden**
 
-- Exact de 49 velden uit [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json).
+- Exact de 50 velden uit [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json).
   Niet meer, niet minder, en de namen niet wijzigen.
 - Alle waarden zijn strings. Een veld dat je niet gebruikt, krijgt een lege string `""` —
   je mag het niet weglaten.
@@ -157,7 +157,7 @@ npm run validate
 ```
 
 Het script [`scripts/validate-feeds.js`](scripts/validate-feeds.js) loopt recursief door
-`feeds/` en controleert per bestand: geldige JSON, alle 49 velden aanwezig, geen onbekende
+`feeds/` en controleert per bestand: geldige JSON, alle 50 velden aanwezig, geen onbekende
 velden, alle waarden strings, niet-lege URL-velden beginnen met `https://`, en een veilige
 canonical bestandsnaam. Bij een fout krijg je bestand en veld te zien en stopt het script met
 exitcode `1`.
@@ -264,6 +264,6 @@ geregeld als iemand van rol wisselt of vertrekt.
 | Bestand | Inhoud |
 | --- | --- |
 | [`BREVO_SETUP.md`](BREVO_SETUP.md) | Stap voor stap de feed in Brevo instellen. |
-| [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md) | Alle 49 velden met de bijbehorende `{{ feed.tip_feed.* }}`-variabele. |
-| [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json) | JSON Schema met de 49 toegestane velden. |
+| [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md) | Alle 50 velden met de bijbehorende `{{ feed.tip_feed.* }}`-variabele. |
+| [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json) | JSON Schema met de 50 toegestane velden. |
 | [`scripts/validate-feeds.js`](scripts/validate-feeds.js) | Validatiescript, alleen Node.js-standaardfunctionaliteit. |
