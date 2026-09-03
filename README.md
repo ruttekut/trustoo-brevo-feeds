@@ -34,25 +34,23 @@ Contacten met dezelfde waarde krijgen dus dezelfde content.
 
 ## Welke services staan er nu in
 
-Negen servicetips-feeds, plus een neutrale fallback. Elke feed bevat negen tips in drie groepen.
-De veldnamen komen uit de template
+87 feeds: 86 servicetips-feeds plus een neutrale fallback (`default`). Elke feed bevat negen
+tips in drie groepen. De veldnamen komen uit de template
 [`trustoo-servicetips-template.html`](trustoo-servicetips-template.html) in deze repository.
 
-| Slug / bestand | Variant in de CSV | `utm_campaign` |
-| --- | --- | --- |
-| `catering` | `catering_tips_mail1` | `catering_tips_mail1` |
-| `dakdekker` | `dakdekker_tips_mail1` | `dakdekker_tips_mail1` |
-| `energielabel-adviseur` | `energielabel_adviseur_tips_mail1` | `energielabel_adviseur_tips_mail1` |
-| `hovenier` | `hovenier_tips_mail1` | `hovenier_tips_mail1` |
-| `notaris` | `notaris_tips_mail1` | `notaris_tips_mail1` |
-| `schoonmaakbedrijf` | `schoonmaakbedrijf_tips_mail1` | `schoonmaakbedrijf_tips_mail1` |
-| `stratenmaker` | `stratenmaker_tips_mail1` | `stratenmaker_tips_mail1` |
-| `thuisbatterij` | `thuisbatterij_tips_mail1` | `thuisbatterij_tips_mail1` |
-| `zonwering` | `zonwering_tips_mail1` | `zonwering_tips_mail1` |
-| `default` | — | `default_tips_mail1` |
+- De eerste negen services (`catering`, `dakdekker`, `energielabel-adviseur`, `hovenier`,
+  `notaris`, `schoonmaakbedrijf`, `stratenmaker`, `thuisbatterij`, `zonwering`) komen uit
+  `trustoo-servicetips-content.csv`, aangevuld tot negen tips.
+- De overige 77 services komen uit `servicetips_checklist_mail.xlsx` (kolom `variant`
+  bijvoorbeeld `schilder_tips_mail1`). De variantnaam uit dat bestand is **niet** de
+  bestandsnaam: de bestandsnaam is altijd de canonical Trustoo-slug uit de `cta_url`
+  (`https://trustoo.nl/nederland/<slug>/`), bijvoorbeeld `schilder.json`.
+
+Een actuele lijst van alle slugs krijg je met `ls feeds/nl/tips`.
 
 De bestandsnamen zijn afgeleid van de service-slug in de `cta_url` van elke rij
-(`https://trustoo.nl/kosten/<slug>/`), omdat dat de canonical Trustoo-slug is.
+(`https://trustoo.nl/kosten/<slug>/` voor de eerste negen, `https://trustoo.nl/nederland/<slug>/`
+voor de rest), omdat dat de canonical Trustoo-slug is.
 
 > **Controleer `energielabel-adviseur`.** De variantnaam in de CSV gebruikt een underscore
 > (`energielabel_adviseur`), maar de Trustoo-URL gebruikt een koppelteken
@@ -71,14 +69,10 @@ feeds/
 └── nl/                       # taal/markt
     └── tips/                 # mailtype
         ├── default.json      # neutrale fallbackcontent
+        ├── aannemer.json
         ├── catering.json
         ├── dakdekker.json
-        ├── energielabel-adviseur.json
-        ├── hovenier.json
-        ├── notaris.json
-        ├── schoonmaakbedrijf.json
-        ├── stratenmaker.json
-        ├── thuisbatterij.json
+        ├── ...               # 87 bestanden in totaal, één per service-slug
         └── zonwering.json
 ```
 
