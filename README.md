@@ -69,6 +69,26 @@ geen eigen feed (bijvoorbeeld `hero-verhuizer.jpg`) of zijn een tweede variant
 Zeven feeds hebben nog een ouder herobeeld: `coaching`, `default`, `grafisch-ontwerper`,
 `incassobureau`, `keukenrenovatie`, `online-marketing` en `seo-specialist`.
 
+## CTA-regel: kostenpagina of blog
+
+De hoofd-CTA (`cta_label` + `cta_url`) van een tipsfeed verwijst **altijd** naar een kostenpagina
+of een relevante blog op Trustoo.nl, nooit naar de service-overzichtspagina (`/nederland/<slug>/`).
+De keuze per service:
+
+1. Bestaat `https://trustoo.nl/kosten/<slug>-kosten/` (zie de kosten-sitemap
+   `apisitemaps/NL_sitemap_costs_0.xml`)? Gebruik die, label `Bekijk wat een <service> kost`,
+   `utm_content=kostencta`. Dit geldt voor 60 services.
+2. Anders een passende kosten-subpagina of de kostenpagina van de naastgelegen service
+   (bijvoorbeeld `aankoopmakelaar` -> `kosten/makelaar-kosten/kosten-aankoopmakelaar/`,
+   `hekwerk` -> `kosten/hovenier-kosten/schutting-plaatsen-kosten/`).
+3. Anders een relevante blog uit de sitemaps `expert_blogs`, `topic_blogs` (`/opdracht/`),
+   `faq_blogs` of `knowledge_base` (`/kennisbank/`), label begint met `Lees`, `utm_content=blogcta`.
+   Dit geldt voor 13 services.
+4. Is er niets passends, dan het kostenoverzicht `https://trustoo.nl/kosten/` (`default`,
+   `koffieautomaat`, `stoffeerder`, `tolk`).
+
+Controleer elke URL op een 200 voordat je hem opneemt. Verzin geen links.
+
 ## Structuur
 
 ```text
