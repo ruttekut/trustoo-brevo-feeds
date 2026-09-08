@@ -6,7 +6,7 @@ De mail nodigt uit om extra bedrijven aan de bestaande aanvraag toe te voegen, l
 diensten zien die mensen na deze aanvraag vaak ook nodig hebben, en biedt twee uitwegen:
 aanvraag afronden of een nieuwe aanvraag doen.
 
-Status: **nog niet gepubliceerd**. De feeds staan lokaal op `main`, er is nog geen Brevo-feed
+Status: feeds en template staan op `main` en zijn via GitHub Pages bereikbaar; er is nog geen Brevo-feed
 en geen Brevo-template aangemaakt.
 
 ## Bestanden
