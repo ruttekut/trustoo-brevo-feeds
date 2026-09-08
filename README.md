@@ -93,7 +93,7 @@ Controleer elke URL op een 200 voordat je hem opneemt. Verzin geen links.
 
 Sinds 2026-09-08 is er een tweede mailtype: de **reactivatiemail** voor mensen die ongeveer
 drie maanden geleden een aanvraag deden en die niet hebben afgerond. De feeds staan in
-`feeds/nl/reactivation/` (89 bestanden, 47 velden, eigen schema
+`feeds/nl/reactivation/` (90 bestanden, 47 velden, eigen schema
 [`schemas/reactivation-feed.schema.json`](schemas/reactivation-feed.schema.json)), de template is
 [`trustoo-reactivation-template.html`](trustoo-reactivation-template.html) met feedalias
 `reactivation_feed`. Welke drie diensten per service als dienstkaart worden getoond, staat in
@@ -116,7 +116,7 @@ feeds/
     └── reactivation/         # mailtype reactivatie (47 velden)
         ├── default.json
         ├── aannemer.json
-        ├── ...               # 89 bestanden in totaal
+        ├── ...               # 90 bestanden in totaal
         └── zonwering.json
 ```
 

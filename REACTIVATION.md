@@ -14,7 +14,7 @@ en geen Brevo-template aangemaakt.
 | Bestand | Inhoud |
 | --- | --- |
 | [`trustoo-reactivation-template.html`](trustoo-reactivation-template.html) | De template, met feedsyntaxis `{{feed.reactivation_feed.<veld>}}`. Bron van waarheid voor de veldnamen. |
-| `feeds/nl/reactivation/<slug>.json` | 89 feeds: 86 services uit de mapping, `default`, en de twee aliassen `cv-installateur` en `stoffeerders`. |
+| `feeds/nl/reactivation/<slug>.json` | 90 feeds: 86 services uit de mapping, `rijschool`, `default`, en de twee aliassen `cv-installateur` en `stoffeerders`. |
 | [`schemas/reactivation-feed.schema.json`](schemas/reactivation-feed.schema.json) | JSON Schema met de 47 velden. `npm run validate` controleert alle feeds hiertegen. |
 | [`scripts/reactivation-mapping.json`](scripts/reactivation-mapping.json) | Per bron-slug de drie dienstkaarten (alleen slugs). |
 | [`scripts/build-reactivation-feeds.js`](scripts/build-reactivation-feeds.js) | Generator: mapping + tipsfeeds + teksten -> feeds. Eenmalig gebruikt; overschrijft alle reactivatiefeeds bij opnieuw draaien. |
@@ -104,8 +104,9 @@ kan worden overschreven:
   met dezelfde inhoud. Verwijder de verkeerde zodra de attribuutwaarde bekend is.
 - `verhuisbedrijf` heeft wel een Trustoo-pagina en kostenpagina maar geen tipsfeed. Het beeld
   komt uit het manifest (`hero-verhuizer.jpg`).
-- `rijschool` heeft een tipsfeed maar staat niet in de analyse en heeft dus **geen**
-  reactivatiefeed. Een contact met die attribuutwaarde wordt door Brevo overgeslagen.
+- `rijschool` heeft een tipsfeed maar staat niet in de analyse. De drie kaarten (verzekering,
+  laadpalen, coaching) zijn met de hand gekozen: autoverzekering, eerste elektrische auto en
+  coaching bij examenstress.
 
 ## Keuzes in de inhoud
 
@@ -129,7 +130,7 @@ kan worden overschreven:
 1. De queryparameter die de modal "vakmensen toevoegen" opent (`open=vakmensen-toevoegen`)
    is een aanname en staat hard-coded in de template. Afstemmen met development.
 2. De werkelijke waarden van `LAST_REQUEST_SERVICE_URL` voor cv-installateur/stoffeerder
-   (zie boven) en of `rijschool` een feed nodig heeft.
+   (zie boven).
 3. De 96x96-weergave van de kaartbeelden in Outlook en Gmail testen.
 4. Feed Studio kent dit mailtype nog niet; daar moet een `email_type` met de 47 velden en deze
    template worden toegevoegd voordat de feeds daar te bewerken zijn.

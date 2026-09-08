@@ -88,6 +88,7 @@ const SOURCES = {
   'psycholoog': { art: 'een', noun: 'psycholoog', plural: 'psychologen', label: 'Psycholoog' },
   'reclamebureau': { art: 'een', noun: 'reclamebureau', plural: 'reclamebureaus', label: 'Reclamebureau' },
   'relatietherapeut': { art: 'een', noun: 'relatietherapeut', plural: 'relatietherapeuten', label: 'Relatietherapie' },
+  'rijschool': { art: 'een', noun: 'rijschool', plural: 'rijscholen', label: 'Rijschool' },
   'rioolservice': { art: 'een', noun: 'rioolspecialist', plural: 'rioolspecialisten', label: 'Rioolservice' },
   'schilder': { art: 'een', noun: 'schilder', plural: 'schilders', label: 'Schilder' },
   'schoonmaakbedrijf': { art: 'een', noun: 'schoonmaakbedrijf', plural: 'schoonmaakbedrijven', label: 'Schoonmaakbedrijf' },
