@@ -6,12 +6,17 @@ Gebruik:
 De API-sleutel komt uit de omgevingsvariabele BREVO_API_KEY of uit .env in de repo-root
 (kopieer .env.example naar .env). .env staat in .gitignore en wordt nooit gecommit.
 
+Let op: de beelden zelf staan sinds 2026-09-08 niet meer in de repo; alleen manifest.json (met per
+beeld de Brevo-URL) is bewaard. Een nieuw beeld zet je dus tijdelijk in de repo en haalt je na de
+upload weer weg.
+
 Werkwijze:
-  1. Zet het beeld als images/nl/tips/hero-<slug>.jpg (4:3, 1200x900) en commit + push het,
+  1. Zet het beeld tijdelijk als images/nl/tips/hero-<slug>.jpg (4:3, 1200x900) en commit + push het,
      zodat het via GitHub Pages bereikbaar is. Brevo accepteert alleen publieke URL's (max 2 MB).
   2. Voeg een regel toe aan images/nl/tips/manifest.json met "file", "feed_slug" (of null) en "alt".
   3. Draai dit script. Het slaat entries met een bestaande "brevo_url" over, uploadt de rest onder
      de naam trustoo-nl-tips-hero-<slug>.jpg en zet hero_image_url + hero_image_alt in de feed.
+  4. Verwijder het JPEG-bestand weer uit de repo (git rm) en commit; de Brevo-URL staat in het manifest.
 Alleen standaardbibliotheek, geen dependencies.
 """
 import json, os, sys, time, urllib.error, urllib.request

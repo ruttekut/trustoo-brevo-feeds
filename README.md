@@ -59,15 +59,18 @@ voor de rest), omdat dat de canonical Trustoo-slug is.
 > `energielabel_adviseur.json` heten — maar dan wijkt het af van de slugregels hieronder.
 > Verifieer de werkelijke attribuutwaarde voordat je deze mail verstuurt.
 
-De `hero_image_url`-velden verwijzen naar de Brevo image gallery (`img.mailinblue.com`).
-Brevo host de beelden die de mail toont. De bronbestanden staan in `images/nl/tips/`
-(`hero-<slug>.jpg`, 4:3, 1200x900) en zijn via de Brevo API vanaf de GitHub Pages-URL naar de
-gallery geupload met de naam `trustoo-nl-tips-hero-<slug>.jpg`. `images/nl/tips/manifest.json`
-legt per beeld vast: bronbestand, feed-slug, alt-tekst en de Brevo-URL. Veertien beelden hebben
-geen eigen feed (bijvoorbeeld `hero-verhuizer.jpg`) of zijn een tweede variant
-(bijvoorbeeld `hero-hovenier-terras.jpg`); die staan wel in de gallery en het manifest.
-Zeven feeds hebben nog een ouder herobeeld: `coaching`, `default`, `grafisch-ontwerper`,
-`incassobureau`, `keukenrenovatie`, `online-marketing` en `seo-specialist`.
+De `hero_image_url`-velden verwijzen naar de Brevo image gallery (`img.mailinblue.com`); Brevo host
+alle beelden die de mails tonen. De beelden zelf staan **niet** in deze repository. Wat wel
+bewaard blijft is [`images/nl/tips/manifest.json`](images/nl/tips/manifest.json): per beeld het
+oorspronkelijke bronbestand, de feed-slug, de alt-tekst, de naam in de gallery
+(`trustoo-nl-tips-hero-<slug>.jpg`) en de Brevo-URL. Dat is de enige plek waar staat welke Brevo-URL
+bij welk beeld hoort. De 94 JPEG-bronbestanden (4:3, 1200x900) stonden hier tijdelijk omdat de
+Brevo-API alleen vanaf een publieke URL uploadt; op 2026-09-08 zijn ze verwijderd, de originele
+PNG's staan lokaal bij de beheerder. Veertien beelden hebben geen eigen feed (bijvoorbeeld
+`hero-verhuizer.jpg`) of zijn een tweede variant (bijvoorbeeld `hero-hovenier-terras.jpg`); die
+staan wel in de gallery en het manifest. Zeven feeds hebben nog een ouder herobeeld: `coaching`,
+`default`, `grafisch-ontwerper`, `incassobureau`, `keukenrenovatie`, `online-marketing` en
+`seo-specialist`.
 
 ## CTA-regel: kostenpagina of blog
 
