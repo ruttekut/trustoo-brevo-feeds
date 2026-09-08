@@ -94,9 +94,11 @@ Controleer elke URL op een 200 voordat je hem opneemt. Verzin geen links.
 
 ## Mailtype reactivatie
 
-Sinds 2026-09-08 is er een tweede mailtype: de **reactivatiemail** voor mensen die ongeveer
-drie maanden geleden een aanvraag deden en die niet hebben afgerond. De feeds staan in
-`feeds/nl/reactivation/` (90 bestanden, 47 velden, eigen schema
+Sinds 2026-09-08 is er een tweede mailtype: de **reactivatiemail** voor mensen die eerder een
+aanvraag deden (golf 1: laatste aanvraag in 2025). De mail gaat over de volgende stap na de dienst;
+de status van de aanvraag bepaalt via een Brevo-conditie of de CTA extra bedrijven toevoegt of om
+een beoordeling vraagt. De feeds staan in
+`feeds/nl/reactivation/` (90 bestanden, 50 velden, eigen schema
 [`schemas/reactivation-feed.schema.json`](schemas/reactivation-feed.schema.json)), de template is
 [`trustoo-reactivation-template.html`](trustoo-reactivation-template.html) met feedalias
 `reactivation_feed`. Welke drie diensten per service als dienstkaart worden getoond, staat in
@@ -116,7 +118,7 @@ feeds/
     │   ├── dakdekker.json
     │   ├── ...               # 87 bestanden in totaal, één per service-slug
     │   └── zonwering.json
-    └── reactivation/         # mailtype reactivatie (47 velden)
+    └── reactivation/         # mailtype reactivatie (50 velden)
         ├── default.json
         ├── aannemer.json
         ├── ...               # 90 bestanden in totaal
@@ -183,7 +185,7 @@ Zie [`BREVO_SETUP.md`](BREVO_SETUP.md) voor het volledige overzicht per mailtype
 **JSON-velden**
 
 - Exact de velden uit het schema van het mailtype: de 50 velden uit
-  [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json) voor `tips`, de 47 velden
+  [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json) voor `tips`, de 50 velden
   uit [`schemas/reactivation-feed.schema.json`](schemas/reactivation-feed.schema.json) voor
   `reactivation`. Niet meer, niet minder, en de namen niet wijzigen.
 - Alle waarden zijn strings. Een veld dat je niet gebruikt, krijgt een lege string `""` —
@@ -317,5 +319,5 @@ geregeld als iemand van rol wisselt of vertrekt.
 | [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md) | Alle 50 velden met de bijbehorende `{{ feed.tip_feed.* }}`-variabele. |
 | [`REACTIVATION.md`](REACTIVATION.md) | De reactivatiemail: velden, mapping van de dienstkaarten, keuzes en open punten. |
 | [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json) | JSON Schema met de 50 toegestane velden van de servicetips-mail. |
-| [`schemas/reactivation-feed.schema.json`](schemas/reactivation-feed.schema.json) | JSON Schema met de 47 velden van de reactivatiemail. |
+| [`schemas/reactivation-feed.schema.json`](schemas/reactivation-feed.schema.json) | JSON Schema met de 50 velden van de reactivatiemail. |
 | [`scripts/validate-feeds.js`](scripts/validate-feeds.js) | Validatiescript, alleen Node.js-standaardfunctionaliteit. |

@@ -15,14 +15,21 @@
    schil als de servicetips-mail (header, hero, Mist-middenstuk, navy blok,
    footer). Het middenstuk in drie stappen:
 
-   1. EERSTE STAP - kort en met een actie. Hero met een zin, daaronder een
-      compacte aanvraagkaart (dienst, plaats en datum op een regel, statuschip)
-      en meteen de groene CTA. Beide CTA's bovenin openen de modal waarin de
-      lezer extra vakmensen aan de bestaande aanvraag toevoegt.
+   1. EERSTE STAP - kort en met een actie. Hero over de volgende stap na de
+      dienst (de keten), daaronder een compacte aanvraagkaart (dienst, meta-regel,
+      statuschip) en meteen de groene CTA. De status van de aanvraag bepaalt het
+      pad, via een Brevo-conditie op contact.LAST_REQUEST_STATUS:
+      - open (DECIDING, SENT, ...): CTA en hero-pil openen de modal waarin de
+        lezer extra vakmensen aan de bestaande aanvraag toevoegt;
+      - afgerond (CHOSEN of DONE, id 13 of 14): CTA vraagt om een beoordeling
+        (parameter open=beoordeling, afstemmen met development), hero-pil linkt
+        naar de eerste dienstkaart. De feed levert beide teksten (*_done-velden).
+      Controleer in Brevo of contact.LAST_REQUEST_STATUS het label of het id
+      teruggeeft; de conditie test op allebei.
    2. JOUW VOLGENDE STAP - de drie meest relevante diensten als dienstkaart
       (tekst links, beeld rechts), hetzelfde kaartcomponent als herfstklaar.
-   3. AFRONDEN OF OPNIEUW - navy blok met twee chips voor wie al klaar is
-      (aanvraag afronden) of iets anders nodig heeft (nieuwe aanvraag).
+   3. IETS ANDERS NODIG - navy blok met twee chips: mijn aanvragen (dashboard)
+      en nieuwe aanvraag doen (trustoo.nl, variabele).
 
    FEED: alle variabele content komt uit feeds/nl/reactivation/<slug>.json via de
    Brevo-datafeed met alias reactivation_feed (syntaxis: feed.reactivation_feed.veldnaam).
@@ -132,7 +139,7 @@ a:hover { color:#00754D; }
   <p style="margin:0 0 22px 0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:26px; mso-line-height-rule:exactly; color:#DCD9E8;">{{feed.reactivation_feed.hero_subtitle}}</p>
   <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0"><tr>
     <td style="border:1px solid #FFFFFF; border-radius:999px; mso-padding-alt:0;">
-      <a class="hcta-a" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;open=vakmensen-toevoegen&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=herocta" style="display:inline-block; padding:11px 20px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.hero_cta_label}}&nbsp;&#8250;</span></a>
+      {% if contact.LAST_REQUEST_STATUS == "CHOSEN" or contact.LAST_REQUEST_STATUS == "DONE" or contact.LAST_REQUEST_STATUS == "13" or contact.LAST_REQUEST_STATUS == "14" %}<a class="hcta-a" href="{{feed.reactivation_feed.service1_url}}" style="display:inline-block; padding:11px 20px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.service1_link_label}}&nbsp;&#8250;</span></a>{% else %}<a class="hcta-a" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;open=vakmensen-toevoegen&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=herocta" style="display:inline-block; padding:11px 20px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.hero_cta_label}}&nbsp;&#8250;</span></a>{% endif %}
     </td>
   </tr></table>
 </td></tr>
@@ -161,7 +168,7 @@ a:hover { color:#00754D; }
     </td>
     <td class="req-chip stack" align="right" valign="middle" width="120" style="width:120px; vertical-align:middle; padding:20px 24px 20px 0; text-align:right;">
       <table role="presentation" class="sep req-chip-tbl" cellpadding="0" cellspacing="0" border="0" align="right" style="margin:0 0 0 auto;"><tr>
-        <td bgcolor="#FF6E1E" style="background-color:#FF6E1E; border-radius:999px; padding:5px 12px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:18px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; white-space:nowrap;">{{feed.reactivation_feed.request_status}}</td>
+        <td bgcolor="#FF6E1E" style="background-color:#FF6E1E; border-radius:999px; padding:5px 12px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:18px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; white-space:nowrap;">{% if contact.LAST_REQUEST_STATUS == "CHOSEN" or contact.LAST_REQUEST_STATUS == "DONE" or contact.LAST_REQUEST_STATUS == "13" or contact.LAST_REQUEST_STATUS == "14" %}{{feed.reactivation_feed.request_status_done}}{% else %}{{feed.reactivation_feed.request_status}}{% endif %}</td>
       </tr></table>
     </td>
   </tr>
@@ -182,10 +189,10 @@ a:hover { color:#00754D; }
 <tr><td class="pad-s" style="padding:16px 32px 8px;">
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#00BD7C" style="background-color:#00BD7C; border-radius:8px;">
   <tr><td align="center" style="padding:0; mso-padding-alt:16px 24px;">
-    <a class="cta-a" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;open=vakmensen-toevoegen&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=primaircta" style="display:block; padding:16px 24px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF !important; text-decoration:none; text-align:center;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.cta_label}}&nbsp;&rarr;</span></a>
+    {% if contact.LAST_REQUEST_STATUS == "CHOSEN" or contact.LAST_REQUEST_STATUS == "DONE" or contact.LAST_REQUEST_STATUS == "13" or contact.LAST_REQUEST_STATUS == "14" %}<a class="cta-a" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;open=beoordeling&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=reviewcta" style="display:block; padding:16px 24px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF !important; text-decoration:none; text-align:center;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.cta_label_done}}&nbsp;&rarr;</span></a>{% else %}<a class="cta-a" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;open=vakmensen-toevoegen&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=primaircta" style="display:block; padding:16px 24px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF !important; text-decoration:none; text-align:center;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.cta_label}}&nbsp;&rarr;</span></a>{% endif %}
   </td></tr>
   </table>
-  <div style="padding-top:12px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:20px; mso-line-height-rule:exactly; color:#6E6A85; text-align:center;">{{feed.reactivation_feed.cta_note}}</div>
+  <div style="padding-top:12px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:20px; mso-line-height-rule:exactly; color:#6E6A85; text-align:center;">{% if contact.LAST_REQUEST_STATUS == "CHOSEN" or contact.LAST_REQUEST_STATUS == "DONE" or contact.LAST_REQUEST_STATUS == "13" or contact.LAST_REQUEST_STATUS == "14" %}{{feed.reactivation_feed.cta_note_done}}{% else %}{{feed.reactivation_feed.cta_note}}{% endif %}</div>
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:14px auto 0;"><tr>
     <td valign="middle" style="vertical-align:middle; font-size:0; line-height:0; padding:0;"><a href="https://nl.trustpilot.com/review/trustoo.nl?utm_medium=Trustbox&utm_source=EmailSignature4" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://emailsignature.trustpilot.com/signature/nl-NL/4/606db922ac1c7d00015b0577/text.png" width="63" height="16" border="0" alt="Uitstekend" style="display:block; width:63px; height:16px; max-height:16px; border:0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:16px; color:#232852;" /></a></td>
     <td width="4" style="width:4px; font-size:0; line-height:0;">&nbsp;</td>
@@ -286,8 +293,8 @@ a:hover { color:#00754D; }
 </td></tr>
 </table>
 
-<!-- AFRONDEN OF OPNIEUW - navy blok met twee chips. Links: aanvraag afronden
-     (dashboard, token). Rechts: nieuwe aanvraag doen (dienstpagina, variabele). -->
+<!-- IETS ANDERS NODIG - navy blok met twee chips. Links: mijn aanvragen
+     (dashboard, token). Rechts: nieuwe aanvraag doen (trustoo.nl, variabele). -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr><td align="center" style="padding:0;">
 <!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
@@ -298,8 +305,8 @@ a:hover { color:#00754D; }
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
   <tr><td class="stack chip" width="253" valign="top" style="width:253px; vertical-align:top;">
       <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#272146" style="background-color:#272146; border:1px solid #524D6B; border-radius:999px;"><tr>
-        <td class="chip-cell" style="padding:0; mso-padding-alt:14px 0 14px 18px;"><a class="chip-a" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=afrondencta" style="display:block; padding:14px 0 14px 18px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.done_link_label}}</span></a></td>
-        <td class="chip-cell" align="right" width="20" style="width:20px; padding:0; mso-padding-alt:14px 18px 14px 0;"><a class="chip-a-c" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=afrondencta" style="display:block; padding:14px 18px 14px 0; text-align:right; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">&#8250;</span></a></td>
+        <td class="chip-cell" style="padding:0; mso-padding-alt:14px 0 14px 18px;"><a class="chip-a" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=mijnaanvragencta" style="display:block; padding:14px 0 14px 18px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.done_link_label}}</span></a></td>
+        <td class="chip-cell" align="right" width="20" style="width:20px; padding:0; mso-padding-alt:14px 18px 14px 0;"><a class="chip-a-c" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=mijnaanvragencta" style="display:block; padding:14px 18px 14px 0; text-align:right; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">&#8250;</span></a></td>
       </tr></table></td><td class="gutter" width="10" style="width:10px; font-size:0; line-height:0;">&nbsp;</td><td class="stack chip" width="253" valign="top" style="width:253px; vertical-align:top;">
       <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#272146" style="background-color:#272146; border:1px solid #524D6B; border-radius:999px;"><tr>
         <td class="chip-cell" style="padding:0; mso-padding-alt:14px 0 14px 18px;"><a class="chip-a" href="{{feed.reactivation_feed.new_request_url}}" style="display:block; padding:14px 0 14px 18px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.new_request_label}}</span></a></td>

@@ -14,6 +14,11 @@
  * JSON-bestanden de bron van waarheid: pas je een feed met de hand of via Feed Studio aan,
  * draai dit script dan niet zomaar opnieuw, want het overschrijft alle reactivatiefeeds.
  *
+ * Insteek (golf 1, sinds 2026-09-08): de mail gaat over de volgende stap na de dienst (de
+ * keten), niet over de status van de aanvraag. De template toont met een conditie op
+ * contact.LAST_REQUEST_STATUS het open pad (extra bedrijven toevoegen) of het afgeronde pad
+ * (beoordeling achterlaten); de feed levert de teksten voor beide paden (*_done-velden).
+ *
  * Gebruik:  node scripts/build-reactivation-feeds.js
  */
 
@@ -143,7 +148,7 @@ const RELATED = {
   'dakgoot': { name: 'Dakgootspecialisten', text: 'Dakgoten reinigen, repareren of vervangen, zodat regenwater goed wordt afgevoerd.' },
   'dakkapellen': { name: 'Dakkapelspecialisten', text: 'Meer ruimte en licht op zolder met een dakkapel, van ontwerp tot plaatsing.' },
   'dietist': { name: 'Diëtisten', text: 'Persoonlijk voedingsadvies voor gezonder eten, afvallen of een medische aandoening.', link: 'Bekijk diëtisten' },
-  'dj': { name: "DJ's", text: 'Een DJ die de sfeer op je feest of bruiloft aanvoelt en de dansvloer vol houdt.', link: "Bekijk DJ's" },
+  'dj': { name: "DJ's", lower: "DJ's", text: 'Een DJ die de sfeer op je feest of bruiloft aanvoelt en de dansvloer vol houdt.', link: "Bekijk DJ's" },
   'elektricien': { name: 'Elektriciens', text: 'Voor een nieuwe groepenkast, extra stopcontacten, verlichting of een storing.' },
   'energielabel-adviseur': { name: 'Energielabel-adviseurs', text: 'Een erkend adviseur stelt het energielabel van je woning op, verplicht bij verkoop of verhuur.' },
   'financieel-adviseur': { name: 'Financieel adviseurs', text: 'Onafhankelijk advies over je hypotheek, pensioen, vermogen of een grote uitgave.' },
@@ -180,7 +185,7 @@ const RELATED = {
   'schilder': { name: 'Schilders', text: 'Binnen of buiten schilderen, netjes afgewerkt en met verf die lang meegaat.' },
   'schoonmaakbedrijf': { name: 'Schoonmaakbedrijven', text: 'Een grondige schoonmaak van je woning, bijvoorbeeld na een verbouwing of verhuizing.' },
   'schoorsteenveger': { name: 'Schoorsteenvegers', text: 'Laat je schoorsteen jaarlijks vegen voor een veilige en goed trekkende kachel.' },
-  'seo-specialist': { name: 'SEO-specialisten', text: 'Hoger in Google met een specialist die je website en content verbetert.', link: 'Bekijk SEO-specialisten' },
+  'seo-specialist': { name: 'SEO-specialisten', lower: 'SEO-specialisten', text: 'Hoger in Google met een specialist die je website en content verbetert.', link: 'Bekijk SEO-specialisten' },
   'sloopbedrijf': { name: 'Sloopbedrijven', text: 'Een muur, aanbouw of complete woning slopen, inclusief afvoer van het puin.' },
   'stoffeerder': { name: 'Stoffeerders', text: 'Vloerbedekking, trapbekleding of meubels opnieuw laten bekleden door een stoffeerder.' },
   'stratenmaker': { name: 'Stratenmakers', text: 'Een nieuwe oprit, terras of tuinpad, strak gelegd door een stratenmaker.' },
@@ -211,6 +216,15 @@ const MANIFEST_IMAGE = { 'verhuisbedrijf': 'hero-verhuizer.jpg' };
 // Kostenpagina voor bronnen zonder tipsfeed (gecontroleerd op 200 op 2026-09-08).
 const EXTRA_HERO_LINK = { 'verhuisbedrijf': 'https://trustoo.nl/kosten/verhuisbedrijf-kosten/' };
 
+// Het-woorden onder de bronnen; alle andere 'een'-nouns krijgen 'de'.
+const HET_WORDS = new Set([
+  'alarmsysteem', 'beveiligingsbedrijf', 'energielabel', 'hekwerk', 'incassobureau',
+  'online marketing bureau', 'reclamebureau', 'schoonmaakbedrijf', 'sloopbedrijf', 'verhuisbedrijf',
+]);
+
+// Bronnen zonder echte keten uit de analyse: de dienstkaarten krijgen een neutrale kop.
+const NO_CHAIN = new Set(['default', 'rijschool', 'koffieautomaat']);
+
 function readTips(slug) {
   const file = path.join(TIPS_DIR, `${slug}.json`);
   return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null;
@@ -237,8 +251,8 @@ function heroLinkFor(slug, campaign) {
   return utm(url, campaign, 'heroimage');
 }
 
-function cap(s) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
+function lowerName(r) {
+  return r.lower || r.name.charAt(0).toLowerCase() + r.name.slice(1);
 }
 
 function buildFeed(slug, related) {
@@ -248,70 +262,82 @@ function buildFeed(slug, related) {
     ? { art: 'een', noun: 'bedrijf', plural: 'bedrijven', label: 'Je aanvraag' }
     : SOURCES[slug];
   if (!src) throw new Error(`Geen SOURCES-entry voor '${slug}'`);
+  // topic = "een schilder" / "isolatie"; defTopic = "de schilder" / "het hekwerk" / "isolatie"
   const topic = src.art ? `${src.art} ${src.noun}` : src.noun;
+  const def = src.art ? (HET_WORDS.has(src.noun) ? 'het' : 'de') : '';
+  const defTopic = def ? `${def} ${src.noun}` : src.noun;
   const hero = isDefault ? readTips('default') : imageFor(slug);
   const heroUrl = isDefault ? hero.hero_image_url : hero.url;
   const heroAlt = isDefault ? hero.hero_image_alt : hero.alt;
-  const serviceUrl = `https://trustoo.nl/nederland/${slug}/`;
+  const chain = !NO_CHAIN.has(slug);
 
+  const rels = related.map((rel) => {
+    const r = RELATED[rel];
+    if (!r) throw new Error(`Geen RELATED-entry voor '${rel}' (bron ${slug})`);
+    return r;
+  });
+  const names = rels.map(lowerName);
+  const list = `${names[0]}, ${names[1]} of ${names[2]}`;
+
+  const subjectChain = `Na ${defTopic}: dit regelen mensen daarna`;
   const feed = {
-    title: isDefault ? 'Je aanvraag staat nog open' : `Je aanvraag voor ${topic} staat nog open`,
-    // Onderwerpregel: de vraagvorm als die binnen 70 tekens past, anders de kortere vorm.
+    title: isDefault ? 'Wat regel je hierna?' : `Wat komt er na ${defTopic}?`,
+    // Onderwerpregel: ketengericht en neutraal over de status van de aanvraag, max 70 tekens.
     subject_line: isDefault
-      ? 'Je aanvraag op Trustoo staat nog open'
-      : `Nog op zoek naar ${topic}? Je aanvraag staat nog open`.length <= 70
-        ? `Nog op zoek naar ${topic}? Je aanvraag staat nog open`
-        : `Je aanvraag voor ${topic} staat nog open`,
-    preheader: `Voeg met één klik extra ${src.plural} toe aan je aanvraag en ontvang alsnog offertes. Of bekijk wat nu voor jou handig is.`,
+      ? 'Dit regelen mensen na hun aanvraag op Trustoo'
+      : subjectChain.length <= 70 ? subjectChain : `Wat komt er na ${defTopic}?`,
+    preheader: 'Al geregeld? Dan is dit je volgende stap. Nog aan het kiezen? Dan helpen we je verder.',
     hero_link_url: isDefault
       ? utm('https://trustoo.nl/kosten/', campaign, 'heroimage')
       : heroLinkFor(slug, campaign),
     hero_image_url: heroUrl,
     hero_image_alt: heroAlt,
-    hero_title_pre: isDefault ? 'Je aanvraag' : src.art ? `Je aanvraag voor ${src.art}` : 'Je aanvraag voor',
-    hero_title_accent: isDefault ? 'staat nog open' : src.noun,
-    hero_title_post: isDefault ? '' : 'staat nog open',
+    hero_title_pre: isDefault ? 'Na je aanvraag komt' : def ? `Na ${def}` : 'Na',
+    hero_title_accent: isDefault ? 'vaak dit' : src.noun,
+    hero_title_post: isDefault ? '' : 'komt vaak dit',
     hero_subtitle: isDefault
-      ? 'Een paar maanden geleden deed je een aanvraag via Trustoo, maar die is nog niet afgerond. Voeg extra bedrijven toe en ontvang alsnog offertes om te vergelijken.'
-      : `Een paar maanden geleden zocht je via Trustoo ${topic}, maar je aanvraag is nog niet afgerond. Voeg extra ${src.plural} toe en ontvang alsnog offertes om te vergelijken.`,
+      ? `Mensen die via Trustoo een bedrijf zochten, zoeken daarna vaak ook ${list}. Vergelijk ze met beoordelingen van anderen. En je eigen aanvraag? Die staat gewoon nog in je account.`
+      : `Mensen die ${topic} zochten, zoeken daarna vaak ook ${list}. Vergelijk ze op Trustoo met beoordelingen van anderen. En je eigen aanvraag? Die staat gewoon nog in je account.`,
     hero_cta_label: `Extra ${src.plural} toevoegen`,
     campaign_key: campaign,
-    request_label: 'Je openstaande aanvraag',
+    request_label: 'Je aanvraag',
     request_service: src.label,
-    request_meta: 'Een paar maanden geleden aangevraagd via Trustoo',
-    request_status: 'Nog open',
+    request_meta: 'Aangevraagd via Trustoo',
+    request_status: 'Nog geen keuze gemaakt',
+    request_status_done: 'Afgerond',
     cta_label: `Voeg extra ${src.plural} toe aan je aanvraag`,
     cta_note: 'Gratis en vrijblijvend. Je bestaande aanvraag blijft staan, je krijgt er alleen meer reacties op.',
-    services_heading_pre: 'Ook',
-    services_heading_accent: 'handig',
-    services_heading_post: isDefault ? 'voor jou' : `als je ${topic} zoekt`,
-    services_intro: isDefault
-      ? 'Deze diensten worden het vaakst aangevraagd op Trustoo. Je vindt ze met beoordelingen van anderen en vraagt gratis offertes aan.'
-      : `Mensen die ${topic} zoeken, hebben vaak ook een van deze diensten nodig. Op Trustoo vind je ze met beoordelingen van anderen en vraag je gratis offertes aan.`,
+    cta_label_done: isDefault || !src.art
+      ? 'Hoe was je ervaring? Laat een beoordeling achter'
+      : `Hoe beviel je ${src.noun}? Laat een beoordeling achter`,
+    cta_note_done: 'Met een korte beoordeling help je anderen bij hun keuze. Het kost je een minuut.',
+    services_heading_pre: chain ? `Wat mensen na ${def || ''}`.trim() : 'Populair',
+    services_heading_accent: chain ? src.noun : 'op Trustoo',
+    services_heading_post: chain ? 'vaak regelen' : '',
+    services_intro: chain
+      ? `Deze drie diensten vragen mensen na ${topic} het vaakst aan. Je vindt ze op Trustoo met beoordelingen van anderen en vraagt gratis tot vier offertes aan.`
+      : 'Deze diensten worden veel aangevraagd op Trustoo. Je vindt ze met beoordelingen van anderen en vraagt gratis tot vier offertes aan.',
   };
 
-  related.forEach((rel, i) => {
+  rels.forEach((r, i) => {
     const n = i + 1;
-    const r = RELATED[rel];
-    if (!r) throw new Error(`Geen RELATED-entry voor '${rel}' (bron ${slug})`);
+    const rel = related[i];
     const img = imageFor(rel);
     feed[`service${n}_name`] = r.name;
     feed[`service${n}_text`] = r.text;
     feed[`service${n}_url`] = utm(`https://trustoo.nl/nederland/${rel}/`, campaign, `${rel.replace(/-/g, '')}card`);
-    feed[`service${n}_link_label`] = r.link || `Bekijk ${r.name.charAt(0).toLowerCase()}${r.name.slice(1)}`;
+    feed[`service${n}_link_label`] = r.link || `Bekijk ${lowerName(r)}`;
     feed[`service${n}_image_url`] = img.url;
     feed[`service${n}_image_alt`] = img.alt;
   });
 
   Object.assign(feed, {
-    closing_heading_pre: 'Al geregeld of liever',
-    closing_heading_accent: 'opnieuw beginnen?',
-    closing_heading_post: '',
-    closing_intro: isDefault
-      ? 'Heb je inmiddels een bedrijf gevonden? Rond je aanvraag dan af, zodat bedrijven weten dat ze niet meer hoeven te reageren. Liever met een schone lei starten? Doe dan een nieuwe aanvraag.'
-      : `Heb je inmiddels ${topic} gevonden? Rond je aanvraag dan af, zodat bedrijven weten dat ze niet meer hoeven te reageren. Liever met een schone lei starten? Doe dan een nieuwe aanvraag.`,
-    done_link_label: 'Aanvraag afronden',
-    new_request_url: utm(isDefault ? 'https://trustoo.nl/' : serviceUrl, campaign, 'nieuweaanvraagcta'),
+    closing_heading_pre: 'Iets',
+    closing_heading_accent: 'anders',
+    closing_heading_post: 'nodig?',
+    closing_intro: 'In je account zie je al je aanvragen en de reacties van bedrijven terug. Zoek je een ander soort bedrijf? Start dan een nieuwe aanvraag, gratis en zonder verplichtingen.',
+    done_link_label: 'Mijn aanvragen',
+    new_request_url: utm('https://trustoo.nl/', campaign, 'nieuweaanvraagcta'),
     new_request_label: 'Nieuwe aanvraag doen',
   });
 
