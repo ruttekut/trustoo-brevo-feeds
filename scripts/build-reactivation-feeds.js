@@ -256,9 +256,12 @@ function buildFeed(slug, related) {
 
   const feed = {
     title: isDefault ? 'Je aanvraag staat nog open' : `Je aanvraag voor ${topic} staat nog open`,
+    // Onderwerpregel: de vraagvorm als die binnen 70 tekens past, anders de kortere vorm.
     subject_line: isDefault
       ? 'Je aanvraag op Trustoo staat nog open'
-      : `Nog op zoek naar ${topic}? Je aanvraag staat nog open`,
+      : `Nog op zoek naar ${topic}? Je aanvraag staat nog open`.length <= 70
+        ? `Nog op zoek naar ${topic}? Je aanvraag staat nog open`
+        : `Je aanvraag voor ${topic} staat nog open`,
     preheader: `Voeg met één klik extra ${src.plural} toe aan je aanvraag en ontvang alsnog offertes. Of bekijk wat nu voor jou handig is.`,
     hero_link_url: isDefault
       ? utm('https://trustoo.nl/kosten/', campaign, 'heroimage')
