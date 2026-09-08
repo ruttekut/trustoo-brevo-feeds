@@ -1,5 +1,9 @@
 # Templateveld-mapping: servicetips-mail
 
+> Dit document gaat over de servicetips-mail (`feeds/nl/tips/`). De veldenlijst van de
+> reactivatiemail (`feeds/nl/reactivation/`, alias `reactivation_feed`) staat in
+> [`REACTIVATION.md`](REACTIVATION.md).
+
 De servicetips-template gebruikt **50 feedvelden** onder één feedalias. De veldnamen in de
 JSON-bestanden in deze repository zijn exact de veldnamen die de template aanspreekt.
 

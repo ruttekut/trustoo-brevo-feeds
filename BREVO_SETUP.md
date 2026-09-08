@@ -131,6 +131,7 @@ mailtype los van elkaar te beheren:
 | Mailtype | Feednaam in Brevo | Alias | Bron-URL (attribuut via `{}`-kiezer) |
 | --- | --- | --- | --- |
 | Tips | `Tip feed` | `tip_feed` | `.../feeds/nl/tips/<attribuut>.json` |
+| Reactivatie (zie [`REACTIVATION.md`](REACTIVATION.md)) | `Reactivation feed` | `reactivation_feed` | `.../feeds/nl/reactivation/<attribuut>.json` |
 | Cross-sell | `Trustoo cross sell` | `trustoo_cross_sell` | `.../feeds/nl/cross-sell/<attribuut>.json` |
 | Seasonal | `Trustoo seasonal` | `trustoo_seasonal` | `.../feeds/nl/seasonal/<attribuut>.json` |
 | Follow-up | `Trustoo follow up` | `trustoo_follow_up` | `.../feeds/nl/follow-up/<attribuut>.json` |

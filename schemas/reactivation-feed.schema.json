@@ -1,0 +1,224 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ruttekut.github.io/trustoo-brevo-feeds/schemas/reactivation-feed.schema.json",
+  "title": "Trustoo Brevo e-mailfeed (reactivatie)",
+  "description": "Plat JSON-object met exact de 47 templatevelden van de reactivatiemail (aanvraag staat nog open; drie dienstkaarten). Geen metadata, geen arrays, geen geneste objecten.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "subject_line",
+    "preheader",
+    "hero_link_url",
+    "hero_image_url",
+    "hero_image_alt",
+    "hero_title_pre",
+    "hero_title_accent",
+    "hero_title_post",
+    "hero_subtitle",
+    "hero_cta_label",
+    "campaign_key",
+    "request_label",
+    "request_service",
+    "request_meta",
+    "request_status",
+    "cta_label",
+    "cta_note",
+    "services_heading_pre",
+    "services_heading_accent",
+    "services_heading_post",
+    "services_intro",
+    "service1_name",
+    "service1_text",
+    "service1_url",
+    "service1_link_label",
+    "service1_image_url",
+    "service1_image_alt",
+    "service2_name",
+    "service2_text",
+    "service2_url",
+    "service2_link_label",
+    "service2_image_url",
+    "service2_image_alt",
+    "service3_name",
+    "service3_text",
+    "service3_url",
+    "service3_link_label",
+    "service3_image_url",
+    "service3_image_alt",
+    "closing_heading_pre",
+    "closing_heading_accent",
+    "closing_heading_post",
+    "closing_intro",
+    "done_link_label",
+    "new_request_url",
+    "new_request_label"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Alleen de HTML <title> van de mail."
+    },
+    "subject_line": {
+      "type": "string",
+      "description": "Onderwerpregel. In Brevo in het veld Subject als {{ feed.reactivation_feed.subject_line }}."
+    },
+    "preheader": {
+      "type": "string",
+      "description": "Preview-tekst. In Brevo in het veld Preview text als {{ feed.reactivation_feed.preheader }}; staat ook verborgen bovenaan de mail."
+    },
+    "hero_link_url": {
+      "type": "string",
+      "description": "Waar het herobeeld naartoe linkt: de kostenpagina of blog van de bron-dienst (zelfde regel als de tips-CTA), met UTM-parameters in de waarde.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "hero_image_url": {
+      "type": "string",
+      "description": "Lege string of een absolute https://-URL.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "hero_image_alt": {
+      "type": "string"
+    },
+    "hero_title_pre": {
+      "type": "string"
+    },
+    "hero_title_accent": {
+      "type": "string"
+    },
+    "hero_title_post": {
+      "type": "string"
+    },
+    "hero_subtitle": {
+      "type": "string"
+    },
+    "hero_cta_label": {
+      "type": "string"
+    },
+    "campaign_key": {
+      "type": "string",
+      "description": "Waarde van utm_campaign voor de hard-coded dashboard-links in de template, bijvoorbeeld reactivatie_schilder_mail1."
+    },
+    "request_label": {
+      "type": "string"
+    },
+    "request_service": {
+      "type": "string"
+    },
+    "request_meta": {
+      "type": "string",
+      "description": "Service-generieke regel onder de dienst op de aanvraagkaart. Plaats en datum kunnen hier niet in (openbare feed); gebruik daarvoor contactattributen in de template."
+    },
+    "request_status": {
+      "type": "string",
+      "description": "Tekst in de oranje statuschip, bijvoorbeeld Nog open."
+    },
+    "cta_label": {
+      "type": "string"
+    },
+    "cta_note": {
+      "type": "string"
+    },
+    "services_heading_pre": {
+      "type": "string"
+    },
+    "services_heading_accent": {
+      "type": "string"
+    },
+    "services_heading_post": {
+      "type": "string"
+    },
+    "services_intro": {
+      "type": "string"
+    },
+    "service1_name": {
+      "type": "string"
+    },
+    "service1_text": {
+      "type": "string"
+    },
+    "service1_url": {
+      "type": "string",
+      "description": "Dienstpagina https://trustoo.nl/nederland/<slug>/ met UTM-parameters.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "service1_link_label": {
+      "type": "string"
+    },
+    "service1_image_url": {
+      "type": "string",
+      "description": "Herobeeld van de tipsfeed van die dienst (Brevo image gallery), getoond op 96x96.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "service1_image_alt": {
+      "type": "string"
+    },
+    "service2_name": {
+      "type": "string"
+    },
+    "service2_text": {
+      "type": "string"
+    },
+    "service2_url": {
+      "type": "string",
+      "description": "Dienstpagina https://trustoo.nl/nederland/<slug>/ met UTM-parameters.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "service2_link_label": {
+      "type": "string"
+    },
+    "service2_image_url": {
+      "type": "string",
+      "description": "Herobeeld van de tipsfeed van die dienst (Brevo image gallery), getoond op 96x96.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "service2_image_alt": {
+      "type": "string"
+    },
+    "service3_name": {
+      "type": "string"
+    },
+    "service3_text": {
+      "type": "string"
+    },
+    "service3_url": {
+      "type": "string",
+      "description": "Dienstpagina https://trustoo.nl/nederland/<slug>/ met UTM-parameters.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "service3_link_label": {
+      "type": "string"
+    },
+    "service3_image_url": {
+      "type": "string",
+      "description": "Herobeeld van de tipsfeed van die dienst (Brevo image gallery), getoond op 96x96.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "service3_image_alt": {
+      "type": "string"
+    },
+    "closing_heading_pre": {
+      "type": "string"
+    },
+    "closing_heading_accent": {
+      "type": "string"
+    },
+    "closing_heading_post": {
+      "type": "string"
+    },
+    "closing_intro": {
+      "type": "string"
+    },
+    "done_link_label": {
+      "type": "string"
+    },
+    "new_request_url": {
+      "type": "string",
+      "description": "Dienstpagina van de bron-dienst (https://trustoo.nl/nederland/<slug>/) met UTM-parameters, voor de chip Nieuwe aanvraag doen.",
+      "pattern": "^$|^https://[^s\"<>`]+$"
+    },
+    "new_request_label": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="nl">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="x-apple-disable-message-reformatting" />
+<meta name="color-scheme" content="light only" />
+<meta name="supported-color-schemes" content="light only" />
+<title>{{feed.reactivation_feed.title}}</title>
+<!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+<style type="text/css">
+/* Trustoo design system V3.1 - reactivatie v2: voor mensen die ongeveer drie
+   maanden geleden een aanvraag deden en die nooit hebben afgesloten. Dezelfde
+   schil als de servicetips-mail (header, hero, Mist-middenstuk, navy blok,
+   footer). Het middenstuk in drie stappen:
+
+   1. EERSTE STAP - kort en met een actie. Hero met een zin, daaronder een
+      compacte aanvraagkaart (dienst, plaats en datum op een regel, statuschip)
+      en meteen de groene CTA. Beide CTA's bovenin openen de modal waarin de
+      lezer extra vakmensen aan de bestaande aanvraag toevoegt.
+   2. JOUW VOLGENDE STAP - de drie meest relevante diensten als dienstkaart
+      (tekst links, beeld rechts), hetzelfde kaartcomponent als herfstklaar.
+   3. AFRONDEN OF OPNIEUW - navy blok met twee chips voor wie al klaar is
+      (aanvraag afronden) of iets anders nodig heeft (nieuwe aanvraag).
+
+   FEED: alle variabele content komt uit feeds/nl/reactivation/<slug>.json via de
+   Brevo-datafeed met alias reactivation_feed (syntaxis: feed.reactivation_feed.veldnaam).
+   Zie REACTIVATION.md voor de veldenlijst.
+
+   LINKS: de aanvraag staat achter de persoonlijke dashboard-link met Brevo-
+   token (README par. 3), dus die is hard-coded. De modal voor vakmensen
+   toevoegen hangt aan dezelfde link met de parameter "open=vakmensen-toevoegen";
+   de exacte parameternaam moet met development worden afgestemd en staat op
+   twee plekken (hero-CTA, primaire CTA). Alleen campaign_key is variabel,
+   voor de UTM. Dienstpagina's zijn gewone URL-variabelen met UTM's in de waarde.
+
+   OPBOUW: kaartmodel, geen full-bleed. De kleur zit op de 600px-wrap, de
+   buitentabel is transparant op een wit canvas. Op mobiel wordt de wrap 100%
+   en vult de kaart het scherm. Outlook krijgt zijn 600px via de ghost table. */
+body { margin:0; padding:0; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; background-color:#FFFFFF; }
+table { border-collapse:collapse !important; }
+/* Uitzondering: kaarten en chips hebben een radius. Met border-collapse:collapse
+   tekent de browser de rand vierkant om de afgeronde vulling heen - vandaar separate. */
+.sep { border-collapse:separate !important; border-spacing:0 !important; }
+img { border:0; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic; }
+a { color:#0205A3; }
+a:hover { color:#00754D; }
+:root { color-scheme: light only; supported-color-schemes: light only; }
+
+@media only screen and (max-width:620px) {
+.wrap { width:100% !important; max-width:100% !important; }
+.stack { display:block !important; width:100% !important; max-width:100% !important; }
+.gutter { display:none !important; width:0 !important; }
+.pad-s { padding-left:20px !important; padding-right:20px !important; }
+/* op mobiel vult de kaart het scherm: geen canvasmarge en geen afgeronde hoeken */
+.page-pad { padding:0 !important; }
+.card-top, .card-bot { border-radius:0 !important; }
+.h-display { font-size:31px !important; line-height:36px !important; }
+.h-2 { font-size:22px !important; line-height:27px !important; }
+.h-3 { font-size:19px !important; line-height:23px !important; }
+.hdr-btn { padding:12px 14px !important; }
+.hero-pad { padding:28px 20px 32px !important; }
+/* het herobeeld schaalt mee op zijn eigen 4:3-verhouding */
+.hero-photo { width:100% !important; height:auto !important; }
+/* aanvraagkaart: statuschip onder de tekst in plaats van ernaast */
+.req-pad { padding:18px 18px !important; }
+.req-chip { padding:10px 0 0 !important; text-align:left !important; }
+.req-chip-tbl { float:left !important; margin:0 !important; }
+/* dienstkaart: tekst boven, beeld sluit de kaart af op volle breedte */
+.card-txt { box-sizing:border-box !important; width:100% !important; padding:20px 20px 16px !important; }
+.card-img { box-sizing:border-box !important; width:100% !important; padding:0 !important; }
+.card-photo { width:100% !important; max-width:100% !important; height:190px !important; border-radius:0 0 12px 12px !important; }
+.card-link { display:inline-block !important; padding:10px 0 !important; }
+/* chips onder elkaar, 48px hoog */
+.chip { padding-bottom:10px !important; }
+.chip-cell { padding:0 !important; }
+.chip-a { padding:15px 0 15px 18px !important; }
+.chip-a-c { padding:15px 18px 15px 0 !important; }
+.hcta-a { padding:11px 16px !important; font-size:14px !important; }
+.cta-a { padding:16px 20px !important; }
+}
+
+/* GEEN eigen dark-modeblok. Gmail op Android ondersteunt prefers-color-scheme
+   niet en verft de mail zelf om; de clients die het wel snappen krijgen
+   hierboven "light only". Wat Gmail-Android omkleurt vangen we met kleurkeuzes
+   op, niet met CSS: accentwoorden in oranje (blauw verschuift naar roze). */
+</style>
+</head>
+<body style="margin:0; padding:0; background-color:#FFFFFF;">
+<div style="display:none; font-size:1px; color:#FFFFFF; line-height:1px; max-height:0; max-width:0; opacity:0; overflow:hidden; mso-hide:all;">{{feed.reactivation_feed.preheader}}</div>
+
+<table role="presentation" class="t-page" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF;">
+<tr><td class="page-pad" align="center" style="padding:24px 16px;">
+
+<!-- HEADER - navy balk, logo links en rechts de knop naar het dashboard als
+     groene pil met navy label (README par. 5: Green is de actiekleur, altijd
+     met navy tekst; zelfde uitvoering als de herfstklaar-header). Op mobiel
+     iets krapper via .hdr-btn, tapdoel blijft 44px. -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap card-top" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0F0832" style="background-color:#0F0832; max-width:600px; border-radius:12px 12px 0 0;">
+<tr><td class="pad-s" style="padding:14px 32px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+    <td align="left" valign="middle" style="vertical-align:middle; font-size:0; line-height:0;"><a href="https://www.trustoo.nl" style="text-decoration:none;"><img src="https://img.mailinblue.com/9986607/images/content_library/original/69cbac5a064ccd557a1b3e35.png" width="104" height="23" alt="Trustoo" style="display:block; width:104px; height:23px;" /></a></td>
+    <td align="right" valign="middle" style="vertical-align:middle;">
+      <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" align="right" style="margin:0;"><tr><td align="center" bgcolor="#00BD7C" style="padding:0; background-color:#00BD7C; border-radius:999px; mso-padding-alt:0;">
+        <a class="hdr-btn" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}" style="display:inline-block; padding:12px 18px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832 !important; text-decoration:none; white-space:nowrap; border-radius:999px;"><span style="color:#0F0832;">Mijn aanvragen&nbsp;&#8250;</span></a>
+      </td></tr></table>
+    </td>
+  </tr></table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- HERO - beeld op 600x450 (4:3), een kop, een zin en de ghost-pil naar de
+     modal "vakmensen toevoegen". Bewust kort: de eerste stap is een actie,
+     geen uitleg. Het beeld is klikbaar en linkt naar hero_link_url, een
+     gewone URL-variabele met UTM's in de waarde. -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0205A3" style="background-color:#0205A3; max-width:600px;">
+<tr><td style="font-size:0; line-height:0;">
+  <a href="{{feed.reactivation_feed.hero_link_url}}" style="text-decoration:none; display:block;"><img class="hero-photo" src="{{feed.reactivation_feed.hero_image_url}}" width="600" alt="{{feed.reactivation_feed.hero_image_alt}}" style="display:block; width:100%; max-width:600px; height:auto; border:0;" /></a>
+</td></tr>
+<tr><td class="hero-pad" style="padding:32px;">
+  <h1 class="h-display" style="margin:0 0 12px 0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:34px; line-height:40px; mso-line-height-rule:exactly; letter-spacing:-0.6px; font-weight:700; color:#FFFFFF;">{{feed.reactivation_feed.hero_title_pre}} <em style="font-style:normal; font-weight:700; color:#FF6E1E;">{{feed.reactivation_feed.hero_title_accent}}</em> {{feed.reactivation_feed.hero_title_post}}</h1>
+  <p style="margin:0 0 22px 0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:26px; mso-line-height-rule:exactly; color:#DCD9E8;">{{feed.reactivation_feed.hero_subtitle}}</p>
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0"><tr>
+    <td style="border:1px solid #FFFFFF; border-radius:999px; mso-padding-alt:0;">
+      <a class="hcta-a" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;open=vakmensen-toevoegen&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=herocta" style="display:inline-block; padding:11px 20px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.hero_cta_label}}&nbsp;&#8250;</span></a>
+    </td>
+  </tr></table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- AANVRAAGKAART - compact: eyebrow, dienst en een meta-regel links, de
+     statuschip rechts. Oranje is hier een vlak met navy tekst; oranje is in dit
+     systeem nooit tekstkleur. Op mobiel zakt de chip onder de tekst.
+     De feed is openbaar, dus request_meta is service-generiek. Wil je hier
+     plaats en datum tonen, gebruik dan contactattributen (bijvoorbeeld contact.CITY) in
+     plaats van het feedveld. -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9; max-width:600px;">
+<tr><td class="pad-s" style="padding:32px 32px 0;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="req-pad stack" valign="middle" style="vertical-align:middle; padding:20px 24px;">
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:16px; mso-line-height-rule:exactly; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; color:#0205A3; padding-bottom:4px;">{{feed.reactivation_feed.request_label}}</div>
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:20px; line-height:26px; mso-line-height-rule:exactly; letter-spacing:-0.3px; font-weight:700; color:#0F0832;">{{feed.reactivation_feed.request_service}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; mso-line-height-rule:exactly; color:#6E6A85; padding-top:2px;">{{feed.reactivation_feed.request_meta}}</div>
+    </td>
+    <td class="req-chip stack" align="right" valign="middle" width="120" style="width:120px; vertical-align:middle; padding:20px 24px 20px 0; text-align:right;">
+      <table role="presentation" class="sep req-chip-tbl" cellpadding="0" cellspacing="0" border="0" align="right" style="margin:0 0 0 auto;"><tr>
+        <td bgcolor="#FF6E1E" style="background-color:#FF6E1E; border-radius:999px; padding:5px 12px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:18px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; white-space:nowrap;">{{feed.reactivation_feed.request_status}}</td>
+      </tr></table>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- PRIMAIRE CTA - direct onder de aanvraagkaart, naar de modal "vakmensen
+     toevoegen". Green is de actiekleur, label wit (keuze van 09.2026). Eronder
+     een korte geruststelling en de Trustpilot-strip (README par. 4). -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9; max-width:600px;">
+<tr><td class="pad-s" style="padding:16px 32px 8px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#00BD7C" style="background-color:#00BD7C; border-radius:8px;">
+  <tr><td align="center" style="padding:0; mso-padding-alt:16px 24px;">
+    <a class="cta-a" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;open=vakmensen-toevoegen&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=primaircta" style="display:block; padding:16px 24px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF !important; text-decoration:none; text-align:center;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.cta_label}}&nbsp;&rarr;</span></a>
+  </td></tr>
+  </table>
+  <div style="padding-top:12px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:20px; mso-line-height-rule:exactly; color:#6E6A85; text-align:center;">{{feed.reactivation_feed.cta_note}}</div>
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:14px auto 0;"><tr>
+    <td valign="middle" style="vertical-align:middle; font-size:0; line-height:0; padding:0;"><a href="https://nl.trustpilot.com/review/trustoo.nl?utm_medium=Trustbox&utm_source=EmailSignature4" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://emailsignature.trustpilot.com/signature/nl-NL/4/606db922ac1c7d00015b0577/text.png" width="63" height="16" border="0" alt="Uitstekend" style="display:block; width:63px; height:16px; max-height:16px; border:0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:16px; color:#232852;" /></a></td>
+    <td width="4" style="width:4px; font-size:0; line-height:0;">&nbsp;</td>
+    <td valign="middle" style="vertical-align:middle; font-size:0; line-height:0; padding:0;"><a href="https://nl.trustpilot.com/review/trustoo.nl?utm_medium=Trustbox&utm_source=EmailSignature4" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://emailsignature.trustpilot.com/signature/nl-NL/4/606db922ac1c7d00015b0577/stars.png" width="85" height="16" border="0" alt="Trustpilot sterrenbeoordeling" style="display:block; width:85px; height:16px; max-height:16px; border:0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:16px; color:#232852;" /></a></td>
+    <td width="4" style="width:4px; font-size:0; line-height:0;">&nbsp;</td>
+    <td valign="middle" style="vertical-align:middle; font-size:0; line-height:0; padding:0;"><a href="https://nl.trustpilot.com/review/trustoo.nl?utm_medium=Trustbox&utm_source=EmailSignature4" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://emailsignature.trustpilot.com/brand/s/4/logo.png" width="65" height="16" border="0" alt="Trustpilot" style="display:block; width:65px; height:16px; max-height:16px; border:0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:16px; color:#232852;" /></a></td>
+  </tr></table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- JOUW VOLGENDE STAP - kop en intro boven de drie dienstkaarten -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9; max-width:600px;">
+<tr><td class="pad-s" style="padding:40px 32px 4px;">
+  <h2 class="h-2" style="margin:0 0 8px 0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:26px; line-height:31px; mso-line-height-rule:exactly; letter-spacing:-0.5px; font-weight:700; color:#0F0832;">{{feed.reactivation_feed.services_heading_pre}} <em style="font-style:normal; font-weight:700; color:#FF6E1E;">{{feed.reactivation_feed.services_heading_accent}}</em> {{feed.reactivation_feed.services_heading_post}}</h2>
+  <p style="margin:0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#3D3757;">{{feed.reactivation_feed.services_intro}}</p>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- DIENSTKAART 1 - tekst links, beeld 96x96 rechts (herfstklaar-component).
+     Op mobiel komt het beeld onder de tekst, op volle breedte. -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9; max-width:600px;">
+<tr><td class="pad-s" style="padding:16px 32px 0;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="stack card-txt" valign="top" style="vertical-align:top; padding:20px 16px 20px 20px;">
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:20px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; padding-bottom:8px;">{{feed.reactivation_feed.service1_name}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; mso-line-height-rule:exactly; color:#3D3757; padding-bottom:10px;">{{feed.reactivation_feed.service1_text}}</div>
+      <a class="card-link" href="{{feed.reactivation_feed.service1_url}}" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; mso-line-height-rule:exactly; font-weight:700; color:#0205A3 !important; text-decoration:none;"><span style="color:#0205A3;">{{feed.reactivation_feed.service1_link_label}}&nbsp;&rarr;</span></a>
+    </td>
+    <td class="stack card-img" valign="top" width="96" style="width:96px; vertical-align:top; padding:20px 20px 20px 0; font-size:0; line-height:0;">
+      <a href="{{feed.reactivation_feed.service1_url}}" style="text-decoration:none;"><img class="card-photo" src="{{feed.reactivation_feed.service1_image_url}}" width="96" height="96" alt="{{feed.reactivation_feed.service1_image_alt}}" style="display:block; width:96px; height:96px; border-radius:12px; object-fit:cover;" /></a>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- DIENSTKAART 2 -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9; max-width:600px;">
+<tr><td class="pad-s" style="padding:16px 32px 0;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="stack card-txt" valign="top" style="vertical-align:top; padding:20px 16px 20px 20px;">
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:20px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; padding-bottom:8px;">{{feed.reactivation_feed.service2_name}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; mso-line-height-rule:exactly; color:#3D3757; padding-bottom:10px;">{{feed.reactivation_feed.service2_text}}</div>
+      <a class="card-link" href="{{feed.reactivation_feed.service2_url}}" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; mso-line-height-rule:exactly; font-weight:700; color:#0205A3 !important; text-decoration:none;"><span style="color:#0205A3;">{{feed.reactivation_feed.service2_link_label}}&nbsp;&rarr;</span></a>
+    </td>
+    <td class="stack card-img" valign="top" width="96" style="width:96px; vertical-align:top; padding:20px 20px 20px 0; font-size:0; line-height:0;">
+      <a href="{{feed.reactivation_feed.service2_url}}" style="text-decoration:none;"><img class="card-photo" src="{{feed.reactivation_feed.service2_image_url}}" width="96" height="96" alt="{{feed.reactivation_feed.service2_image_alt}}" style="display:block; width:96px; height:96px; border-radius:12px; object-fit:cover;" /></a>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- DIENSTKAART 3 -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#E7EFF9" style="background-color:#E7EFF9; max-width:600px;">
+<tr><td class="pad-s" style="padding:16px 32px 40px;">
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:12px;">
+  <tr>
+    <td class="stack card-txt" valign="top" style="vertical-align:top; padding:20px 16px 20px 20px;">
+      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:20px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; padding-bottom:8px;">{{feed.reactivation_feed.service3_name}}</div>
+      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; mso-line-height-rule:exactly; color:#3D3757; padding-bottom:10px;">{{feed.reactivation_feed.service3_text}}</div>
+      <a class="card-link" href="{{feed.reactivation_feed.service3_url}}" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; mso-line-height-rule:exactly; font-weight:700; color:#0205A3 !important; text-decoration:none;"><span style="color:#0205A3;">{{feed.reactivation_feed.service3_link_label}}&nbsp;&rarr;</span></a>
+    </td>
+    <td class="stack card-img" valign="top" width="96" style="width:96px; vertical-align:top; padding:20px 20px 20px 0; font-size:0; line-height:0;">
+      <a href="{{feed.reactivation_feed.service3_url}}" style="text-decoration:none;"><img class="card-photo" src="{{feed.reactivation_feed.service3_image_url}}" width="96" height="96" alt="{{feed.reactivation_feed.service3_image_alt}}" style="display:block; width:96px; height:96px; border-radius:12px; object-fit:cover;" /></a>
+    </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- AFRONDEN OF OPNIEUW - navy blok met twee chips. Links: aanvraag afronden
+     (dashboard, token). Rechts: nieuwe aanvraag doen (dienstpagina, variabele). -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0F0832" style="background-color:#0F0832; max-width:600px;">
+<tr><td class="pad-s" style="padding:32px;">
+  <h2 class="h-2" style="margin:0 0 8px 0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:22px; line-height:27px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF;">{{feed.reactivation_feed.closing_heading_pre}} <em style="font-style:normal; font-weight:700; color:#FF6E1E;">{{feed.reactivation_feed.closing_heading_accent}}</em> {{feed.reactivation_feed.closing_heading_post}}</h2>
+  <p style="margin:0 0 18px 0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#CFCBDD;">{{feed.reactivation_feed.closing_intro}}</p>
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr><td class="stack chip" width="253" valign="top" style="width:253px; vertical-align:top;">
+      <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#272146" style="background-color:#272146; border:1px solid #524D6B; border-radius:999px;"><tr>
+        <td class="chip-cell" style="padding:0; mso-padding-alt:14px 0 14px 18px;"><a class="chip-a" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=afrondencta" style="display:block; padding:14px 0 14px 18px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.done_link_label}}</span></a></td>
+        <td class="chip-cell" align="right" width="20" style="width:20px; padding:0; mso-padding-alt:14px 18px 14px 0;"><a class="chip-a-c" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&amp;utm_source=brevo&amp;utm_medium=email&amp;utm_campaign={{feed.reactivation_feed.campaign_key}}&amp;utm_content=afrondencta" style="display:block; padding:14px 18px 14px 0; text-align:right; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">&#8250;</span></a></td>
+      </tr></table></td><td class="gutter" width="10" style="width:10px; font-size:0; line-height:0;">&nbsp;</td><td class="stack chip" width="253" valign="top" style="width:253px; vertical-align:top;">
+      <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#272146" style="background-color:#272146; border:1px solid #524D6B; border-radius:999px;"><tr>
+        <td class="chip-cell" style="padding:0; mso-padding-alt:14px 0 14px 18px;"><a class="chip-a" href="{{feed.reactivation_feed.new_request_url}}" style="display:block; padding:14px 0 14px 18px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:500; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.new_request_label}}</span></a></td>
+        <td class="chip-cell" align="right" width="20" style="width:20px; padding:0; mso-padding-alt:14px 18px 14px 0;"><a class="chip-a-c" href="{{feed.reactivation_feed.new_request_url}}" style="display:block; padding:14px 18px 14px 0; text-align:right; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">&#8250;</span></a></td>
+      </tr></table></td></tr>
+  </table>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+
+<!-- FOOTER - hard-coded (README par. 3), met daarin het voorkeurenblok.
+     Volgorde en gewicht zijn bewust: eerst het aanbod om zelf in te stellen,
+     als knop, en pas daarna het uitschrijven als gewone regel tekst. -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td align="center" style="padding:0;">
+<!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
+<table role="presentation" class="wrap card-bot" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0F0832" style="background-color:#0F0832; max-width:600px; border-radius:0 0 12px 12px;">
+<tr><td class="pad-s" align="center" style="padding:36px 28px 32px; text-align:center;">
+  <a href="https://www.trustoo.nl" style="text-decoration:none;"><img src="https://img.mailinblue.com/9986607/images/content_library/original/69cbac5a064ccd557a1b3e35.png" width="104" height="23" alt="Trustoo" style="display:block; margin:0 auto; width:104px; height:23px;" /></a>
+  <div style="padding-top:12px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:24px; mso-line-height-rule:exactly; color:#CFCBDD;">De beste bedrijven voor jou</div>
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:16px auto 0;">
+  <tr>
+    <td style="padding:0 10px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; mso-line-height-rule:exactly; font-weight:500;"><a href="https://facebook.com/Trustoo.nl" style="color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">Facebook</span></a></td>
+    <td style="padding:0 10px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; mso-line-height-rule:exactly; font-weight:500;"><a href="https://linkedin.com/company/trustoo-de-beste-bedrijven-voor-jou" style="color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">LinkedIn</span></a></td>
+    <td style="padding:0 10px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; mso-line-height-rule:exactly; font-weight:500;"><a href="https://instagram.com/trustoo.nl" style="color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">Instagram</span></a></td>
+  </tr>
+  </table>
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:24px 0;"><tr><td height="1" bgcolor="#2B2350" style="height:1px; background-color:#2B2350; font-size:0; line-height:0;">&nbsp;</td></tr></table>
+
+  <!-- VOORKEUREN - de zachte uitstap, als knop -->
+  <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:17px; line-height:24px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF; padding-bottom:6px;">Liever minder mail?</div>
+  <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; mso-line-height-rule:exactly; color:#CFCBDD; padding-bottom:16px;">Je hoeft je niet af te melden. Stel zelf in waarover we je mailen en hoe vaak - dan krijg je alleen nog wat je wel wilt lezen.</div>
+  <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;"><tr>
+    <td align="center" bgcolor="#0F0832" style="background-color:#0F0832; border:1px solid #FFFFFF; border-radius:8px; mso-padding-alt:0;">
+      <a href="https://trustoo.nl/login-portal/demand/settings/account?token={{ contact.DASHBOARD_LINK_TOKEN }}" style="display:inline-block; padding:14px 24px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF !important; text-decoration:none;"><span style="color:#FFFFFF;">Mijn e-mailvoorkeuren</span></a>
+    </td>
+  </tr></table>
+
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:24px 0;"><tr><td height="1" bgcolor="#2B2350" style="height:1px; background-color:#2B2350; font-size:0; line-height:0;">&nbsp;</td></tr></table>
+  <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:21px; mso-line-height-rule:exactly; color:#9E9AB4;">
+    Vragen? Neem contact met ons op via <a href="mailto:klantenservice@trustoo.nl" style="color:#CFCBDD !important; text-decoration:none;"><span style="color:#CFCBDD;">klantenservice@trustoo.nl</span></a><br />
+    Bereikbaar van maandag t/m vrijdag, 09:00 tot 18:00 uur
+  </div>
+  <div style="padding-top:14px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:21px; mso-line-height-rule:exactly; color:#9E9AB4;">
+    Wil je helemaal geen mail meer van ons? <a href="{{ unsubscribe }}" style="color:#9E9AB4 !important; text-decoration:underline;"><span style="color:#9E9AB4; text-decoration:underline;">Uitschrijven</span></a><br />
+    &copy; 2026 Trustoo<br />Teleportboulevard 140, 1043 EJ, Amsterdam
+  </div>
+</td></tr>
+</table>
+<!--[if mso | IE]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>
