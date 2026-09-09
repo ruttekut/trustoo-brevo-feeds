@@ -119,6 +119,9 @@ hand gekozen. `default.json` toont klusjesman, schoonmaakbedrijf en schilder met
 - Vijf onderwerpregels zijn langer dan 70 tekens (koffieautomaat 74, thuisbatterij 75,
   zonnepanelen 73, online-marketing 72, warmtepomp-installateur 71). De tekst is ongewijzigd; in
   Feed Studio is de limiet voor dit veld op 80 gezet.
+- De preheaders zijn 120 tot 155 tekens (de langste is thuisbatterij). Ook hier is de tekst
+  ongewijzigd; de Feed Studio-limiet staat op 160. Houd er rekening mee dat inboxen de preview
+  meestal rond 90 tekens afkappen.
 
 ## Keuzes in de inhoud
 
