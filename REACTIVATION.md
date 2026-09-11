@@ -54,7 +54,7 @@ De template gebruikt daarnaast twee contactvariabelen die **niet** in de feed st
 | `request_service` | Dienst op de aanvraagkaart |
 | `request_meta` | Regel onder de dienst; service-generiek, zie hieronder |
 | `request_status` | Tekst in de oranje statuschip |
-| `cta_label` | Groene primaire CTA, opent de modal "vakmensen toevoegen" |
+| `cta_label` | Groene primaire CTA, linkt naar `hero_link_url` (dezelfde dienstpagina als het herobeeld) |
 | `cta_note` | Geruststelling onder de CTA |
 | `services_heading_pre`, `services_heading_accent`, `services_heading_post` | Kop boven de dienstkaarten |
 | `services_intro` | Intro onder die kop |
@@ -72,7 +72,7 @@ De template gebruikt daarnaast twee contactvariabelen die **niet** in de feed st
 Alle URL-velden (naam eindigt op `_url`) bevatten een absolute `https://`-URL. UTM's staan in de
 waarde: `utm_source=brevo`, `utm_campaign=<campaign_key>`, `utm_medium=email` en een
 `utm_content` per plek (`heroimage`, `<slug>card`, `nieuweaanvraagcta`). De hard-coded
-dashboard-links in de template gebruiken `primaircta` en `afrondencta`.
+dashboard-link "Aanvraag afronden" in de template gebruikt `afrondencta`.
 
 ## Hoe de drie dienstkaarten zijn gekozen
 
@@ -133,7 +133,7 @@ hand gekozen. `default.json` toont klusjesman, schoonmaakbedrijf en schilder met
   De kaart toont het 4:3-beeld op 160x120, dus zonder crop of `object-fit`.
 - **Herobeeld en hero-pil** linken sinds 2026-09-11 naar de dienstpagina `/nederland/<slug>/`
   (voor `default` naar trustoo.nl), net als de dienstkaarten en de chip "Nieuwe aanvraag doen".
-  Sinds dezelfde dag gaat ook de groene CTA naar ; alleen "Mijn aanvragen" in de
+  Sinds dezelfde dag gaat ook de groene CTA naar `hero_link_url`; alleen "Mijn aanvragen" in de
   header en "Aanvraag afronden" gaan nog naar het dashboard.
 
 ## Nog af te stemmen voor verzending
