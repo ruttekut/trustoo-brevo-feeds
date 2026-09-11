@@ -34,7 +34,7 @@ Zelfde stappen als in [`BREVO_SETUP.md`](BREVO_SETUP.md), met deze waarden:
 | Preview text | `{{ feed.reactivation_feed.preheader }}` |
 
 De template gebruikt daarnaast twee contactvariabelen die **niet** in de feed staan:
-`{{ contact.DASHBOARD_LINK_TOKEN }}` (header, aanvraag afronden, voorkeuren) en
+`{{ contact.DASHBOARD_LINK_TOKEN }}` (header, groene CTA, aanvraag afronden, voorkeuren) en
 `{{ unsubscribe }}`.
 
 ## De 47 velden
@@ -54,8 +54,8 @@ De template gebruikt daarnaast twee contactvariabelen die **niet** in de feed st
 | `request_service` | Dienst op de aanvraagkaart |
 | `request_meta` | Regel onder de dienst; service-generiek, zie hieronder |
 | `request_status` | Tekst in de oranje statuschip |
-| `cta_label` | Groene primaire CTA, linkt naar `hero_link_url` (dezelfde dienstpagina als het herobeeld) |
-| `cta_note` | Geruststelling onder de CTA |
+| `cta_label` | Groene primaire CTA ("Aanvraag sluiten"), naar het dashboard met de contacttoken (`utm_content=primaircta`) |
+| `cta_note` | Niet meer getoond sinds 2026-09-11; leeg in alle feeds. Het veld blijft in het schema |
 | `services_heading_pre`, `services_heading_accent`, `services_heading_post` | Kop boven de dienstkaarten |
 | `services_intro` | Intro onder die kop |
 | `service1_name` .. `service3_name` | Kaartkop |
@@ -72,7 +72,7 @@ De template gebruikt daarnaast twee contactvariabelen die **niet** in de feed st
 Alle URL-velden (naam eindigt op `_url`) bevatten een absolute `https://`-URL. UTM's staan in de
 waarde: `utm_source=brevo`, `utm_campaign=<campaign_key>`, `utm_medium=email` en een
 `utm_content` per plek (`heroimage`, `<slug>card`, `nieuweaanvraagcta`). De hard-coded
-dashboard-link "Aanvraag afronden" in de template gebruikt `afrondencta`.
+dashboard-links in de template gebruiken `primaircta` en `afrondencta`.
 
 ## Hoe de drie dienstkaarten zijn gekozen
 
@@ -133,14 +133,13 @@ hand gekozen. `default.json` toont klusjesman, schoonmaakbedrijf en schilder met
   De kaart toont het 4:3-beeld op 160x120, dus zonder crop of `object-fit`.
 - **Herobeeld en hero-pil** linken sinds 2026-09-11 naar de dienstpagina `/nederland/<slug>/`
   (voor `default` naar trustoo.nl), net als de dienstkaarten en de chip "Nieuwe aanvraag doen".
-  Sinds dezelfde dag gaat ook de groene CTA naar `hero_link_url`; alleen "Mijn aanvragen" in de
-  header en "Aanvraag afronden" gaan nog naar het dashboard.
+  De groene CTA "Aanvraag sluiten", "Mijn aanvragen" in de header en "Aanvraag afronden" gaan
+  naar het dashboard.
 
 ## Nog af te stemmen voor verzending
 
-1. De modal "vakmensen toevoegen" wordt niet meer gebruikt; alle CTA's bovenin gaan naar de
-   dienstpagina. Wil je de modal later terug, dan is  nog een aanname
-   die met development moet worden afgestemd.
+1. De groene CTA "Aanvraag sluiten" opent het dashboard zonder extra parameter; controleer of de
+   aanvraag daar direct te sluiten is of dat development een parameter wil.
 2. De werkelijke waarden van `LAST_REQUEST_SERVICE_URL` voor cv-installateur, stoffeerder en
    vertaler (zie boven).
 3. De kaartbeelden (4:3 op 160x120, op mobiel volle breedte) in Outlook en Gmail testen.
