@@ -32,7 +32,7 @@
    Brevo-datafeed met alias reactivation_feed (syntaxis: feed.reactivation_feed.veldnaam).
    Zie REACTIVATION.md voor de veldenlijst.
 
-   LINKS: de dashboard-links (header, groene CTA, aanvraag afronden, voorkeuren)
+   LINKS: de dashboard-links (header, aanvraagkaart, groene CTA, aanvraag afronden, voorkeuren)
    dragen de persoonlijke Brevo-token (README par. 3) en zijn hard-coded;
    campaign_key is daarin de enige variabele, voor de UTM. Herobeeld en hero-pil
    linken naar hero_link_url (de Trustoo-dienstpagina). Dienstpagina's
@@ -72,7 +72,8 @@ a:hover { color:#00754D; }
 /* het herobeeld schaalt mee op zijn eigen 4:3-verhouding */
 .hero-photo { width:100% !important; height:auto !important; }
 /* aanvraagkaart: de statuschip blijft naast de tekst (niet stapelen, dat
-   zette de chip als losse regel onder de meta). Alleen de marges worden krapper. */
+   zette de chip als losse regel onder de meta). Alleen de marges worden krapper;
+   .req-pad en .req-chip zitten op de blok-ankers die de padding dragen. */
 .req-pad { padding:18px 12px 18px 18px !important; }
 .req-chip { padding:18px 18px 18px 0 !important; width:auto !important; }
 /* dienstkaart: beeld bovenaan op volle breedte (eigen 4:3-verhouding, ronde
@@ -154,8 +155,12 @@ a:hover { color:#00754D; }
 </table>
 
 <!-- AANVRAAGKAART - compact: eyebrow, dienst en een meta-regel links, de
-     statuschip rechts. Oranje is hier een vlak met navy tekst; oranje is in dit
-     systeem nooit tekstkleur. Ook op mobiel blijft de chip naast de tekst staan.
+     statuschip rechts. De hele kaart is klikbaar en gaat naar het dashboard
+     (dezelfde link als de groene knop "Aanvraag sluiten", utm_content=
+     aanvraagkaart): beide cellen zijn een blok-anker dat de celpadding draagt,
+     zodat ook de witruimte klikt. Oranje is hier een vlak met navy tekst; oranje
+     is in dit systeem nooit tekstkleur. Ook op mobiel blijft de chip naast de
+     tekst staan.
      De feed is openbaar, dus request_meta is service-generiek. Wil je hier
      plaats en datum tonen, gebruik dan contactattributen (bijvoorbeeld contact.CITY) in
      plaats van het feedveld. -->
@@ -166,15 +171,17 @@ a:hover { color:#00754D; }
 <tr><td class="pad-s" style="padding:32px 32px 0;">
   <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="background-color:#FFFFFF; border-radius:16px;">
   <tr>
-    <td class="req-pad" valign="middle" style="vertical-align:middle; padding:20px 24px;">
-      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:16px; mso-line-height-rule:exactly; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; color:#0205A3; padding-bottom:4px;">{{feed.reactivation_feed.request_label}}</div>
-      <div class="h-3" style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:20px; line-height:26px; mso-line-height-rule:exactly; letter-spacing:-0.3px; font-weight:700; color:#0F0832;">{{feed.reactivation_feed.request_service}}</div>
-      <div style="font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; mso-line-height-rule:exactly; color:#6E6A85; padding-top:2px;">{{feed.reactivation_feed.request_meta}}</div>
+    <td valign="middle" style="vertical-align:middle; padding:0;">
+      <a class="req-pad" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&utm_source=brevo&utm_medium=email&utm_campaign={{feed.reactivation_feed.campaign_key}}&utm_content=aanvraagkaart" style="display:block; padding:20px 24px; text-decoration:none; color:#0F0832;">
+        <span style="display:block; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:16px; mso-line-height-rule:exactly; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; color:#0205A3; padding-bottom:4px;">{{feed.reactivation_feed.request_label}}</span>
+        <span class="h-3" style="display:block; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:20px; line-height:26px; mso-line-height-rule:exactly; letter-spacing:-0.3px; font-weight:700; color:#0F0832;">{{feed.reactivation_feed.request_service}}</span>
+        <span style="display:block; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; mso-line-height-rule:exactly; color:#6E6A85; padding-top:2px;">{{feed.reactivation_feed.request_meta}}</span>
+      </a>
     </td>
-    <td class="req-chip" align="right" valign="middle" style="vertical-align:middle; padding:20px 24px 20px 0; text-align:right; white-space:nowrap;">
-      <table role="presentation" class="sep" cellpadding="0" cellspacing="0" border="0" align="right" style="margin:0 0 0 auto;"><tr>
-        <td bgcolor="#FF6E1E" style="background-color:#FF6E1E; border-radius:999px; padding:5px 12px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:18px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; white-space:nowrap;">{{feed.reactivation_feed.request_status}}</td>
-      </tr></table>
+    <td align="right" valign="middle" style="vertical-align:middle; padding:0; text-align:right; white-space:nowrap;">
+      <a class="req-chip" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&utm_source=brevo&utm_medium=email&utm_campaign={{feed.reactivation_feed.campaign_key}}&utm_content=aanvraagkaart" style="display:block; padding:20px 24px 20px 0; text-decoration:none; text-align:right;">
+        <span style="display:inline-block; background-color:#FF6E1E; border-radius:999px; padding:5px 12px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:18px; mso-line-height-rule:exactly; font-weight:700; color:#0F0832; white-space:nowrap;">{{feed.reactivation_feed.request_status}}</span>
+      </a>
     </td>
   </tr>
   </table>
