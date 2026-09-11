@@ -15,7 +15,7 @@ beheerder (tabel met 86 services) en vervangt de gegenereerde teksten van 2026-0
 
 | Bestand | Inhoud |
 | --- | --- |
-| [`trustoo-reactivation-template.html`](trustoo-reactivation-template.html) | De template, met feedsyntaxis `{{feed.reactivation_feed.<veld>}}`. Bron van waarheid voor de veldnamen. Geen Brevo-condities. |
+| [`trustoo-reactivation-template.html`](trustoo-reactivation-template.html) | De template (v3, 2026-09-11: dienstkaarten met beeld 160x120 links en een knop), met feedsyntaxis `{{feed.reactivation_feed.<veld>}}`. Bron van waarheid voor de veldnamen. Geen Brevo-condities. |
 | `feeds/nl/reactivation/<slug>.json` | 91 feeds (47 velden): 86 services uit de aangeleverde tabel, `default`, en de aliassen `cv-installateur`, `stoffeerders` en `vertaalbureau`. |
 | [`schemas/reactivation-feed.schema.json`](schemas/reactivation-feed.schema.json) | JSON Schema met de 47 velden. `npm run validate` controleert alle feeds hiertegen. |
 | [`scripts/reactivation-mapping.json`](scripts/reactivation-mapping.json) | Per bron-slug de drie dienstkaarten (alleen slugs), uit de relevantieanalyse. Documentatie; de feeds zijn de bron van waarheid. |
@@ -44,11 +44,11 @@ De template gebruikt daarnaast twee contactvariabelen die **niet** in de feed st
 | `title` | HTML `<title>` |
 | `subject_line` | Onderwerpregel (campagne-instelling) |
 | `preheader` | Preview-tekst (campagne-instelling) en verborgen bovenaan de mail |
-| `hero_link_url` | Link op het herobeeld: de kostenpagina of blog van de dienst, zelfde regel als de tips-CTA |
+| `hero_link_url` | Link op het herobeeld en op de hero-pil: de Trustoo-dienstpagina van deze service, `https://trustoo.nl/nederland/<slug>/` met UTM's (`utm_content=heroimage`) |
 | `hero_image_url`, `hero_image_alt` | Herobeeld 4:3, hetzelfde beeld als de tipsfeed van deze dienst |
 | `hero_title_pre`, `hero_title_accent`, `hero_title_post` | Herokop; `accent` staat in oranje |
 | `hero_subtitle` | Zin onder de herokop |
-| `hero_cta_label` | Witte ghost-pil in de hero, opent de modal "vakmensen toevoegen" |
+| `hero_cta_label` | Witte ghost-pil in de hero ("Ontvang nieuwe offertes"), linkt naar `hero_link_url` |
 | `campaign_key` | `utm_campaign` voor de hard-coded dashboard-links, bijvoorbeeld `reactivatie_schilder_mail1` |
 | `request_label` | Eyebrow op de aanvraagkaart |
 | `request_service` | Dienst op de aanvraagkaart |
@@ -62,7 +62,7 @@ De template gebruikt daarnaast twee contactvariabelen die **niet** in de feed st
 | `service1_text` .. `service3_text` | Kaarttekst |
 | `service1_url` .. `service3_url` | `https://trustoo.nl/nederland/<slug>/` met UTM's |
 | `service1_link_label` .. `service3_link_label` | Linktekst, bijvoorbeeld `Bekijk stukadoors` |
-| `service1_image_url` .. `service3_image_url` | Het herobeeld uit de tipsfeed van die dienst, getoond op 96x96 |
+| `service1_image_url` .. `service3_image_url` | Het herobeeld uit de tipsfeed van die dienst, getoond op 160x120 (desktop) of volle breedte (mobiel) |
 | `service1_image_alt` .. `service3_image_alt` | Alt-tekst van dat beeld |
 | `closing_heading_pre`, `closing_heading_accent`, `closing_heading_post` | Kop van het navy blok |
 | `closing_intro` | Tekst in het navy blok |
@@ -72,7 +72,7 @@ De template gebruikt daarnaast twee contactvariabelen die **niet** in de feed st
 Alle URL-velden (naam eindigt op `_url`) bevatten een absolute `https://`-URL. UTM's staan in de
 waarde: `utm_source=brevo`, `utm_campaign=<campaign_key>`, `utm_medium=email` en een
 `utm_content` per plek (`heroimage`, `<slug>card`, `nieuweaanvraagcta`). De hard-coded
-dashboard-links in de template gebruiken `herocta`, `primaircta` en `afrondencta`.
+dashboard-links in de template gebruiken `primaircta` en `afrondencta`.
 
 ## Hoe de drie dienstkaarten zijn gekozen
 
@@ -130,20 +130,18 @@ hand gekozen. `default.json` toont klusjesman, schoonmaakbedrijf en schilder met
   Wil je plaats en datum tonen, vervang dan in de Brevo-template `request_meta` door
   contactattributen (`LAST_REQUEST_CITY`, `LAST_REQUEST_DATE`).
 - **Herobeeld en kaartbeelden** zijn de bestaande tips-herobeelden uit de Brevo image gallery.
-  De kaart toont een 4:3-beeld op 96x96 met `object-fit:cover`. Clients zonder `object-fit`
-  (Outlook, Gmail) drukken het beeld dan tot een vierkant. Vierkante uitsnedes uploaden is een
-  mogelijke vervolgstap; `scripts/upload-images-to-brevo.py` kan daarvoor worden hergebruikt.
-- **Herolink** volgt de CTA-regel van de tipsmail: kostenpagina of relevante blog, nooit de
-  service-overzichtspagina. De dienstkaarten en de chip "Nieuwe aanvraag doen" linken wel
-  naar `/nederland/<slug>/`, omdat daar de aanvraagflow start.
+  De kaart toont het 4:3-beeld op 160x120, dus zonder crop of `object-fit`.
+- **Herobeeld en hero-pil** linken sinds 2026-09-11 naar de dienstpagina `/nederland/<slug>/`
+  (voor `default` naar trustoo.nl), net als de dienstkaarten en de chip "Nieuwe aanvraag doen".
+  Alleen de groene CTA en "Aanvraag afronden" gaan naar het dashboard.
 
 ## Nog af te stemmen voor verzending
 
 1. De queryparameter die de modal "vakmensen toevoegen" opent (`open=vakmensen-toevoegen`)
-   is een aanname en staat hard-coded in de template. Afstemmen met development.
+   is een aanname en staat hard-coded in de template (groene CTA). Afstemmen met development.
 2. De werkelijke waarden van `LAST_REQUEST_SERVICE_URL` voor cv-installateur, stoffeerder en
    vertaler (zie boven).
-3. De 96x96-weergave van de kaartbeelden in Outlook en Gmail testen.
+3. De kaartbeelden (4:3 op 160x120, op mobiel volle breedte) in Outlook en Gmail testen.
 4. Feed Studio kent dit mailtype (47 velden). Na wijzigingen aan de template daar opnieuw seeden
    met `npm run seed:github -- --type=reactivation --force-template`.
 
