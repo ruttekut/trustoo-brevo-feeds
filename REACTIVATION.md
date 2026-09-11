@@ -34,7 +34,7 @@ Zelfde stappen als in [`BREVO_SETUP.md`](BREVO_SETUP.md), met deze waarden:
 | Preview text | `{{ feed.reactivation_feed.preheader }}` |
 
 De template gebruikt daarnaast twee contactvariabelen die **niet** in de feed staan:
-`{{ contact.DASHBOARD_LINK_TOKEN }}` (dashboard, modal, aanvraag afronden, voorkeuren) en
+`{{ contact.DASHBOARD_LINK_TOKEN }}` (header, aanvraag afronden, voorkeuren) en
 `{{ unsubscribe }}`.
 
 ## De 47 velden
@@ -133,12 +133,14 @@ hand gekozen. `default.json` toont klusjesman, schoonmaakbedrijf en schilder met
   De kaart toont het 4:3-beeld op 160x120, dus zonder crop of `object-fit`.
 - **Herobeeld en hero-pil** linken sinds 2026-09-11 naar de dienstpagina `/nederland/<slug>/`
   (voor `default` naar trustoo.nl), net als de dienstkaarten en de chip "Nieuwe aanvraag doen".
-  Alleen de groene CTA en "Aanvraag afronden" gaan naar het dashboard.
+  Sinds dezelfde dag gaat ook de groene CTA naar ; alleen "Mijn aanvragen" in de
+  header en "Aanvraag afronden" gaan nog naar het dashboard.
 
 ## Nog af te stemmen voor verzending
 
-1. De queryparameter die de modal "vakmensen toevoegen" opent (`open=vakmensen-toevoegen`)
-   is een aanname en staat hard-coded in de template (groene CTA). Afstemmen met development.
+1. De modal "vakmensen toevoegen" wordt niet meer gebruikt; alle CTA's bovenin gaan naar de
+   dienstpagina. Wil je de modal later terug, dan is  nog een aanname
+   die met development moet worden afgestemd.
 2. De werkelijke waarden van `LAST_REQUEST_SERVICE_URL` voor cv-installateur, stoffeerder en
    vertaler (zie boven).
 3. De kaartbeelden (4:3 op 160x120, op mobiel volle breedte) in Outlook en Gmail testen.
