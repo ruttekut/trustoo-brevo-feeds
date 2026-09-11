@@ -19,7 +19,7 @@
       compacte aanvraagkaart (dienst, meta-regel, statuschip) en meteen de
       groene CTA. Het herobeeld en de hero-pil ("Ontvang nieuwe offertes")
       linken naar de Trustoo-dienstpagina van deze service (hero_link_url);
-      de groene CTA linkt naar dezelfde dienstpagina.
+      de groene CTA ("Aanvraag sluiten") gaat naar het dashboard met de contacttoken.
    2. OOK HANDIG - de drie meest relevante diensten als dienstkaart in de stijl
       van Thumbtack: een groot beeld, een korte tekst en een echte knop per
       kaart. Op desktop staat het beeld links (160x120), op mobiel bovenaan op
@@ -32,10 +32,10 @@
    Brevo-datafeed met alias reactivation_feed (syntaxis: feed.reactivation_feed.veldnaam).
    Zie REACTIVATION.md voor de veldenlijst.
 
-   LINKS: de dashboard-links (header, aanvraag afronden, voorkeuren) dragen de
-   persoonlijke Brevo-token (README par. 3) en zijn hard-coded; campaign_key is
-   daarin de enige variabele, voor de UTM. Herobeeld, hero-pil en groene CTA
-   linken alle drie naar hero_link_url (de Trustoo-dienstpagina). Dienstpagina's
+   LINKS: de dashboard-links (header, groene CTA, aanvraag afronden, voorkeuren)
+   dragen de persoonlijke Brevo-token (README par. 3) en zijn hard-coded;
+   campaign_key is daarin de enige variabele, voor de UTM. Herobeeld en hero-pil
+   linken naar hero_link_url (de Trustoo-dienstpagina). Dienstpagina's
    zijn gewone URL-variabelen met UTM's in de waarde.
 
    BEELDEN: dienstkaartbeelden komen als 4:3 uit de library (1200x900). Op
@@ -184,9 +184,10 @@ a:hover { color:#00754D; }
 </td></tr>
 </table>
 
-<!-- PRIMAIRE CTA - direct onder de aanvraagkaart, naar hero_link_url (dezelfde
-     Trustoo-dienstpagina als het herobeeld en de hero-pil). Green is de actiekleur, label wit (keuze van 09.2026). Eronder
-     een korte geruststelling en de Trustpilot-strip (README par. 4). -->
+<!-- PRIMAIRE CTA ("Aanvraag sluiten") - direct onder de aanvraagkaart, naar het
+     dashboard met de contacttoken. Green is de actiekleur, label wit (keuze van
+     09.2026). Eronder de Trustpilot-strip (README par. 4). Het feedveld cta_note
+     wordt sinds 2026-09-11 niet meer getoond. -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr><td align="center" style="padding:0;">
 <!--[if mso | IE]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td width="600"><![endif]-->
@@ -194,10 +195,9 @@ a:hover { color:#00754D; }
 <tr><td class="pad-s" style="padding:16px 32px 8px;">
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#00BD7C" style="background-color:#00BD7C; border-radius:8px;">
   <tr><td align="center" style="padding:0; mso-padding-alt:16px 24px;">
-    <a class="cta-a" href="{{feed.reactivation_feed.hero_link_url}}" style="display:block; padding:16px 24px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF !important; text-decoration:none; text-align:center;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.cta_label}}&nbsp;&rarr;</span></a>
+    <a class="cta-a" href="https://trustoo.nl/login-portal/demand/?token={{ contact.DASHBOARD_LINK_TOKEN }}&utm_source=brevo&utm_medium=email&utm_campaign={{feed.reactivation_feed.campaign_key}}&utm_content=primaircta" style="display:block; padding:16px 24px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:20px; mso-line-height-rule:exactly; font-weight:700; color:#FFFFFF !important; text-decoration:none; text-align:center;"><span style="color:#FFFFFF;">{{feed.reactivation_feed.cta_label}}&nbsp;&rarr;</span></a>
   </td></tr>
   </table>
-  <div style="padding-top:12px; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:20px; mso-line-height-rule:exactly; color:#6E6A85; text-align:center;">{{feed.reactivation_feed.cta_note}}</div>
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:14px auto 0;"><tr>
     <td valign="middle" style="vertical-align:middle; font-size:0; line-height:0; padding:0;"><a href="https://nl.trustpilot.com/review/trustoo.nl?utm_medium=Trustbox&utm_source=EmailSignature4" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://emailsignature.trustpilot.com/signature/nl-NL/4/606db922ac1c7d00015b0577/text.png" width="63" height="16" border="0" alt="Uitstekend" style="display:block; width:63px; height:16px; max-height:16px; border:0; font-family:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:16px; color:#232852;" /></a></td>
     <td width="4" style="width:4px; font-size:0; line-height:0;">&nbsp;</td>
