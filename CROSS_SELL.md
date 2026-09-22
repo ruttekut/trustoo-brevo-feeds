@@ -5,9 +5,9 @@ consumenten die **kort geleden** een aanvraag deden (NL). De mail laat vier dien
 mensen rond hetzelfde project (verbouwen, verduurzamen, verhuizen, een feest, een woning kopen,
 ...) vaak ook aanvragen. De verzendtiming wordt getest op circa 3, 7 en 14 dagen na de aanvraag.
 
-Status (2026-09-22): feeds, schema, template en generator staan lokaal klaar en zijn
-gevalideerd, maar zijn **niet gepubliceerd**: niet naar GitHub gepusht (dus niet op GitHub Pages)
-en in Feed Studio alleen als concept ingelezen. Er is nog geen Brevo-feed en geen Brevo-template.
+Status (2026-09-22): feeds, schema, template en generator staan op `main` en zijn via GitHub Pages
+bereikbaar; in Feed Studio staan de 91 entries als gepubliceerd. Er is nog **geen** Brevo-feed en
+geen Brevo-template aangemaakt (zie "Brevo instellen").
 
 ## Bestanden
 
@@ -168,9 +168,8 @@ op weg) dat de kop en intro boven de kaarten bepaalt; de hero-copy is per bron g
 
 ## Open punten voor verzending
 
-1. Feeds pushen naar `main` zodra de content is goedgekeurd (nu bewust niet gepubliceerd).
-2. In Brevo de datafeed en de template aanmaken (zie hierboven) en de gegenereerde alias
+1. In Brevo de datafeed en de template aanmaken (zie hierboven) en de gegenereerde alias
    controleren.
-3. Bevestigen welke spelling `LAST_REQUEST_SERVICE_URL` gebruikt voor cv-installateur,
+2. Bevestigen welke spelling `LAST_REQUEST_SERVICE_URL` gebruikt voor cv-installateur,
    stoffeerder en vertaler en de overbodige aliasbestanden verwijderen.
-4. Timingtest inrichten (3 / 7 / 14 dagen) als drie varianten van dezelfde campagne.
+3. Timingtest inrichten (3 / 7 / 14 dagen) als drie varianten van dezelfde campagne.

@@ -116,8 +116,8 @@ Feeds: `feeds/nl/cross-sell/` (91 bestanden, 50 velden, schema
 `cross_sell_feed`. De kaartkeuze staat in
 [`scripts/cross-sell-mapping.json`](scripts/cross-sell-mapping.json), de copy in de generator
 [`scripts/build-cross-sell-feeds.js`](scripts/build-cross-sell-feeds.js). Alles over dit
-mailtype staat in [`CROSS_SELL.md`](CROSS_SELL.md). De cross-sellmail is nog **niet**
-gepubliceerd en nog niet in Brevo ingericht.
+mailtype staat in [`CROSS_SELL.md`](CROSS_SELL.md). De feeds staan live op GitHub Pages; de
+cross-sellmail is nog **niet** in Brevo ingericht.
 
 ## Structuur
 
