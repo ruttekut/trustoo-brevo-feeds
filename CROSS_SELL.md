@@ -54,9 +54,9 @@ onderscheid de varianten via de Brevo-campagnenaam.
 | `campaign_key` | `utm_campaign` voor de hard-coded dashboard-links, `crosssell_<slug>_mail1` (koppeltekens in de slug worden underscores) |
 | `hero_image_url`, `hero_image_alt` | Herobeeld: hetzelfde beeld als de tipsfeed van de bron-dienst |
 | `hero_eyebrow` | Kleine kop in kapitalen: "Na je aanvraag voor een schilder" |
-| `hero_title_pre`, `hero_title_accent`, `hero_title_post` | Herokop, `accent` in oranje. Per bron geschreven, verwijst naar het project |
+| `hero_title_pre`, `hero_title_accent`, `hero_title_post` | Herokop, `accent` in oranje. Per bron geschreven met een prikkel (voordeel of moment: "Voorkom stille weken in je verbouwing"). Regels: tijdloos (geen seizoen of datum) en geen aanname dat de vakman al geboekt is. Gevoelige diensten houden een rustige titel |
 | `hero_subtitle` | "Je zocht onlangs via Trustoo een schilder." + een brug naar het project |
-| `list_heading_pre`, `list_heading_accent`, `list_heading_post` | Kop boven de kaarten, per thema ("Je woning *opfrissen* tot in de details") |
+| `list_heading_pre`, `list_heading_accent`, `list_heading_post` | Kop boven de kaarten, per bron (`heading` in SOURCES, bijvoorbeeld "Stucwerk, elektra en verf in *dezelfde* planning"); ontbreekt hij, dan de themakop |
 | `list_intro` | Intro per thema, eindigt met "Vergelijk beoordelingen en ontvang gratis een prijsindicatie." (zelfde woordkeuze als de site) |
 | `card1_url` .. `card4_url` | `https://trustoo.nl/nederland/<slug>/` met UTM's (`utm_content=<slug>card`, zonder koppeltekens); de dienstpagina waar de offerteaanvraag start |
 | `card1_image_url` .. `card4_image_url`, `*_image_alt` | Herobeeld van de doel-dienst uit de tipsfeed, getoond op 263x150 |
