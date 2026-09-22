@@ -52,7 +52,7 @@ onderscheid de varianten via de Brevo-campagnenaam.
 | `subject_line` | Onderwerpregel (max 80 tekens). Vast patroon, statusneutraal: "Wat mensen naast een schilder vaak ook regelen"; gevoelige diensten hebben een eigen regel (`SUBJECT_OVERRIDE` in de generator) |
 | `preheader` | Preview-tekst (max 160 tekens): de vier kaartnamen + "vraag alvast een gratis prijsindicatie op voor je <project>"; bij welzijn/juridisch "hulp die anderen soms ernaast kiezen, alleen als het bij je past" |
 | `campaign_key` | `utm_campaign` voor de hard-coded dashboard-links, `crosssell_<slug>_mail1` (koppeltekens in de slug worden underscores) |
-| `hero_image_url`, `hero_image_alt` | Herobeeld: hetzelfde beeld als de tipsfeed van de bron-dienst |
+| `hero_image_url`, `hero_image_alt` | Herobeeld: hetzelfde beeld als de tipsfeed van de bron-dienst. Het beeld linkt hard-coded naar de homepage `https://www.trustoo.nl/` (`utm_content=heroimage`, `utm_campaign` uit `campaign_key`) |
 | `hero_eyebrow` | Kleine kop in kapitalen: "Na je aanvraag voor een schilder" |
 | `hero_title_pre`, `hero_title_accent`, `hero_title_post` | Herokop, `accent` in oranje. Per bron geschreven met een prikkel (voordeel of moment: "Voorkom stille weken in je verbouwing"). Regels: tijdloos (geen seizoen of datum) en geen aanname dat de vakman al geboekt is. Gevoelige diensten houden een rustige titel |
 | `hero_subtitle` | "Je zocht onlangs via Trustoo een schilder." + een brug naar het project |
@@ -71,7 +71,7 @@ onderscheid de varianten via de Brevo-campagnenaam.
 
 Alle URL-velden bevatten een absolute `https://`-URL met `utm_source=brevo`,
 `utm_campaign=<campaign_key>`, `utm_medium=email` en een `utm_content` per plek. De hard-coded
-dashboard-links in de template gebruiken `headerlink` en `dashboardchip`.
+dashboard-links in de template gebruiken `headerlink` en `dashboardchip`; het herobeeld gebruikt `heroimage`.
 
 ## Hoe de vier kaarten zijn gekozen
 
