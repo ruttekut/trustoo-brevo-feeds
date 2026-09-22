@@ -40,7 +40,7 @@ Zelfde stappen als in [`BREVO_SETUP.md`](BREVO_SETUP.md), met deze waarden:
 De template gebruikt daarnaast twee contactvariabelen die **niet** in de feed staan:
 `{{ contact.DASHBOARD_LINK_TOKEN }}` (header "Mijn aanvragen", dashboard-chip, e-mailvoorkeuren)
 en `{{ unsubscribe }}`. Voor de timingtest (3 / 7 / 14 dagen) is geen feedwijziging nodig: de
-copy is statusneutraal ("Schilder gevonden? Dit regelen mensen erbij") en noemt geen termijn.
+copy is statusneutraal ("Wat mensen naast een schilder vaak ook regelen") en noemt geen termijn.
 Maak per timingvariant een eigen Brevo-campagne of automation en houd `campaign_key` gelijk, of
 onderscheid de varianten via de Brevo-campagnenaam.
 
@@ -49,8 +49,8 @@ onderscheid de varianten via de Brevo-campagnenaam.
 | Veld | Waar in de mail |
 | --- | --- |
 | `title` | HTML `<title>` |
-| `subject_line` | Onderwerpregel (max 80 tekens) |
-| `preheader` | Preview-tekst (max 160 tekens) en verborgen bovenaan de mail |
+| `subject_line` | Onderwerpregel (max 80 tekens). Vast patroon, statusneutraal: "Wat mensen naast een schilder vaak ook regelen"; gevoelige diensten hebben een eigen regel (`SUBJECT_OVERRIDE` in de generator) |
+| `preheader` | Preview-tekst (max 160 tekens): de vier kaartnamen + "vraag alvast een gratis prijsindicatie op voor je <project>"; bij welzijn/juridisch "hulp die anderen soms ernaast kiezen, alleen als het bij je past" |
 | `campaign_key` | `utm_campaign` voor de hard-coded dashboard-links, `crosssell_<slug>_mail1` (koppeltekens in de slug worden underscores) |
 | `hero_image_url`, `hero_image_alt` | Herobeeld: hetzelfde beeld als de tipsfeed van de bron-dienst |
 | `hero_eyebrow` | Kleine kop in kapitalen: "Na je aanvraag voor een schilder" |
@@ -148,8 +148,9 @@ Opvallende combinaties die **wel** uit de analyse komen en daarom zijn aangehoud
 ## Tone of voice
 
 Dezelfde toon als de reactivatiemail van de beheerder: je-vorm, korte zinnen, statusneutraal
-("Schilder gevonden? Dit regelen mensen erbij" werkt voor wie al iemand heeft én voor wie nog
-zoekt), geen urgentie, geen kortingstaal. De kaartlink stuurt zacht richting een prijsopgave
+(de onderwerpregel vraagt bewust niet naar de status, want dat doen de reactivatie- en
+reviewmails al; "Wat mensen naast een schilder vaak ook regelen" werkt voor wie al iemand heeft én
+voor wie nog zoekt), geen urgentie, geen kortingstaal. De kaartlink stuurt zacht richting een prijsopgave
 ("Ontvang prijsindicatie", zoals op de site) en linkt naar de dienstpagina waar de aanvraag start.
 
 **Gevoelige categorieën** (psycholoog, relatietherapeut, coaching, loopbaancoach, mediator,

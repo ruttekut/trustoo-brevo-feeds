@@ -326,6 +326,62 @@ const CARD_TEXT_MIN = 85;
 const CARD_TEXT_MAX = 110;
 
 // ---------------------------------------------------------------------------
+// Onderwerpregel en preheader worden per feed opgebouwd (sinds 2026-09-22):
+//  - subject: sociale bewijskracht, statusneutraal: "Wat mensen naast een schilder vaak ook regelen"
+//  - preheader: de vier kaartnamen + een zachte prijsindicatie-hint per thema
+//  Gevoelige categorieën krijgen een eigen, voorzichtige onderwerpregel en preheader-staart.
+//  De velden subject/preheader in SOURCES zijn daarmee alleen nog fallback.
+// ---------------------------------------------------------------------------
+const SUBJECT_OVERRIDE = {
+  mediator: 'Hulp die kan aansluiten bij mediation',
+  'mediator-scheiding': 'Wat er rond een scheiding soms nog bij komt',
+  psycholoog: 'Steun in verschillende vormen, als je daar behoefte aan hebt',
+  relatietherapeut: 'Steun die kan aansluiten bij relatietherapie',
+  coaching: 'Begeleiding die kan aansluiten bij coaching',
+  loopbaancoach: 'Wat er bij een loopbaanstap soms nog bij komt',
+  advocaat: 'Wat er naast een advocaat soms nog nodig is',
+  tolk: 'Wat mensen naast een tolk soms ook regelen',
+  'personal-trainer': 'Wat mensen naast een personal trainer vaak ook kiezen',
+  dietist: 'Wat mensen naast een diëtist vaak ook kiezen',
+  uitvaartverzorger: 'Hulp bij wat er rond een afscheid geregeld moet worden',
+  incassobureau: 'Wat ondernemers naast een incassobureau vaak ook regelen',
+  rijschool: 'Wat mensen via Trustoo verder vaak regelen',
+  default: 'Wat mensen vaak ook regelen via Trustoo',
+};
+// Project-woord per thema voor de preheader ("... voor je verbouwing").
+const THEME_PROJECT = {
+  verbouwen: 'verbouwing', opfrissen: 'opfrisbeurt', verduurzamen: 'verduurzaming', buitenkant: 'huis',
+  keukenbadkamer: 'renovatie', verhuizen: 'verhuizing', wonen: 'woning', tuin: 'tuin', feest: 'feest',
+  bruiloft: 'bruiloft', financien: 'financiën', online: 'bedrijf', veilig: 'veiligheid', kantoor: 'werkplek',
+  comfort: 'wooncomfort', onderhoud: 'huis',
+};
+const PREHEADER_SOFT_THEMES = new Set(['welzijn', 'juridisch']);
+const PREHEADER_TAIL_SOFT = 'hulp die anderen soms ernaast kiezen, alleen als het bij je past.';
+const PREHEADER_TAIL_AFSCHEID = 'hulp die kan aansluiten, wanneer je daar klaar voor bent.';
+const PREHEADER_TAIL_GENERIC = 'vraag alvast een gratis prijsindicatie op.';
+
+function joinNames(names) {
+  const lower = names.map((n) => (/^[A-Z]{2,}/.test(n) ? n : n.charAt(0).toLowerCase() + n.slice(1)));
+  return lower.slice(0, -1).join(', ') + ' en ' + lower[lower.length - 1];
+}
+function buildSubject(slug, src) {
+  if (SUBJECT_OVERRIDE[slug]) return SUBJECT_OVERRIDE[slug];
+  return `Wat mensen naast ${src.noun} vaak ook regelen`;
+}
+function buildPreheader(slug, src, cardNames) {
+  const names = joinNames(cardNames);
+  const head = names.charAt(0).toUpperCase() + names.slice(1);
+  let tail;
+  if (src.theme === 'afscheid') tail = PREHEADER_TAIL_AFSCHEID;
+  else if (PREHEADER_SOFT_THEMES.has(src.theme)) tail = PREHEADER_TAIL_SOFT;
+  else if (THEME_PROJECT[src.theme]) tail = `vraag alvast een gratis prijsindicatie op voor je ${THEME_PROJECT[src.theme]}.`;
+  else tail = PREHEADER_TAIL_GENERIC;
+  let out = `${head}: ${tail}`;
+  if (out.length > 160 && tail !== PREHEADER_TAIL_GENERIC && tail !== PREHEADER_TAIL_SOFT && tail !== PREHEADER_TAIL_AFSCHEID) out = `${head}: ${PREHEADER_TAIL_GENERIC}`;
+  return out;
+}
+
+// ---------------------------------------------------------------------------
 // Vaste teksten (gelijk voor alle services).
 // ---------------------------------------------------------------------------
 const HERO_EYEBROW = (noun) => `Na je aanvraag voor ${noun}`;
@@ -355,10 +411,15 @@ function buildFeed(slug, cards, images) {
   const hero = images[slug];
   if (!hero) throw new Error(`${slug}: geen herobeeld gevonden`);
 
+  const cardNames = cards.map((target) => {
+    const t = TARGETS[target];
+    if (!t) throw new Error(`${slug}: geen TARGETS-copy voor ${target}`);
+    return t.name;
+  });
   const feed = {
     title: `Vaak samen met ${src.noun} aangevraagd`,
-    subject_line: src.subject,
-    preheader: src.preheader,
+    subject_line: buildSubject(slug, src),
+    preheader: buildPreheader(slug, src, cardNames),
     campaign_key: campaign,
     hero_image_url: hero.url,
     hero_image_alt: hero.alt,
