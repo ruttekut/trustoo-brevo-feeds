@@ -29,6 +29,7 @@ const SCHEMA_DIR = path.join(ROOT, 'schemas');
 const SCHEMAS = {
   tips: 'email-feed.schema.json',
   reactivation: 'reactivation-feed.schema.json',
+  'cross-sell': 'cross-sell-feed.schema.json',
 };
 
 // Slug: kleine letters, cijfers en losse koppeltekens. Geen hoofdletters,

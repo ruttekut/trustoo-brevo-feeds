@@ -1,0 +1,277 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ruttekut.github.io/trustoo-brevo-feeds/schemas/cross-sell-feed.schema.json",
+  "title": "Trustoo Brevo e-mailfeed (cross-sell)",
+  "description": "Plat JSON-object met exact de 51 templatevelden van cross-sellmail 1 (vier dienstkaarten rond een overkoepelend project). Geen metadata, geen arrays, geen geneste objecten.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "subject_line",
+    "preheader",
+    "campaign_key",
+    "hero_image_url",
+    "hero_image_alt",
+    "hero_eyebrow",
+    "hero_title_pre",
+    "hero_title_accent",
+    "hero_title_post",
+    "hero_subtitle",
+    "list_heading_pre",
+    "list_heading_accent",
+    "list_heading_post",
+    "list_intro",
+    "card1_url",
+    "card1_image_url",
+    "card1_image_alt",
+    "card1_label",
+    "card1_name",
+    "card1_text",
+    "card1_link_label",
+    "card2_url",
+    "card2_image_url",
+    "card2_image_alt",
+    "card2_label",
+    "card2_name",
+    "card2_text",
+    "card2_link_label",
+    "card3_url",
+    "card3_image_url",
+    "card3_image_alt",
+    "card3_label",
+    "card3_name",
+    "card3_text",
+    "card3_link_label",
+    "card4_url",
+    "card4_image_url",
+    "card4_image_alt",
+    "card4_label",
+    "card4_name",
+    "card4_text",
+    "card4_link_label",
+    "skip_note",
+    "closing_heading_pre",
+    "closing_heading_accent",
+    "closing_heading_post",
+    "closing_intro",
+    "all_services_url",
+    "all_services_label",
+    "dashboard_label"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Alleen de HTML <title> van de mail."
+    },
+    "subject_line": {
+      "type": "string",
+      "description": "Onderwerpregel (max 80 tekens). In Brevo in het veld Subject als {{ feed.cross_sell_feed.subject_line }}."
+    },
+    "preheader": {
+      "type": "string",
+      "description": "Preview-tekst (max 160 tekens). In Brevo in het veld Preview text als {{ feed.cross_sell_feed.preheader }}; staat ook verborgen bovenaan de mail."
+    },
+    "campaign_key": {
+      "type": "string",
+      "description": "utm_campaign voor de hard-coded dashboard-links in de template, bijvoorbeeld crosssell_schilder_mail1."
+    },
+    "hero_image_url": {
+      "type": "string",
+      "description": "Herobeeld (Brevo-URL), hetzelfde beeld als de tipsfeed van deze dienst.",
+      "pattern": "^$|^https://[^\\s\"<>`]+$"
+    },
+    "hero_image_alt": {
+      "type": "string",
+      "description": "Alt-tekst van het herobeeld."
+    },
+    "hero_eyebrow": {
+      "type": "string",
+      "description": "Kleine kop boven de herotitel, bijvoorbeeld 'Na je aanvraag voor een schilder'."
+    },
+    "hero_title_pre": {
+      "type": "string",
+      "description": "Herokop, deel voor het oranje accent."
+    },
+    "hero_title_accent": {
+      "type": "string",
+      "description": "Herokop, oranje accentwoord(en)."
+    },
+    "hero_title_post": {
+      "type": "string",
+      "description": "Herokop, deel na het accent (mag leeg zijn)."
+    },
+    "hero_subtitle": {
+      "type": "string",
+      "description": "Zin(nen) onder de herokop: koppelt de aanvraag aan het grotere project."
+    },
+    "list_heading_pre": {
+      "type": "string",
+      "description": "Kop boven de vier kaarten, deel voor het accent."
+    },
+    "list_heading_accent": {
+      "type": "string",
+      "description": "Kop boven de vier kaarten, oranje accent."
+    },
+    "list_heading_post": {
+      "type": "string",
+      "description": "Kop boven de vier kaarten, deel na het accent (mag leeg zijn)."
+    },
+    "list_intro": {
+      "type": "string",
+      "description": "Intro onder die kop."
+    },
+    "card1_url": {
+      "type": "string",
+      "description": "Kaart 1: link (https://trustoo.nl/nederland/<slug>/ met UTM's). Beeld, naam en linktekst linken hierheen.",
+      "pattern": "^$|^https://[^\\s\"<>`]+$"
+    },
+    "card1_image_url": {
+      "type": "string",
+      "description": "Kaart 1: beeld (Brevo-URL), het herobeeld uit de tipsfeed van die dienst, getoond op 263x150.",
+      "pattern": "^$|^https://[^\\s\"<>`]+$"
+    },
+    "card1_image_alt": {
+      "type": "string",
+      "description": "Kaart 1: alt-tekst van het beeld."
+    },
+    "card1_label": {
+      "type": "string",
+      "description": "Kaart 1: eyebrow-label in kapitalen boven de naam, bijvoorbeeld 'Afwerking'."
+    },
+    "card1_name": {
+      "type": "string",
+      "description": "Kaart 1: naam van de dienst (meervoud), bijvoorbeeld 'Stukadoors'."
+    },
+    "card1_text": {
+      "type": "string",
+      "description": "Kaart 1: korte tekst (1-2 zinnen)."
+    },
+    "card1_link_label": {
+      "type": "string",
+      "description": "Kaart 1: linktekst, bijvoorbeeld 'Bekijk stukadoors'. De pijl staat in de template."
+    },
+    "card2_url": {
+      "type": "string",
+      "description": "Kaart 2: link (https://trustoo.nl/nederland/<slug>/ met UTM's). Beeld, naam en linktekst linken hierheen.",
+      "pattern": "^$|^https://[^\\s\"<>`]+$"
+    },
+    "card2_image_url": {
+      "type": "string",
+      "description": "Kaart 2: beeld (Brevo-URL), het herobeeld uit de tipsfeed van die dienst, getoond op 263x150.",
+      "pattern": "^$|^https://[^\\s\"<>`]+$"
+    },
+    "card2_image_alt": {
+      "type": "string",
+      "description": "Kaart 2: alt-tekst van het beeld."
+    },
+    "card2_label": {
+      "type": "string",
+      "description": "Kaart 2: eyebrow-label in kapitalen boven de naam, bijvoorbeeld 'Afwerking'."
+    },
+    "card2_name": {
+      "type": "string",
+      "description": "Kaart 2: naam van de dienst (meervoud), bijvoorbeeld 'Stukadoors'."
+    },
+    "card2_text": {
+      "type": "string",
+      "description": "Kaart 2: korte tekst (1-2 zinnen)."
+    },
+    "card2_link_label": {
+      "type": "string",
+      "description": "Kaart 2: linktekst, bijvoorbeeld 'Bekijk stukadoors'. De pijl staat in de template."
+    },
+    "card3_url": {
+      "type": "string",
+      "description": "Kaart 3: link (https://trustoo.nl/nederland/<slug>/ met UTM's). Beeld, naam en linktekst linken hierheen.",
+      "pattern": "^$|^https://[^\\s\"<>`]+$"
+    },
+    "card3_image_url": {
+      "type": "string",
+      "description": "Kaart 3: beeld (Brevo-URL), het herobeeld uit de tipsfeed van die dienst, getoond op 263x150.",
+      "pattern": "^$|^https://[^\\s\"<>`]+$"
+    },
+    "card3_image_alt": {
+      "type": "string",
+      "description": "Kaart 3: alt-tekst van het beeld."
+    },
+    "card3_label": {
+      "type": "string",
+      "description": "Kaart 3: eyebrow-label in kapitalen boven de naam, bijvoorbeeld 'Afwerking'."
+    },
+    "card3_name": {
+      "type": "string",
+      "description": "Kaart 3: naam van de dienst (meervoud), bijvoorbeeld 'Stukadoors'."
+    },
+    "card3_text": {
+      "type": "string",
+      "description": "Kaart 3: korte tekst (1-2 zinnen)."
+    },
+    "card3_link_label": {
+      "type": "string",
+      "description": "Kaart 3: linktekst, bijvoorbeeld 'Bekijk stukadoors'. De pijl staat in de template."
+    },
+    "card4_url": {
+      "type": "string",
+      "description": "Kaart 4: link (https://trustoo.nl/nederland/<slug>/ met UTM's). Beeld, naam en linktekst linken hierheen.",
+      "pattern": "^$|^https://[^\\s\"<>`]+$"
+    },
+    "card4_image_url": {
+      "type": "string",
+      "description": "Kaart 4: beeld (Brevo-URL), het herobeeld uit de tipsfeed van die dienst, getoond op 263x150.",
+      "pattern": "^$|^https://[^\\s\"<>`]+$"
+    },
+    "card4_image_alt": {
+      "type": "string",
+      "description": "Kaart 4: alt-tekst van het beeld."
+    },
+    "card4_label": {
+      "type": "string",
+      "description": "Kaart 4: eyebrow-label in kapitalen boven de naam, bijvoorbeeld 'Afwerking'."
+    },
+    "card4_name": {
+      "type": "string",
+      "description": "Kaart 4: naam van de dienst (meervoud), bijvoorbeeld 'Stukadoors'."
+    },
+    "card4_text": {
+      "type": "string",
+      "description": "Kaart 4: korte tekst (1-2 zinnen)."
+    },
+    "card4_link_label": {
+      "type": "string",
+      "description": "Kaart 4: linktekst, bijvoorbeeld 'Bekijk stukadoors'. De pijl staat in de template."
+    },
+    "skip_note": {
+      "type": "string",
+      "description": "Grijze regel onder de kaarten: geruststelling dat de mail genegeerd mag worden."
+    },
+    "closing_heading_pre": {
+      "type": "string",
+      "description": "Kop van het navy afsluitblok, deel voor het accent."
+    },
+    "closing_heading_accent": {
+      "type": "string",
+      "description": "Kop van het navy afsluitblok, oranje accent."
+    },
+    "closing_heading_post": {
+      "type": "string",
+      "description": "Kop van het navy afsluitblok, deel na het accent (mag leeg zijn)."
+    },
+    "closing_intro": {
+      "type": "string",
+      "description": "Tekst in het navy afsluitblok."
+    },
+    "all_services_url": {
+      "type": "string",
+      "description": "Linker chip: overzicht van alle diensten (https://trustoo.nl/alle-diensten/ met UTM's).",
+      "pattern": "^$|^https://[^\\s\"<>`]+$"
+    },
+    "all_services_label": {
+      "type": "string",
+      "description": "Tekst van de linker chip."
+    },
+    "dashboard_label": {
+      "type": "string",
+      "description": "Tekst van de rechter chip; de link gaat hard-coded naar het dashboard met de contacttoken."
+    }
+  }
+}

@@ -105,6 +105,20 @@ feeds staan in
 mailtype, inclusief de open punten voor verzending, staat in [`REACTIVATION.md`](REACTIVATION.md).
 De reactivatiemail is nog **niet** in Brevo ingericht.
 
+## Mailtype cross-sell
+
+Sinds 2026-09-22 is er een derde mailtype: **cross-sellmail 1** voor mensen die kort geleden een
+aanvraag deden (timingtest op circa 3, 7 en 14 dagen). De mail toont vier diensten die mensen
+rond hetzelfde project (verbouwen, verduurzamen, verhuizen, een feest, ...) vaak ook aanvragen.
+Feeds: `feeds/nl/cross-sell/` (91 bestanden, 51 velden, schema
+[`schemas/cross-sell-feed.schema.json`](schemas/cross-sell-feed.schema.json)), template
+[`trustoo-cross-sell-template.html`](trustoo-cross-sell-template.html), feedalias
+`cross_sell_feed`. De kaartkeuze staat in
+[`scripts/cross-sell-mapping.json`](scripts/cross-sell-mapping.json), de copy in de generator
+[`scripts/build-cross-sell-feeds.js`](scripts/build-cross-sell-feeds.js). Alles over dit
+mailtype staat in [`CROSS_SELL.md`](CROSS_SELL.md). De cross-sellmail is nog **niet**
+gepubliceerd en nog niet in Brevo ingericht.
+
 ## Structuur
 
 ```text
@@ -117,7 +131,12 @@ feeds/
     │   ├── dakdekker.json
     │   ├── ...               # 87 bestanden in totaal, één per service-slug
     │   └── zonwering.json
-    └── reactivation/         # mailtype reactivatie (47 velden)
+    ├── reactivation/         # mailtype reactivatie (47 velden)
+    │   ├── default.json
+    │   ├── aannemer.json
+    │   ├── ...               # 91 bestanden in totaal
+    │   └── zonwering.json
+    └── cross-sell/           # mailtype cross-sell (51 velden)
         ├── default.json
         ├── aannemer.json
         ├── ...               # 91 bestanden in totaal
@@ -127,7 +146,6 @@ feeds/
 Later eenvoudig uitbreidbaar naar andere mailtypes:
 
 ```text
-feeds/nl/cross-sell/dakdekker.json
 feeds/nl/seasonal/dakdekker.json
 feeds/nl/follow-up/dakdekker.json
 ```

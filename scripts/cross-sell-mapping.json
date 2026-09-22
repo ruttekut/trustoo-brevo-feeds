@@ -1,0 +1,638 @@
+{
+  "_comment": "Cross-sellmail 1 (NL): per LAST_REQUEST_SERVICE_URL (bron) de vier diensten die als kaart worden getoond, in volgorde (kaart 1-4). Kaart 1 en 2 komen uit de interne cross-sellanalyse van 2026-09-22 (hoogste score), kaart 3 en 4 zijn de overige kandidaten op relevantie. Ontbrak een kandidaat, dan is die met de hand aangevuld; welke dat zijn staat onder hand_picked. Alleen slugs, geen interne cijfers. Aliassen krijgen dezelfde feed als hun doel (zie CROSS_SELL.md).",
+  "aliases": {
+    "cv-verwarmings-installateur": "cv-installateur",
+    "stoffeerder": "stoffeerders",
+    "vertaalbureau": "vertaler"
+  },
+  "sources": {
+    "aankoopmakelaar": [
+      "hypotheekadviseur",
+      "taxateur",
+      "bouwkundige-keuring",
+      "notaris"
+    ],
+    "aannemer": [
+      "stukadoor",
+      "loodgieter",
+      "elektricien",
+      "schilder"
+    ],
+    "accountant": [
+      "boekhouder",
+      "belastingadviseur",
+      "financieel-adviseur",
+      "verzekering"
+    ],
+    "advocaat": [
+      "mediator",
+      "mediator-scheiding",
+      "notaris",
+      "belastingadviseur"
+    ],
+    "airco-installateur": [
+      "warmtepomp-installateur",
+      "elektricien",
+      "cv-verwarmings-installateur",
+      "isolatie"
+    ],
+    "alarmsystemen": [
+      "beveiliging",
+      "elektricien",
+      "schoonmaakbedrijf",
+      "kozijnen"
+    ],
+    "architect": [
+      "aannemer",
+      "bouwkundige-keuring",
+      "interieurstylist",
+      "energielabel-adviseur"
+    ],
+    "asbest": [
+      "sloopbedrijf",
+      "aannemer",
+      "bouwkundige-keuring",
+      "timmerman"
+    ],
+    "badkamer-renovatie": [
+      "loodgieter",
+      "elektricien",
+      "tegelzetter",
+      "stukadoor"
+    ],
+    "belastingadviseur": [
+      "boekhouder",
+      "accountant",
+      "financieel-adviseur",
+      "hypotheekadviseur"
+    ],
+    "beveiliging": [
+      "alarmsystemen",
+      "schoonmaakbedrijf",
+      "elektricien",
+      "kozijnen"
+    ],
+    "boekhouder": [
+      "accountant",
+      "belastingadviseur",
+      "financieel-adviseur",
+      "online-marketing"
+    ],
+    "boomverzorging": [
+      "hovenier",
+      "stratenmaker",
+      "klusjesman",
+      "schoorsteenveger"
+    ],
+    "bouwkundige-keuring": [
+      "aankoopmakelaar",
+      "taxateur",
+      "hypotheekadviseur",
+      "energielabel-adviseur"
+    ],
+    "catering": [
+      "dj",
+      "fotograaf",
+      "weddingplanner",
+      "videograaf"
+    ],
+    "coaching": [
+      "psycholoog",
+      "personal-trainer",
+      "dietist",
+      "loopbaancoach"
+    ],
+    "cv-installateur": [
+      "loodgieter",
+      "warmtepomp-installateur",
+      "isolatie",
+      "elektricien"
+    ],
+    "dakdekker": [
+      "aannemer",
+      "dakkapellen",
+      "dakgoot",
+      "gevelrenovatie"
+    ],
+    "dakgoot": [
+      "dakdekker",
+      "gevelreiniging",
+      "schoorsteenveger",
+      "klusjesman"
+    ],
+    "dakkapellen": [
+      "dakdekker",
+      "timmerman",
+      "stukadoor",
+      "schilder"
+    ],
+    "default": [
+      "klusjesman",
+      "schoonmaakbedrijf",
+      "schilder",
+      "elektricien"
+    ],
+    "dietist": [
+      "personal-trainer",
+      "coaching",
+      "psycholoog",
+      "loopbaancoach"
+    ],
+    "dj": [
+      "videograaf",
+      "fotograaf",
+      "catering",
+      "weddingplanner"
+    ],
+    "elektricien": [
+      "loodgieter",
+      "aannemer",
+      "keukenrenovatie",
+      "badkamer-renovatie"
+    ],
+    "energielabel-adviseur": [
+      "isolatie",
+      "bouwkundige-keuring",
+      "warmtepomp-installateur",
+      "zonnepanelen"
+    ],
+    "financieel-adviseur": [
+      "hypotheekadviseur",
+      "verzekering",
+      "accountant",
+      "belastingadviseur"
+    ],
+    "fotograaf": [
+      "videograaf",
+      "dj",
+      "catering",
+      "weddingplanner"
+    ],
+    "gevelreiniging": [
+      "gevelrenovatie",
+      "schilder",
+      "isolatie",
+      "dakdekker"
+    ],
+    "gevelrenovatie": [
+      "schilder",
+      "isolatie",
+      "metselaar",
+      "gevelreiniging"
+    ],
+    "glaszetter": [
+      "kozijnen",
+      "schilder",
+      "zonwering",
+      "isolatie"
+    ],
+    "grafisch-ontwerper": [
+      "online-marketing",
+      "webdesign",
+      "reclamebureau",
+      "tekstschrijver"
+    ],
+    "hekwerk": [
+      "hovenier",
+      "stratenmaker",
+      "metselaar",
+      "schilder"
+    ],
+    "hovenier": [
+      "stratenmaker",
+      "boomverzorging",
+      "klusjesman",
+      "hekwerk"
+    ],
+    "hypotheekadviseur": [
+      "aankoopmakelaar",
+      "taxateur",
+      "notaris",
+      "financieel-adviseur"
+    ],
+    "incassobureau": [
+      "advocaat",
+      "accountant",
+      "boekhouder",
+      "mediator"
+    ],
+    "interieurstylist": [
+      "stoffeerder",
+      "meubelmaker",
+      "schilder",
+      "vloerlegger"
+    ],
+    "isolatie": [
+      "kozijnen",
+      "warmtepomp-installateur",
+      "gevelrenovatie",
+      "energielabel-adviseur"
+    ],
+    "keukenrenovatie": [
+      "loodgieter",
+      "elektricien",
+      "tegelzetter",
+      "vloerlegger"
+    ],
+    "klusjesman": [
+      "schilder",
+      "loodgieter",
+      "elektricien",
+      "meubelmaker"
+    ],
+    "koffieautomaat": [
+      "schoonmaakbedrijf",
+      "catering",
+      "alarmsystemen",
+      "klusjesman"
+    ],
+    "kozijnen": [
+      "isolatie",
+      "glaszetter",
+      "schilder",
+      "zonwering"
+    ],
+    "laadpalen": [
+      "elektricien",
+      "zonnepanelen",
+      "thuisbatterij",
+      "energielabel-adviseur"
+    ],
+    "loodgieter": [
+      "badkamer-renovatie",
+      "elektricien",
+      "cv-verwarmings-installateur",
+      "keukenrenovatie"
+    ],
+    "loopbaancoach": [
+      "psycholoog",
+      "coaching",
+      "personal-trainer",
+      "dietist"
+    ],
+    "makelaar": [
+      "taxateur",
+      "notaris",
+      "hypotheekadviseur",
+      "verhuisbedrijf"
+    ],
+    "mediator": [
+      "advocaat",
+      "psycholoog",
+      "financieel-adviseur",
+      "notaris"
+    ],
+    "mediator-scheiding": [
+      "advocaat",
+      "financieel-adviseur",
+      "psycholoog",
+      "hypotheekadviseur"
+    ],
+    "metselaar": [
+      "aannemer",
+      "timmerman",
+      "stukadoor",
+      "dakdekker"
+    ],
+    "meubelmaker": [
+      "interieurstylist",
+      "stoffeerder",
+      "klusjesman",
+      "verhuisbedrijf"
+    ],
+    "notaris": [
+      "makelaar",
+      "hypotheekadviseur",
+      "advocaat",
+      "verhuisbedrijf"
+    ],
+    "ongediertebestrijder": [
+      "schoonmaakbedrijf",
+      "rioolservice",
+      "bouwkundige-keuring",
+      "klusjesman"
+    ],
+    "online-marketing": [
+      "seo-specialist",
+      "webdesign",
+      "tekstschrijver",
+      "grafisch-ontwerper"
+    ],
+    "opslag": [
+      "verhuisbedrijf",
+      "schoonmaakbedrijf",
+      "klusjesman",
+      "schilder"
+    ],
+    "personal-trainer": [
+      "dietist",
+      "coaching",
+      "psycholoog",
+      "loopbaancoach"
+    ],
+    "psycholoog": [
+      "relatietherapeut",
+      "coaching",
+      "mediator",
+      "dietist"
+    ],
+    "reclamebureau": [
+      "online-marketing",
+      "grafisch-ontwerper",
+      "tekstschrijver",
+      "webdesign"
+    ],
+    "relatietherapeut": [
+      "mediator-scheiding",
+      "psycholoog",
+      "coaching",
+      "financieel-adviseur"
+    ],
+    "rijschool": [
+      "verzekering",
+      "laadpalen",
+      "coaching",
+      "financieel-adviseur"
+    ],
+    "rioolservice": [
+      "loodgieter",
+      "vochtbestrijding",
+      "stratenmaker",
+      "hovenier"
+    ],
+    "schilder": [
+      "stukadoor",
+      "schoonmaakbedrijf",
+      "verhuisbedrijf",
+      "vloerlegger"
+    ],
+    "schoonmaakbedrijf": [
+      "verhuisbedrijf",
+      "ongediertebestrijder",
+      "klusjesman",
+      "schilder"
+    ],
+    "schoorsteenveger": [
+      "dakdekker",
+      "dakgoot",
+      "cv-verwarmings-installateur",
+      "klusjesman"
+    ],
+    "seo-specialist": [
+      "online-marketing",
+      "webdesign",
+      "tekstschrijver",
+      "grafisch-ontwerper"
+    ],
+    "sloopbedrijf": [
+      "aannemer",
+      "asbest",
+      "timmerman",
+      "elektricien"
+    ],
+    "stoffeerders": [
+      "vloerlegger",
+      "interieurstylist",
+      "schoonmaakbedrijf",
+      "meubelmaker"
+    ],
+    "stratenmaker": [
+      "hovenier",
+      "rioolservice",
+      "metselaar",
+      "hekwerk"
+    ],
+    "stukadoor": [
+      "schilder",
+      "aannemer",
+      "elektricien",
+      "vloerlegger"
+    ],
+    "taxateur": [
+      "hypotheekadviseur",
+      "aankoopmakelaar",
+      "notaris",
+      "bouwkundige-keuring"
+    ],
+    "tegelzetter": [
+      "badkamer-renovatie",
+      "loodgieter",
+      "keukenrenovatie",
+      "vloerlegger"
+    ],
+    "tekstschrijver": [
+      "online-marketing",
+      "seo-specialist",
+      "grafisch-ontwerper",
+      "webdesign"
+    ],
+    "thuisbatterij": [
+      "zonnepanelen",
+      "laadpalen",
+      "elektricien",
+      "energielabel-adviseur"
+    ],
+    "timmerman": [
+      "aannemer",
+      "stukadoor",
+      "schilder",
+      "elektricien"
+    ],
+    "tolk": [
+      "vertaler",
+      "advocaat",
+      "notaris",
+      "mediator"
+    ],
+    "traprenovatie": [
+      "vloerlegger",
+      "schilder",
+      "stoffeerder",
+      "interieurstylist"
+    ],
+    "trouwfotograaf": [
+      "videograaf",
+      "dj",
+      "catering",
+      "weddingplanner"
+    ],
+    "uitvaartverzorger": [
+      "catering",
+      "notaris",
+      "schoonmaakbedrijf",
+      "verhuisbedrijf"
+    ],
+    "verhuisbedrijf": [
+      "schoonmaakbedrijf",
+      "opslag",
+      "klusjesman",
+      "notaris"
+    ],
+    "verkoopmakelaar": [
+      "taxateur",
+      "bouwkundige-keuring",
+      "notaris",
+      "verhuisbedrijf"
+    ],
+    "vertaler": [
+      "tekstschrijver",
+      "tolk",
+      "notaris",
+      "advocaat"
+    ],
+    "verzekering": [
+      "hypotheekadviseur",
+      "financieel-adviseur",
+      "accountant",
+      "notaris"
+    ],
+    "videograaf": [
+      "fotograaf",
+      "dj",
+      "catering",
+      "weddingplanner"
+    ],
+    "vloerlegger": [
+      "stukadoor",
+      "schilder",
+      "stoffeerder",
+      "tegelzetter"
+    ],
+    "vochtbestrijding": [
+      "loodgieter",
+      "isolatie",
+      "bouwkundige-keuring",
+      "rioolservice"
+    ],
+    "warmtepomp-installateur": [
+      "isolatie",
+      "cv-verwarmings-installateur",
+      "elektricien",
+      "zonnepanelen"
+    ],
+    "webdesign": [
+      "online-marketing",
+      "seo-specialist",
+      "grafisch-ontwerper",
+      "tekstschrijver"
+    ],
+    "weddingplanner": [
+      "trouwfotograaf",
+      "dj",
+      "catering",
+      "videograaf"
+    ],
+    "zonnepanelen": [
+      "thuisbatterij",
+      "laadpalen",
+      "elektricien",
+      "energielabel-adviseur"
+    ],
+    "zonwering": [
+      "kozijnen",
+      "glaszetter",
+      "hovenier",
+      "schilder"
+    ]
+  },
+  "hand_picked": {
+    "accountant": [
+      "verzekering"
+    ],
+    "alarmsystemen": [
+      "kozijnen"
+    ],
+    "belastingadviseur": [
+      "hypotheekadviseur"
+    ],
+    "beveiliging": [
+      "elektricien",
+      "kozijnen"
+    ],
+    "catering": [
+      "videograaf"
+    ],
+    "coaching": [
+      "loopbaancoach"
+    ],
+    "default": [
+      "klusjesman",
+      "schoonmaakbedrijf",
+      "schilder",
+      "elektricien"
+    ],
+    "dietist": [
+      "loopbaancoach"
+    ],
+    "gevelrenovatie": [
+      "gevelreiniging"
+    ],
+    "incassobureau": [
+      "boekhouder",
+      "mediator"
+    ],
+    "koffieautomaat": [
+      "catering",
+      "alarmsystemen",
+      "klusjesman"
+    ],
+    "loopbaancoach": [
+      "coaching",
+      "personal-trainer",
+      "dietist"
+    ],
+    "makelaar": [
+      "hypotheekadviseur",
+      "verhuisbedrijf"
+    ],
+    "mediator": [
+      "notaris"
+    ],
+    "mediator-scheiding": [
+      "hypotheekadviseur"
+    ],
+    "opslag": [
+      "schilder"
+    ],
+    "personal-trainer": [
+      "psycholoog",
+      "loopbaancoach"
+    ],
+    "rijschool": [
+      "verzekering",
+      "laadpalen",
+      "coaching",
+      "financieel-adviseur"
+    ],
+    "schoonmaakbedrijf": [
+      "schilder"
+    ],
+    "seo-specialist": [
+      "grafisch-ontwerper"
+    ],
+    "stratenmaker": [
+      "hekwerk"
+    ],
+    "tolk": [
+      "notaris",
+      "mediator"
+    ],
+    "uitvaartverzorger": [
+      "schoonmaakbedrijf",
+      "verhuisbedrijf"
+    ],
+    "verkoopmakelaar": [
+      "verhuisbedrijf"
+    ],
+    "vertaler": [
+      "notaris",
+      "advocaat"
+    ],
+    "verzekering": [
+      "notaris"
+    ],
+    "vochtbestrijding": [
+      "rioolservice"
+    ]
+  }
+}
