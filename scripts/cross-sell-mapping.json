@@ -267,8 +267,8 @@
     "loopbaancoach": [
       "psycholoog",
       "coaching",
-      "personal-trainer",
-      "dietist"
+      "boekhouder",
+      "financieel-adviseur"
     ],
     "makelaar": [
       "taxateur",
@@ -350,9 +350,9 @@
     ],
     "rijschool": [
       "verzekering",
-      "laadpalen",
-      "coaching",
-      "financieel-adviseur"
+      "verhuisbedrijf",
+      "schoonmaakbedrijf",
+      "klusjesman"
     ],
     "rioolservice": [
       "loodgieter",
@@ -459,8 +459,8 @@
     "uitvaartverzorger": [
       "catering",
       "notaris",
-      "schoonmaakbedrijf",
-      "verhuisbedrijf"
+      "financieel-adviseur",
+      "schoonmaakbedrijf"
     ],
     "verhuisbedrijf": [
       "schoonmaakbedrijf",
@@ -578,8 +578,8 @@
     ],
     "loopbaancoach": [
       "coaching",
-      "personal-trainer",
-      "dietist"
+      "boekhouder",
+      "financieel-adviseur"
     ],
     "makelaar": [
       "hypotheekadviseur",
@@ -600,9 +600,9 @@
     ],
     "rijschool": [
       "verzekering",
-      "laadpalen",
-      "coaching",
-      "financieel-adviseur"
+      "verhuisbedrijf",
+      "schoonmaakbedrijf",
+      "klusjesman"
     ],
     "schoonmaakbedrijf": [
       "schilder"
@@ -618,8 +618,8 @@
       "mediator"
     ],
     "uitvaartverzorger": [
-      "schoonmaakbedrijf",
-      "verhuisbedrijf"
+      "financieel-adviseur",
+      "schoonmaakbedrijf"
     ],
     "verkoopmakelaar": [
       "verhuisbedrijf"

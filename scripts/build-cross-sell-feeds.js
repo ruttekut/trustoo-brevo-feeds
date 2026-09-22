@@ -42,51 +42,51 @@ function loadImages() {
 const THEMES = {
   verbouwen: {
     heading: ['Maak je', 'verbouwing', 'compleet'],
-    intro: 'Bij een verbouwing komen vaak meerdere vakmensen samen. Deze diensten vroegen anderen via Trustoo vaak aan rond dezelfde klus. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Bij een verbouwing komen vaak meerdere vakmensen samen. Deze diensten vroegen anderen via Trustoo vaak aan rond dezelfde klus. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   opfrissen: {
     heading: ['Je woning', 'opfrissen', 'tot in de details'],
-    intro: 'Een opfrisbeurt stopt zelden bij één klus. Deze vakmensen schakelen mensen vaak in rond hetzelfde project. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Een opfrisbeurt stopt zelden bij één klus. Deze vakmensen schakelen mensen vaak in rond hetzelfde project. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   verduurzamen: {
     heading: ['Verder', 'verduurzamen', 'in één keer'],
-    intro: 'Verduurzamen gaat stap voor stap, en veel stappen versterken elkaar. Deze diensten vroegen anderen vaak aan in dezelfde periode. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Verduurzamen gaat stap voor stap, en veel stappen versterken elkaar. Deze diensten vroegen anderen vaak aan in dezelfde periode. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   buitenkant: {
     heading: ['Je huis', 'buitenom', 'in orde'],
-    intro: 'Dak, gevel en goten hangen samen. Wie het ene aanpakt, laat vaak ook het andere nakijken. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Dak, gevel en goten hangen samen. Wie het ene aanpakt, laat vaak ook het andere nakijken. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   keukenbadkamer: {
     heading: ['Je nieuwe', 'keuken of badkamer', 'helemaal af'],
-    intro: 'Een nieuwe keuken of badkamer vraagt om meer dan één vakman: leidingen, stroom, tegels en afwerking. Deze diensten vroegen anderen vaak samen aan. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Een nieuwe keuken of badkamer vraagt om meer dan één vakman: leidingen, stroom, tegels en afwerking. Deze diensten vroegen anderen vaak samen aan. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   verhuizen: {
     heading: ['Alles voor een', 'soepele verhuizing', ''],
-    intro: 'Een verhuizing is meer dan dozen sjouwen. Deze diensten regelen anderen vaak in dezelfde weken. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Een verhuizing is meer dan dozen sjouwen. Deze diensten regelen anderen vaak in dezelfde weken. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   wonen: {
     heading: ['Je', 'woning', 'goed geregeld'],
-    intro: 'Rond een woning komen vaak meerdere adviseurs langs. Deze diensten vroegen anderen via Trustoo vaak aan rond hetzelfde moment. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Rond een woning komen vaak meerdere adviseurs langs. Deze diensten vroegen anderen via Trustoo vaak aan rond hetzelfde moment. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   tuin: {
     heading: ['Je', 'tuin', 'helemaal af'],
-    intro: 'Een mooie tuin is vaak teamwerk: groen, bestrating en afscheiding. Deze vakmensen schakelen anderen vaak samen in. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Een mooie tuin is vaak teamwerk: groen, bestrating en afscheiding. Deze vakmensen schakelen anderen vaak samen in. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   feest: {
     heading: ['Maak je', 'feest', 'compleet'],
-    intro: 'Een geslaagd feest staat of valt met de juiste mensen. Deze leveranciers boeken anderen vaak samen. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Een geslaagd feest staat of valt met de juiste mensen. Deze leveranciers boeken anderen vaak samen. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   bruiloft: {
     heading: ['Maak jullie', 'bruiloft', 'compleet'],
-    intro: 'Een bruiloft regel je met een klein team van leveranciers. Deze diensten boeken stellen vaak samen. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Een bruiloft regel je met een klein team van leveranciers. Deze diensten boeken stellen vaak samen. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   financien: {
     heading: ['Je', 'financiën', 'op orde'],
-    intro: 'Administratie, belasting en advies hangen samen. Deze specialisten schakelen anderen vaak in dezelfde periode in. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Administratie, belasting en advies hangen samen. Deze specialisten schakelen anderen vaak in dezelfde periode in. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   online: {
     heading: ['Je bedrijf', 'online zichtbaar', 'maken'],
-    intro: 'Een sterke online aanwezigheid bouw je met meerdere specialisten. Deze diensten vroegen anderen vaak samen aan. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Een sterke online aanwezigheid bouw je met meerdere specialisten. Deze diensten vroegen anderen vaak samen aan. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   welzijn: {
     heading: ['Hulp die bij je', 'past', ''],
@@ -102,11 +102,11 @@ const THEMES = {
   },
   onderhoud: {
     heading: ['Je huis', 'gezond en droog', 'houden'],
-    intro: 'Vocht, ongedierte en verstoppingen hebben vaak dezelfde oorzaak. Deze vakmensen schakelen anderen vaak samen in. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Vocht, ongedierte en verstoppingen hebben vaak dezelfde oorzaak. Deze vakmensen schakelen anderen vaak samen in. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   veilig: {
     heading: ['Veilig', 'wonen en werken', ''],
-    intro: 'Veiligheid regel je in lagen: techniek, toezicht en onderhoud. Deze diensten vroegen anderen vaak samen aan. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Veiligheid regel je in lagen: techniek, toezicht en onderhoud. Deze diensten vroegen anderen vaak samen aan. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   afscheid: {
     heading: ['Alles rond het', 'afscheid', 'geregeld'],
@@ -114,19 +114,19 @@ const THEMES = {
   },
   kantoor: {
     heading: ['Je', 'werkplek', 'goed geregeld'],
-    intro: 'Een fijne werkplek is meer dan goede koffie. Deze diensten vragen ondernemers vaak samen aan. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Een fijne werkplek is meer dan goede koffie. Deze diensten vragen ondernemers vaak samen aan. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   comfort: {
     heading: ['Meer', 'wooncomfort', 'het hele jaar'],
-    intro: 'Licht, warmte en isolatie hangen samen. Deze diensten vroegen anderen vaak samen aan. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Licht, warmte en isolatie hangen samen. Deze diensten vroegen anderen vaak samen aan. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   opweg: {
-    heading: ['Goed', 'op weg', ''],
-    intro: 'Een rijbewijs is vaak het begin van meer regelwerk. Deze diensten kunnen daarbij van pas komen. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    heading: ['Vaak', 'aangevraagd', 'via Trustoo'],
+    intro: 'Voor rijlessen kennen we geen vaste combinaties. Dit zijn diensten die mensen via Trustoo veel aanvragen, van verzekeren tot klussen in huis. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
   default: {
     heading: ['Vaak samen', 'aangevraagd', 'via Trustoo'],
-    intro: 'Deze vakmensen schakelen mensen vaak in rond dezelfde klus. Vergelijk beoordelingen en vraag gratis offertes aan.',
+    intro: 'Deze vakmensen schakelen mensen vaak in rond dezelfde klus. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   },
 };
 
@@ -141,7 +141,7 @@ const THEMES = {
 const SOURCES = {
   notaris: { noun: 'een notaris', theme: 'regelen', title: ['Goed', 'vastgelegd', 'en wat er verder bij komt'], bridge: 'Een notaris komt op veel momenten voorbij: bij een woning, een testament, samenwonen, een erfenis of een bedrijf. Afhankelijk van je situatie regelen mensen daar vaak nog iets bij.', subject: 'Notaris geregeld? Dit regelen mensen er vaak bij', preheader: 'Van makelaar en hypotheek tot advocaat of verhuizing: wat er rond een bezoek aan de notaris vaak bij komt.' },
   dj: { noun: 'een DJ', theme: 'feest', title: ['Alles voor een', 'feest', 'om nooit te vergeten'], bridge: 'Met een DJ heb je de sfeer te pakken. Beeld, eten en organisatie maken het feest compleet.', subject: 'DJ gevonden? Zo maak je je feest compleet', preheader: 'Fotograaf, videograaf, catering of weddingplanner: dit regelen anderen vaak naast de DJ.' },
-  uitvaartverzorger: { noun: 'een uitvaartverzorger', theme: 'afscheid', title: ['Steun bij alles wat er', 'geregeld', 'moet worden'], bridge: 'Rond een afscheid komt er in korte tijd veel op je af. Voor de dag zelf en voor wat daarna geregeld moet worden, kun je hulp inschakelen. Neem daar de tijd voor die je nodig hebt.', subject: 'Hulp bij wat er rond een afscheid geregeld moet worden', preheader: 'Catering, notaris, schoonmaak en verhuizing: diensten die kunnen helpen, wanneer je daar klaar voor bent.' },
+  uitvaartverzorger: { noun: 'een uitvaartverzorger', theme: 'afscheid', title: ['Steun bij alles wat er', 'geregeld', 'moet worden'], bridge: 'Rond een afscheid komt er in korte tijd veel op je af. Voor de dag zelf en voor wat daarna geregeld moet worden, kun je hulp inschakelen. Neem daar de tijd voor die je nodig hebt.', subject: 'Hulp bij wat er rond een afscheid geregeld moet worden', preheader: 'Catering, notaris, financieel adviseur en schoonmaak: diensten die kunnen helpen, wanneer je daar klaar voor bent.' },
   boekhouder: { noun: 'een boekhouder', theme: 'financien', title: ['Je', 'administratie', 'en meer op orde'], bridge: 'Een boekhouder is een goede basis. Belasting, jaarcijfers en zichtbaarheid van je bedrijf sluiten daar vaak op aan.', subject: 'Boekhouder gevonden? Dit regelen ondernemers erbij', preheader: 'Accountant, belastingadviseur, financieel adviseur en online marketing: vaak samen aangevraagd.' },
   mediator: { noun: 'een mediator', theme: 'juridisch', title: ['Samen tot een', 'oplossing', 'komen'], bridge: 'Mediation is een stap om er samen uit te komen. Soms helpt het om daarnaast juridisch advies, financieel overzicht of persoonlijke steun te hebben. Alleen als je daar behoefte aan hebt.', subject: 'Na je aanvraag voor een mediator: hulp die kan aansluiten', preheader: 'Advocaat, psycholoog, financieel adviseur of notaris: steun die anderen soms naast mediation kiezen.' },
   makelaar: { noun: 'een makelaar', theme: 'wonen', title: ['Van', 'bezichtiging', 'tot sleutel'], bridge: 'Met een makelaar zet je een grote stap. Taxatie, notaris, hypotheek en verhuizing volgen vaak snel daarna.', subject: 'Makelaar gevonden? Dit komt er vaak nog bij', preheader: 'Taxateur, notaris, hypotheekadviseur en verhuisbedrijf: dit regelen mensen rond een koop of verkoop.' },
@@ -211,7 +211,7 @@ const SOURCES = {
   sloopbedrijf: { noun: 'een sloopbedrijf', theme: 'verbouwen', title: ['Na het slopen:', 'opbouwen', ''], bridge: 'Slopen is de eerste stap van een verbouwing. Asbestcontrole, aannemer en afwerking volgen.', subject: 'Sloopbedrijf gevonden? Dit komt er vaak na', preheader: 'Aannemer, asbestverwijderaar, timmerman en elektricien: vaak samen met sloopwerk aangevraagd.' },
   accountant: { noun: 'een accountant', theme: 'financien', title: ['Je', 'cijfers', 'en meer op orde'], bridge: 'Een accountant is een goede basis. Administratie, belasting, advies en verzekeringen sluiten daarop aan.', subject: 'Accountant gevonden? Dit regelen ondernemers erbij', preheader: 'Boekhouder, belastingadviseur, financieel adviseur en verzekeringsadviseur: vaak samen aangevraagd.' },
   dakgoot: { noun: 'een dakgootspecialist', theme: 'buitenkant', title: ['Je', 'dak en gevel', 'in orde'], bridge: 'Werk aan de goten laat vaak zien wat er verder met dak en gevel speelt.', subject: 'Dakgoot aangepakt? Dit laten anderen nakijken', preheader: 'Dakdekker, gevelreiniging, schoorsteenveger en klusjesman: vaak samen met dakgootwerk aangevraagd.' },
-  loopbaancoach: { noun: 'een loopbaancoach', theme: 'welzijn', title: ['Een nieuwe stap in je', 'werk', 'en leven'], bridge: 'Een loopbaanvraag raakt vaak aan meer: hoe je je voelt, je energie en je gewoontes. Aanvullende begeleiding kan helpen, als je daar behoefte aan hebt.', subject: 'Na je aanvraag voor een loopbaancoach: wat kan aansluiten', preheader: 'Psycholoog, coach, personal trainer of diëtist: begeleiding die anderen soms ernaast kiezen.' },
+  loopbaancoach: { noun: 'een loopbaancoach', theme: 'welzijn', title: ['Een nieuwe stap in je', 'werk', 'en leven'], bridge: 'Een loopbaanvraag raakt vaak aan meer: hoe je je voelt, en soms ook aan de praktische kant van een switch of een eigen bedrijf. Aanvullende hulp kan aansluiten, als je daar behoefte aan hebt.', subject: 'Na je aanvraag voor een loopbaancoach: wat kan aansluiten', preheader: 'Psycholoog, coach, boekhouder of financieel adviseur: hulp die anderen soms bij een loopbaanstap kiezen.' },
   'mediator-scheiding': { noun: 'een scheidingsmediator', theme: 'juridisch', title: ['Rust en', 'overzicht', 'in een moeilijke periode'], bridge: 'Bij een scheiding komen juridische, financiële en persoonlijke vragen samen, en vaak ook de woning. Je hoeft niet alles tegelijk te regelen; deze hulp kan aansluiten wanneer jij eraan toe bent.', subject: 'Na je aanvraag voor een scheidingsmediator: hulp die kan aansluiten', preheader: 'Advocaat, financieel adviseur, psycholoog of hypotheekadviseur: steun die anderen soms ernaast kiezen.' },
   asbest: { noun: 'een asbestverwijderaar', theme: 'verbouwen', title: ['Veilig', 'verbouwen', 'na de sanering'], bridge: 'Na een asbestsanering kan de verbouwing beginnen: slopen, bouwen en keuren.', subject: 'Asbest gesaneerd? Dit komt er vaak na', preheader: 'Sloopbedrijf, aannemer, bouwkundige keuring en timmerman: vaak samen met asbestwerk aangevraagd.' },
   'bouwkundige-keuring': { noun: 'een bouwkundige keuring', theme: 'wonen', title: ['Weten waar je', 'staat', 'en dan doorpakken'], bridge: 'Een keuring hoort vaak bij een koop, maar ook bij onderhoud of verduurzamen. Aankoopmakelaar, taxatie en hypotheek lopen daar vaak gelijk mee op.', subject: 'Bouwkundige keuring geregeld? Dit komt er vaak bij', preheader: 'Aankoopmakelaar, taxateur, hypotheekadviseur en energielabel: vaak samen met een keuring aangevraagd.' },
@@ -225,7 +225,7 @@ const SOURCES = {
   'personal-trainer': { noun: 'een personal trainer', theme: 'welzijn', title: ['Fit worden,', 'lekker', 'in je vel'], bridge: 'Trainen werkt het best samen met goede voeding en aandacht voor hoe je je voelt. Sommige mensen kiezen daar begeleiding bij.', subject: 'Personal trainer gevonden? Dit combineren anderen ermee', preheader: 'Diëtist, coach, psycholoog of loopbaancoach: begeleiding die anderen soms naast trainen kiezen.' },
   dietist: { noun: 'een diëtist', theme: 'welzijn', title: ['Gezond leven,', 'stap', 'voor stap'], bridge: 'Voeding is één kant. Beweging en mentale balans maken het plaatje compleet, in je eigen tempo.', subject: 'Diëtist gevonden? Dit combineren anderen ermee', preheader: 'Personal trainer, coach, psycholoog of loopbaancoach: begeleiding die anderen soms ernaast kiezen.' },
   klusjesman: { noun: 'een klusjesman', theme: 'opfrissen', title: ['Klussen geregeld, en', 'dan', 'de grotere klussen'], bridge: 'Kleine klussen zijn vaak het begin. Voor schilderwerk, leidingen, elektra en maatwerk zoek je een specialist.', subject: 'Klusjesman gevonden? Dit regelen mensen erbij', preheader: 'Schilder, loodgieter, elektricien en meubelmaker: vaak samen met een klusjesman aangevraagd.' },
-  rijschool: { noun: 'een rijschool', theme: 'opweg', title: ['Straks', 'op weg', ''], bridge: 'Rijlessen zijn het begin. Daarna komen verzekeren, laden en verdere plannen.', subject: 'Rijschool gevonden? Dit regelen mensen daarna', preheader: 'Verzekeringsadviseur, laadpaal, coach en financieel adviseur: diensten die van pas kunnen komen.' },
+  rijschool: { noun: 'een rijschool', theme: 'opweg', title: ['Straks', 'op weg', ''], bridge: 'Rijlessen staan meestal op zichzelf. Toch is dit een goed moment om te kijken wat je verder wilt regelen, van een verzekering tot hulp in en om het huis.', subject: 'Rijschool gevonden? Dit regelen mensen ook via Trustoo', preheader: 'Verzekeringsadviseur, verhuisbedrijf, schoonmaakbedrijf en klusjesman: veel aangevraagd via Trustoo.' },
   default: { noun: 'een vakman', theme: 'default', title: ['Vaak samen', 'aangevraagd', 'via Trustoo'], bridge: 'Eén klus brengt vaak een volgende met zich mee. Deze vakmensen schakelen mensen vaak in dezelfde periode in.', subject: 'Wat is de volgende stap voor je huis?', preheader: 'Klusjesman, schoonmaakbedrijf, schilder en elektricien: vaak samen aangevraagd via Trustoo.' },
 };
 
@@ -315,10 +315,10 @@ const TARGETS = {
 };
 
 // ---------------------------------------------------------------------------
-// Linktekst op de kaart: stuurt zacht richting offertes en kosten. Gevoelige
+// Linktekst op de kaart: zelfde woordkeuze als op trustoo.nl ('Ontvang prijsindicatie'). Gevoelige
 // categorieën krijgen een neutralere linktekst.
 // ---------------------------------------------------------------------------
-const CTA_DEFAULT = 'Vergelijk offertes';
+const CTA_DEFAULT = 'Ontvang prijsindicatie';
 const CTA_SOFT = new Set(['psycholoog', 'relatietherapeut', 'coaching', 'loopbaancoach', 'mediator', 'mediator-scheiding', 'advocaat', 'personal-trainer', 'dietist', 'tolk']);
 const CTA_SOFT_LABEL = 'Bekijk mogelijkheden';
 // Kaartteksten houden dezelfde lengte, zodat de 2x2-kaarten gelijk uitlijnen.
@@ -331,7 +331,7 @@ const CARD_TEXT_MAX = 110;
 const HERO_EYEBROW = (noun) => `Na je aanvraag voor ${noun}`;
 const CLOSING = {
   heading: ['Iets anders', 'nodig?', ''],
-  intro: 'Op Trustoo vind je vakmensen voor bijna elke klus in en om het huis, en voor zakelijke en persoonlijke hulp. Vergelijk beoordelingen en vraag gratis offertes aan.',
+  intro: 'Op Trustoo vind je vakmensen voor bijna elke klus in en om het huis, en voor zakelijke en persoonlijke hulp. Vergelijk beoordelingen en ontvang gratis een prijsindicatie.',
   all_services_label: 'Alle diensten bekijken',
   dashboard_label: 'Mijn aanvragen',
 };
