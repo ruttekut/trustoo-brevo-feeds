@@ -13,9 +13,9 @@ en in Feed Studio alleen als concept ingelezen. Er is nog geen Brevo-feed en gee
 
 | Bestand | Inhoud |
 | --- | --- |
-| [`trustoo-cross-sell-template.html`](trustoo-cross-sell-template.html) | De template (hero, kop, 2x2 dienstkaarten, grijze skip-regel, navy afsluitblok met twee chips, footer) met feedsyntaxis `{{feed.cross_sell_feed.<veld>}}`. Bron van waarheid voor de veldnamen. |
-| `feeds/nl/cross-sell/<slug>.json` | 91 feeds (51 velden): 86 services uit de cross-sellanalyse, `rijschool` en `default` (met de hand), en de aliassen `cv-verwarmings-installateur`, `stoffeerder` en `vertaalbureau`. |
-| [`schemas/cross-sell-feed.schema.json`](schemas/cross-sell-feed.schema.json) | JSON Schema met de 51 velden. `npm run validate` controleert alle feeds hiertegen. |
+| [`trustoo-cross-sell-template.html`](trustoo-cross-sell-template.html) | De template (hero, kop, 2x2 dienstkaarten, navy afsluitblok met twee chips, footer) met feedsyntaxis `{{feed.cross_sell_feed.<veld>}}`. Bron van waarheid voor de veldnamen. |
+| `feeds/nl/cross-sell/<slug>.json` | 91 feeds (50 velden): 86 services uit de cross-sellanalyse, `rijschool` en `default` (met de hand), en de aliassen `cv-verwarmings-installateur`, `stoffeerder` en `vertaalbureau`. |
+| [`schemas/cross-sell-feed.schema.json`](schemas/cross-sell-feed.schema.json) | JSON Schema met de 50 velden. `npm run validate` controleert alle feeds hiertegen. |
 | [`scripts/cross-sell-mapping.json`](scripts/cross-sell-mapping.json) | Per bron-slug de vier kaarten (alleen slugs), plus welke kaarten met de hand zijn aangevuld. |
 | [`scripts/build-cross-sell-feeds.js`](scripts/build-cross-sell-feeds.js) | Generator: bevat alle copy (thema's, hero-teksten per bron, kaartteksten per doel) en bouwt de feeds. Beelden komen uit de tips- en reactivatiefeeds. |
 
@@ -44,7 +44,7 @@ copy is statusneutraal ("Schilder gevonden? Dit regelen mensen erbij") en noemt 
 Maak per timingvariant een eigen Brevo-campagne of automation en houd `campaign_key` gelijk, of
 onderscheid de varianten via de Brevo-campagnenaam.
 
-## De 51 velden
+## De 50 velden
 
 | Veld | Waar in de mail |
 | --- | --- |
@@ -58,13 +58,12 @@ onderscheid de varianten via de Brevo-campagnenaam.
 | `hero_subtitle` | "Je zocht onlangs via Trustoo een schilder." + een brug naar het project |
 | `list_heading_pre`, `list_heading_accent`, `list_heading_post` | Kop boven de kaarten, per thema ("Je woning *opfrissen* tot in de details") |
 | `list_intro` | Intro per thema, eindigt met "Vergelijk beoordelingen en vraag gratis offertes aan." |
-| `card1_url` .. `card4_url` | `https://trustoo.nl/nederland/<slug>/` met UTM's (`utm_content=<slug>card`, zonder koppeltekens) |
+| `card1_url` .. `card4_url` | `https://trustoo.nl/nederland/<slug>/` met UTM's (`utm_content=<slug>card`, zonder koppeltekens); de dienstpagina waar de offerteaanvraag start |
 | `card1_image_url` .. `card4_image_url`, `*_image_alt` | Herobeeld van de doel-dienst uit de tipsfeed, getoond op 263x150 |
 | `card1_label` .. `card4_label` | Eyebrow in kapitalen: de categorie van de dienst (Afwerking, Installatie, Energie, Wonen, Financieel, ...) |
 | `card1_name` .. `card4_name` | Dienst in meervoud ("Stukadoors") |
-| `card1_text` .. `card4_text` | 1-2 zinnen per dienst, gelijk voor elke bron |
-| `card1_link_label` .. `card4_link_label` | "Bekijk stukadoors"; de pijl staat in de template |
-| `skip_note` | Grijze regel: de mail mag genegeerd worden |
+| `card1_text` .. `card4_text` | 1-2 zinnen per dienst, gelijk voor elke bron; 85-110 tekens zodat de vier kaarten gelijk uitlijnen (de generator waarschuwt buiten die bandbreedte) |
+| `card1_link_label` .. `card4_link_label` | "Vergelijk offertes" (zachte sturing richting prijsopgave); bij gevoelige diensten "Bekijk mogelijkheden". De pijl staat in de template |
 | `closing_heading_pre`, `closing_heading_accent`, `closing_heading_post` | "Iets anders *nodig?*" |
 | `closing_intro` | Tekst in het navy blok |
 | `all_services_url`, `all_services_label` | Linker chip naar `https://trustoo.nl/alle-diensten/` (200, `utm_content=allediensten`) |
@@ -143,7 +142,19 @@ elektricien).
 
 Dezelfde toon als de reactivatiemail van de beheerder: je-vorm, korte zinnen, statusneutraal
 ("Schilder gevonden? Dit regelen mensen erbij" werkt voor wie al iemand heeft én voor wie nog
-zoekt), geen urgentie, geen kortingstaal. Elke bron hangt aan één van twintig thema's
+zoekt), geen urgentie, geen kortingstaal. De kaartlink stuurt zacht richting een prijsopgave
+("Vergelijk offertes") en linkt naar de dienstpagina waar de aanvraag start.
+
+**Gevoelige categorieën** (psycholoog, relatietherapeut, coaching, loopbaancoach, mediator,
+scheidingsmediator, advocaat, personal trainer, diëtist, tolk, uitvaartverzorger): geen
+"gevonden?"-toon, geen "boeken" of "combineren", wel "hulp die kan aansluiten", "alleen als je
+daar behoefte aan hebt", "in je eigen tempo". Kaartlink "Bekijk mogelijkheden", thema-intro
+eindigt met "neem vrijblijvend contact op" in plaats van "vraag gratis offertes aan".
+
+**Niet te smal framen**: notaris (woning, testament, samenwonen, erfenis, bedrijf) heeft een
+eigen neutraal thema "Wat er vaak bij komt"; hypotheekadviseur, taxateur en bouwkundige keuring
+noemen ook oversluiten, verbouwen en onderhoud; advocaat noemt contract, conflict en familiezaken;
+vertaler en tolk noemen werk en studie naast officiële zaken. Elke bron hangt aan één van twintig thema's
 (verbouwen, opfrissen, verduurzamen, buitenkant, keuken/badkamer, verhuizen, wonen, tuin, feest,
 bruiloft, financiën, online, welzijn, juridisch, onderhoud, veilig, afscheid, kantoor, comfort,
 op weg) dat de kop en intro boven de kaarten bepaalt; de hero-copy is per bron geschreven.

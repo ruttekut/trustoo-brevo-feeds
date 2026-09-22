@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://ruttekut.github.io/trustoo-brevo-feeds/schemas/cross-sell-feed.schema.json",
   "title": "Trustoo Brevo e-mailfeed (cross-sell)",
-  "description": "Plat JSON-object met exact de 51 templatevelden van cross-sellmail 1 (vier dienstkaarten rond een overkoepelend project). Geen metadata, geen arrays, geen geneste objecten.",
+  "description": "Plat JSON-object met exact de 50 templatevelden van cross-sellmail 1 (vier dienstkaarten rond een overkoepelend project). Geen metadata, geen arrays, geen geneste objecten.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -49,7 +49,6 @@
     "card4_name",
     "card4_text",
     "card4_link_label",
-    "skip_note",
     "closing_heading_pre",
     "closing_heading_accent",
     "closing_heading_post",
@@ -239,10 +238,6 @@
     "card4_link_label": {
       "type": "string",
       "description": "Kaart 4: linktekst, bijvoorbeeld 'Bekijk stukadoors'. De pijl staat in de template."
-    },
-    "skip_note": {
-      "type": "string",
-      "description": "Grijze regel onder de kaarten: geruststelling dat de mail genegeerd mag worden."
     },
     "closing_heading_pre": {
       "type": "string",

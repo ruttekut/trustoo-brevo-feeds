@@ -110,7 +110,7 @@ De reactivatiemail is nog **niet** in Brevo ingericht.
 Sinds 2026-09-22 is er een derde mailtype: **cross-sellmail 1** voor mensen die kort geleden een
 aanvraag deden (timingtest op circa 3, 7 en 14 dagen). De mail toont vier diensten die mensen
 rond hetzelfde project (verbouwen, verduurzamen, verhuizen, een feest, ...) vaak ook aanvragen.
-Feeds: `feeds/nl/cross-sell/` (91 bestanden, 51 velden, schema
+Feeds: `feeds/nl/cross-sell/` (91 bestanden, 50 velden, schema
 [`schemas/cross-sell-feed.schema.json`](schemas/cross-sell-feed.schema.json)), template
 [`trustoo-cross-sell-template.html`](trustoo-cross-sell-template.html), feedalias
 `cross_sell_feed`. De kaartkeuze staat in
@@ -136,7 +136,7 @@ feeds/
     │   ├── aannemer.json
     │   ├── ...               # 91 bestanden in totaal
     │   └── zonwering.json
-    └── cross-sell/           # mailtype cross-sell (51 velden)
+    └── cross-sell/           # mailtype cross-sell (50 velden)
         ├── default.json
         ├── aannemer.json
         ├── ...               # 91 bestanden in totaal
