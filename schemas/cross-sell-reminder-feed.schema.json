@@ -1,0 +1,271 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ruttekut.github.io/trustoo-brevo-feeds/schemas/cross-sell-reminder-feed.schema.json",
+  "title": "Trustoo Brevo e-mailfeed (cross-sell reminder)",
+  "description": "Plat JSON-object met de 58 velden van de cross-sell reminder (v3, 06-10-2026): 1 t/m 4 dienstkaarten; bij minder dan 4 kaarten zijn de service2-4-velden leeg en zetten grid_style/stack*_style de blokken uit. Geen arrays of geneste objecten.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "subject_line",
+    "preheader",
+    "hero_image_url",
+    "hero_image_alt",
+    "hero_title_pre",
+    "hero_title_accent",
+    "hero_title_post",
+    "hero_subtitle",
+    "campaign_key",
+    "services_heading_pre",
+    "services_heading_accent",
+    "services_heading_post",
+    "services_intro",
+    "grid_style",
+    "stack_style",
+    "stack2_style",
+    "stack3_style",
+    "service1_name",
+    "service1_label",
+    "service1_text",
+    "service1_price",
+    "service1_url",
+    "service1_link_label",
+    "service1_image_url",
+    "service1_image_alt",
+    "service2_name",
+    "service2_label",
+    "service2_text",
+    "service2_price",
+    "service2_url",
+    "service2_link_label",
+    "service2_image_url",
+    "service2_image_alt",
+    "service3_name",
+    "service3_label",
+    "service3_text",
+    "service3_price",
+    "service3_url",
+    "service3_link_label",
+    "service3_image_url",
+    "service3_image_alt",
+    "service4_name",
+    "service4_label",
+    "service4_text",
+    "service4_price",
+    "service4_url",
+    "service4_link_label",
+    "service4_image_url",
+    "service4_image_alt",
+    "prices_note",
+    "closing_heading_pre",
+    "closing_heading_accent",
+    "closing_heading_post",
+    "closing_intro",
+    "all_services_label",
+    "all_services_url",
+    "dashboard_label"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject_line": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preheader": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hero_image_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hero_image_alt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hero_title_pre": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hero_title_accent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hero_title_post": {
+      "type": "string"
+    },
+    "hero_subtitle": {
+      "type": "string",
+      "minLength": 1
+    },
+    "campaign_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "services_heading_pre": {
+      "type": "string",
+      "minLength": 1
+    },
+    "services_heading_accent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "services_heading_post": {
+      "type": "string"
+    },
+    "services_intro": {
+      "type": "string",
+      "minLength": 1
+    },
+    "grid_style": {
+      "type": "string"
+    },
+    "stack_style": {
+      "type": "string"
+    },
+    "stack2_style": {
+      "type": "string"
+    },
+    "stack3_style": {
+      "type": "string"
+    },
+    "service1_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "service1_label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "service1_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "service1_price": {
+      "type": "string",
+      "minLength": 1
+    },
+    "service1_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "service1_link_label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "service1_image_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "service1_image_alt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "service2_name": {
+      "type": "string"
+    },
+    "service2_label": {
+      "type": "string"
+    },
+    "service2_text": {
+      "type": "string"
+    },
+    "service2_price": {
+      "type": "string"
+    },
+    "service2_url": {
+      "type": "string"
+    },
+    "service2_link_label": {
+      "type": "string"
+    },
+    "service2_image_url": {
+      "type": "string"
+    },
+    "service2_image_alt": {
+      "type": "string"
+    },
+    "service3_name": {
+      "type": "string"
+    },
+    "service3_label": {
+      "type": "string"
+    },
+    "service3_text": {
+      "type": "string"
+    },
+    "service3_price": {
+      "type": "string"
+    },
+    "service3_url": {
+      "type": "string"
+    },
+    "service3_link_label": {
+      "type": "string"
+    },
+    "service3_image_url": {
+      "type": "string"
+    },
+    "service3_image_alt": {
+      "type": "string"
+    },
+    "service4_name": {
+      "type": "string"
+    },
+    "service4_label": {
+      "type": "string"
+    },
+    "service4_text": {
+      "type": "string"
+    },
+    "service4_price": {
+      "type": "string"
+    },
+    "service4_url": {
+      "type": "string"
+    },
+    "service4_link_label": {
+      "type": "string"
+    },
+    "service4_image_url": {
+      "type": "string"
+    },
+    "service4_image_alt": {
+      "type": "string"
+    },
+    "prices_note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "closing_heading_pre": {
+      "type": "string",
+      "minLength": 1
+    },
+    "closing_heading_accent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "closing_heading_post": {
+      "type": "string"
+    },
+    "closing_intro": {
+      "type": "string",
+      "minLength": 1
+    },
+    "all_services_label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "all_services_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dashboard_label": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
