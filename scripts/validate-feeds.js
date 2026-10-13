@@ -33,6 +33,8 @@ const SCHEMAS = {
   reactivation: 'reactivation-feed.schema.json',
   'cross-sell': 'cross-sell-feed.schema.json',
   'cross-sell-reminder': 'cross-sell-reminder-feed.schema.json',
+  // Trustlocal.be (feeds/be-nl/cross-sell-be/): zelfde 50 velden, Brevo-alias cross_sell_feed_be
+  'cross-sell-be': 'cross-sell-feed.schema.json',
 };
 
 // Slug: kleine letters, cijfers en losse koppeltekens. Geen hoofdletters,

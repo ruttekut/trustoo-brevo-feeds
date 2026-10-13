@@ -174,3 +174,17 @@ op weg) dat de kop en intro boven de kaarten bepaalt; de hero-copy is per bron g
 2. Bevestigen welke spelling `LAST_REQUEST_SERVICE_URL` gebruikt voor cv-installateur,
    stoffeerder en vertaler en de overbodige aliasbestanden verwijderen.
 3. Timingtest inrichten (3 / 7 / 14 dagen) als drie varianten van dezelfde campagne.
+
+## Trustlocal.be (België)
+
+Belgische variant van dezelfde mail, met de content uit het tabblad "Cross-sell" van
+`Trustlocal_BE_mail_content.xlsx` (51 services, u-vorm, links naar `trustlocal.be/belgie/<slug>/`).
+
+- Feeds: `feeds/be-nl/cross-sell-be/<slug>.json` (51), zelfde 50-veldenschema als NL.
+- Template: `trustlocal-be-cross-sell-template.html`, alias **`cross_sell_feed_be`**.
+- Brevo-datafeed: URL `https://ruttekut.github.io/trustoo-brevo-feeds/feeds/be-nl/cross-sell-be/{{ contact.LAST_REQUEST_SERVICE_URL }}.json`,
+  naam `Cross sell feed BE` (zodat Brevo de alias `cross_sell_feed_be` maakt). Subject = `{{ feed.cross_sell_feed_be.subject_line }}`,
+  preview text = `{{ feed.cross_sell_feed_be.preheader }}`.
+- Optioneel in de template (Brevo-condities): het herobeeld (reisbureau heeft er geen) en kaarten 3 en 4.
+  Twee kaarten: personal-trainer, reisbureau, relatietherapeut, rijschool. Drie kaarten: coaching, psycholoog, webdesign.
+- `glazenwasser` had geen herobeeld in de sheet en kreeg het NL-beeld `trustoo-nl-tips-hero-glazenwasser.jpg`.
