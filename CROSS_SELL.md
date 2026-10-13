@@ -180,7 +180,7 @@ op weg) dat de kop en intro boven de kaarten bepaalt; de hero-copy is per bron g
 Belgische variant van dezelfde mail, met de content uit het tabblad "Cross-sell" van
 `Trustlocal_BE_mail_content.xlsx` (51 services, u-vorm, links naar `trustlocal.be/belgie/<slug>/`).
 
-- Feeds: `feeds/be-nl/cross-sell-be/<slug>.json` (51), zelfde 50-veldenschema als NL.
+- Feeds: `feeds/be-nl/cross-sell-be/<slug>.json` (50; begrafenisondernemer inactief), zelfde 50-veldenschema als NL.
 - Template: `trustlocal-be-cross-sell-template.html`, alias **`cross_sell_feed_be`**.
 - Brevo-datafeed: URL `https://ruttekut.github.io/trustoo-brevo-feeds/feeds/be-nl/cross-sell-be/{{ contact.LAST_REQUEST_SERVICE_URL }}.json`,
   naam `Cross sell feed BE` (zodat Brevo de alias `cross_sell_feed_be` maakt). Subject = `{{ feed.cross_sell_feed_be.subject_line }}`,
@@ -192,3 +192,28 @@ Belgische variant van dezelfde mail, met de content uit het tabblad "Cross-sell"
   Hetzelfde beeld staat op de glazenwasserkaart van reisbureau (kaart 4) en schoonmaakbedrijf (kaart 3), waar de sheet
   de placeholder `AFBEELDING_GLAZENWASSER_UPLOADEN` had.
 - Bron: `Trustlocal_BE_mail_content__7_ (1).xlsx` (versie 7, 2026-10-13).
+
+## Cross-sell reminder Trustlocal.be (live sinds 2026-10-13)
+
+Belgische variant van de NL-reminder (`feeds/nl/cross-sell-reminder/`, v3 van Daan en Talitha).
+
+- Feeds: `feeds/be-nl/cross-sell-reminder-be/<slug>.json` (50; begrafenisondernemer inactief), 58-veldenschema van de NL-reminder.
+- Template: `trustlocal-be-cross-sell-reminder-template.html`, alias **`cross_sell_reminder_feed_be`**. Gemaakt uit de
+  NL-template met de Trustlocal-kop, -footer en Belgische Trustpilot; het herobeeld linkt naar trustlocal.be en is
+  optioneel (reisbureau).
+- Alle copy staat in `scripts/build-cross-sell-reminder-be.py`. Opnieuw bouwen: `python scripts/build-cross-sell-reminder-be.py && npm run validate`.
+- Kaarten = de vier kaarten van de BE cross-sellmail (zelfde beelden). Kaartteksten: 120 van de 204 komen uit de NL-reminder
+  (zelfde combinatie, omgezet naar u-vorm en Vlaamse termen: elektriciteit, zekeringkast, EPC, pleisteren, chauffagist,
+  traiteur); 84 zijn nieuw geschreven volgens Daans regels (een kaart gaat over de dienst op de kaart, geen grote aannames).
+- Prijzen: uit het prijsblok "Wat kost een ...?" op `trustlocal.be/belgie/<doeldienst>/` (stand 2026-10-13). Beveiliging
+  heeft daar geen eenheid; de pagina noemt een uurtarief, dus "per uur".
+- Onderwerpregel = titel = kop: "Naast [dienst] nog hulp nodig?", max. 40 tekens. Preheader: "Bekijk de gemiddelde kosten
+  van [drie diensten] en vraag gratis een prijsindicatie op."
+
+### Inactieve diensten (BE)
+
+`begrafenisondernemer` krijgt bewust geen cross-sellmail en geen reminder (gevoelig, besluit 2026-10-13). Er staat geen
+feed voor in `cross-sell-be/` en `cross-sell-reminder-be/`, dus Brevo slaat die contacten over. De copy blijft bewaard:
+in Feed Studio staan beide entries op "archived", en in `scripts/build-cross-sell-reminder-be.py` staat de dienst in
+`INACTIVE`. Weer aanzetten: entry in Feed Studio dearchiveren en publiceren (cross-sell) en de dienst uit `INACTIVE`
+halen en opnieuw bouwen (reminder). De BE-tipsmail voor begrafenisondernemers blijft wel actief.
