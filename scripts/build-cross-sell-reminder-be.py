@@ -20,6 +20,9 @@ OUT = os.path.join(ROOT, 'feeds', 'be-nl', 'cross-sell-reminder-be')
 SCHEMA = os.path.join(ROOT, 'schemas', 'cross-sell-reminder-feed.schema.json')
 PAGES = next((a.split('=', 1)[1] for a in sys.argv[1:] if a.startswith('--pages=')), None)
 HIDE = 'display:none; mso-hide:all;'
+# Diensten waarvoor we bewust geen cross-sell mailen (gevoelig). De copy blijft staan; er wordt geen feed
+# geschreven, dus Brevo slaat deze contacten over. Weer aanzetten = uit deze set halen en opnieuw bouwen.
+INACTIVE = {'begrafenisondernemer'}
 
 # Doeldienst -> (naam op de kaart, woord in de preheader)
 TARGETS = {
@@ -379,6 +382,11 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     warnings = []
     for slug, (subj, who, sub, group, closer, cards) in SOURCES.items():
+        if slug in INACTIVE:
+            path = os.path.join(OUT, slug + '.json')
+            if os.path.exists(path):
+                os.remove(path)
+            continue
         x = json.load(open(os.path.join(SRC, slug + '.json'), encoding='utf-8'))
         key = f'crosssell_reminder_{slug}'
         utm = f'utm_source=brevo&utm_campaign={key}&utm_medium=email'
@@ -425,7 +433,7 @@ def main():
         with open(os.path.join(OUT, slug + '.json'), 'w', encoding='utf-8', newline='\n') as fh:
             json.dump({k: f[k] for k in fields}, fh, ensure_ascii=False, indent=2)
             fh.write('\n')
-    print(f'{len(SOURCES)} feeds geschreven naar {os.path.relpath(OUT, ROOT)}')
+    print(f'{len(SOURCES) - len(INACTIVE)} feeds geschreven naar {os.path.relpath(OUT, ROOT)} (inactief: {", ".join(sorted(INACTIVE))})')
     for t, p in sorted(prices.items()):
         print(f'  prijs {t}: {p}')
     for w in warnings:
