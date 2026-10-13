@@ -35,6 +35,8 @@ const SCHEMAS = {
   'cross-sell-reminder': 'cross-sell-reminder-feed.schema.json',
   // Trustlocal.be (feeds/be-nl/cross-sell-be/): zelfde 50 velden, Brevo-alias cross_sell_feed_be
   'cross-sell-be': 'cross-sell-feed.schema.json',
+  // Trustlocal.be (feeds/be-nl/cross-sell-reminder-be/): zelfde 58 velden, Brevo-alias cross_sell_reminder_feed_be
+  'cross-sell-reminder-be': 'cross-sell-reminder-feed.schema.json',
 };
 
 // Slug: kleine letters, cijfers en losse koppeltekens. Geen hoofdletters,
