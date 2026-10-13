@@ -28,6 +28,8 @@ const SCHEMA_DIR = path.join(ROOT, 'schemas');
 // mailtype (mapnaam onder feeds/<taal>/) -> schemabestand
 const SCHEMAS = {
   tips: 'email-feed.schema.json',
+  // Trustlocal.be (feeds/be-nl/tips-be/): zelfde 50 velden, Brevo-alias tip_feed_be
+  'tips-be': 'email-feed.schema.json',
   reactivation: 'reactivation-feed.schema.json',
   'cross-sell': 'cross-sell-feed.schema.json',
   'cross-sell-reminder': 'cross-sell-reminder-feed.schema.json',
