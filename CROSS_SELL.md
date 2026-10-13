@@ -186,5 +186,8 @@ Belgische variant van dezelfde mail, met de content uit het tabblad "Cross-sell"
   naam `Cross sell feed BE` (zodat Brevo de alias `cross_sell_feed_be` maakt). Subject = `{{ feed.cross_sell_feed_be.subject_line }}`,
   preview text = `{{ feed.cross_sell_feed_be.preheader }}`.
 - Optioneel in de template (Brevo-condities): het herobeeld (reisbureau heeft er geen) en kaarten 3 en 4.
-  Twee kaarten: personal-trainer, reisbureau, relatietherapeut, rijschool. Drie kaarten: coaching, psycholoog, webdesign.
+  Sinds versie 7 van de sheet hebben alle 51 services vier kaarten; de condities blijven als vangnet.
 - `glazenwasser` had geen herobeeld in de sheet en kreeg het NL-beeld `trustoo-nl-tips-hero-glazenwasser.jpg`.
+  Hetzelfde beeld staat op de glazenwasserkaart van reisbureau (kaart 4) en schoonmaakbedrijf (kaart 3), waar de sheet
+  de placeholder `AFBEELDING_GLAZENWASSER_UPLOADEN` had.
+- Bron: `Trustlocal_BE_mail_content__7_ (1).xlsx` (versie 7, 2026-10-13).
