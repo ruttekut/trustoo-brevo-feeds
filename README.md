@@ -150,12 +150,19 @@ feeds/nl/seasonal/dakdekker.json
 feeds/nl/follow-up/dakdekker.json
 ```
 
-En naar andere markten (Trustlocal), met een eigen Brevo-feed per taalmap:
+En naar andere markten (Trustlocal), met een eigen Brevo-feed en alias per land:
 
 ```text
-feeds/be/tips/dakdekker.json
-feeds/de/tips/wallbox.json
+feeds/be-nl/tips-be/dakdekker.json        alias tip_feed_be        template trustlocal-be-servicetips-template.html
+feeds/be-nl/cross-sell-be/dakdekker.json  alias cross_sell_feed_be template trustlocal-be-cross-sell-template.html
 ```
+
+Trustlocal.be (live sinds 2026-10-13, 51 services elk): content uit `Trustlocal_BE_mail_content__7_ (1).xlsx`.
+Brevo-feed-URL tips: `https://ruttekut.github.io/trustoo-brevo-feeds/feeds/be-nl/tips-be/{{ contact.LAST_REQUEST_SERVICE_URL }}.json`
+(feednaam `Tip feed BE`, zodat Brevo de alias `tip_feed_be` maakt). In de tipstemplate linkt het herobeeld naar `cta_url`
+en is het optioneel (reisbureau heeft nog geen beeld); tegels 3-6 zijn optioneel. De CTA's van beveiliging en glashandel
+wijzen naar de servicepagina, omdat de blogs uit de sheet (`/opdracht/alarmsystemen/ring-deurbel/`,
+`/opdracht/glaszetter/glas-vervangen/`) op trustlocal.be niet bestaan. Cross-sell: zie `CROSS_SELL.md`.
 
 ## Een nieuwe service toevoegen
 

@@ -185,6 +185,7 @@ Belgische variant van dezelfde mail, met de content uit het tabblad "Cross-sell"
 - Brevo-datafeed: URL `https://ruttekut.github.io/trustoo-brevo-feeds/feeds/be-nl/cross-sell-be/{{ contact.LAST_REQUEST_SERVICE_URL }}.json`,
   naam `Cross sell feed BE` (zodat Brevo de alias `cross_sell_feed_be` maakt). Subject = `{{ feed.cross_sell_feed_be.subject_line }}`,
   preview text = `{{ feed.cross_sell_feed_be.preheader }}`.
+- Het herobeeld linkt naar de homepage van trustlocal.be (utm_content=heroimage), net als in NL; kaartbeelden linken naar de kaart-URL.
 - Optioneel in de template (Brevo-condities): het herobeeld (reisbureau heeft er geen) en kaarten 3 en 4.
   Sinds versie 7 van de sheet hebben alle 51 services vier kaarten; de condities blijven als vangnet.
 - `glazenwasser` had geen herobeeld in de sheet en kreeg het NL-beeld `trustoo-nl-tips-hero-glazenwasser.jpg`.
