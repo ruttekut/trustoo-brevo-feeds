@@ -2,177 +2,182 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://ruttekut.github.io/trustoo-brevo-feeds/schemas/posthire-chosen-feed.schema.json",
   "title": "Trustoo Brevo e-mailfeed (post-hire mail 1a, CHOSEN)",
-  "description": "Plat JSON-object met de 35 velden die trustoo-posthire-chosen-template.html gebruikt (alias posthire_chosen_feed). Kaarten 3-4 en het blok 'Ook populair' worden verborgen via r*_style en popular_style ('display:none; mso-hide:all;'). Geen arrays of geneste objecten.",
+  "description": "Plat JSON-object met de 36 velden die trustoo-posthire-chosen-template.html gebruikt (alias posthire_chosen_feed). Kaarten 3-4 en het blok 'Ook populair' worden verborgen via r*_style en popular_style ('display:none; mso-hide:all;'). Geen arrays of geneste objecten.",
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "title",
+    "subject_line",
+    "preheader",
     "campaign_key",
-    "dienst_naam",
-    "chosen_subject",
-    "chosen_preheader",
-    "chosen_subtitle",
-    "related_intro",
-    "r1_name",
-    "r1_label",
-    "r1_price",
-    "r1_url",
-    "r1_style",
-    "r2_name",
-    "r2_label",
-    "r2_price",
-    "r2_url",
-    "r2_style",
-    "r3_name",
-    "r3_label",
-    "r3_price",
-    "r3_url",
-    "r3_style",
-    "r4_name",
-    "r4_label",
-    "r4_price",
-    "r4_url",
-    "r4_style",
-    "popular1_name",
-    "popular1_url",
-    "popular2_name",
-    "popular2_url",
-    "popular3_name",
-    "popular3_url",
-    "popular4_name",
-    "popular4_url",
-    "popular_style"
+    "hero_title_accent",
+    "hero_subtitle",
+    "services_intro",
+    "service1_name",
+    "service1_label",
+    "service1_price",
+    "service1_url",
+    "service1_style",
+    "service2_name",
+    "service2_label",
+    "service2_price",
+    "service2_url",
+    "service2_style",
+    "service3_name",
+    "service3_label",
+    "service3_price",
+    "service3_url",
+    "service3_style",
+    "service4_name",
+    "service4_label",
+    "service4_price",
+    "service4_url",
+    "service4_style",
+    "tile1_name",
+    "tile1_url",
+    "tile2_name",
+    "tile2_url",
+    "tile3_name",
+    "tile3_url",
+    "tile4_name",
+    "tile4_url",
+    "tiles_style"
   ],
   "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject_line": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preheader": {
+      "type": "string",
+      "minLength": 1
+    },
     "campaign_key": {
       "type": "string",
       "minLength": 1
     },
-    "dienst_naam": {
+    "hero_title_accent": {
       "type": "string",
       "minLength": 1
     },
-    "chosen_subject": {
+    "hero_subtitle": {
       "type": "string",
       "minLength": 1
     },
-    "chosen_preheader": {
+    "services_intro": {
       "type": "string",
       "minLength": 1
     },
-    "chosen_subtitle": {
+    "service1_name": {
       "type": "string",
       "minLength": 1
     },
-    "related_intro": {
+    "service1_label": {
       "type": "string",
       "minLength": 1
     },
-    "r1_name": {
+    "service1_price": {
       "type": "string",
       "minLength": 1
     },
-    "r1_label": {
+    "service1_url": {
       "type": "string",
       "minLength": 1
     },
-    "r1_price": {
-      "type": "string",
-      "minLength": 1
-    },
-    "r1_url": {
-      "type": "string",
-      "minLength": 1
-    },
-    "r1_style": {
+    "service1_style": {
       "type": "string"
     },
-    "r2_name": {
+    "service2_name": {
       "type": "string",
       "minLength": 1
     },
-    "r2_label": {
+    "service2_label": {
       "type": "string",
       "minLength": 1
     },
-    "r2_price": {
+    "service2_price": {
       "type": "string",
       "minLength": 1
     },
-    "r2_url": {
+    "service2_url": {
       "type": "string",
       "minLength": 1
     },
-    "r2_style": {
+    "service2_style": {
       "type": "string"
     },
-    "r3_name": {
+    "service3_name": {
       "type": "string",
       "minLength": 1
     },
-    "r3_label": {
+    "service3_label": {
       "type": "string",
       "minLength": 1
     },
-    "r3_price": {
+    "service3_price": {
       "type": "string",
       "minLength": 1
     },
-    "r3_url": {
+    "service3_url": {
       "type": "string",
       "minLength": 1
     },
-    "r3_style": {
+    "service3_style": {
       "type": "string"
     },
-    "r4_name": {
+    "service4_name": {
       "type": "string"
     },
-    "r4_label": {
+    "service4_label": {
       "type": "string"
     },
-    "r4_price": {
+    "service4_price": {
       "type": "string"
     },
-    "r4_url": {
+    "service4_url": {
       "type": "string",
       "minLength": 1
     },
-    "r4_style": {
+    "service4_style": {
       "type": "string"
     },
-    "popular1_name": {
+    "tile1_name": {
       "type": "string",
       "minLength": 1
     },
-    "popular1_url": {
+    "tile1_url": {
       "type": "string",
       "minLength": 1
     },
-    "popular2_name": {
+    "tile2_name": {
       "type": "string",
       "minLength": 1
     },
-    "popular2_url": {
+    "tile2_url": {
       "type": "string",
       "minLength": 1
     },
-    "popular3_name": {
+    "tile3_name": {
       "type": "string",
       "minLength": 1
     },
-    "popular3_url": {
+    "tile3_url": {
       "type": "string",
       "minLength": 1
     },
-    "popular4_name": {
+    "tile4_name": {
       "type": "string",
       "minLength": 1
     },
-    "popular4_url": {
+    "tile4_url": {
       "type": "string",
       "minLength": 1
     },
-    "popular_style": {
+    "tiles_style": {
       "type": "string"
     }
   }
