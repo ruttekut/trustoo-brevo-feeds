@@ -1,0 +1,179 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ruttekut.github.io/trustoo-brevo-feeds/schemas/posthire-done-feed.schema.json",
+  "title": "Trustoo Brevo e-mailfeed (post-hire mail 1b, DONE)",
+  "description": "Plat JSON-object met de 36 velden die trustoo-posthire-done-template.html gebruikt (alias posthire_done_feed). Kaarten 3-4 en het blok 'Ook populair' worden verborgen via r*_style en popular_style ('display:none; mso-hide:all;'). Geen arrays of geneste objecten.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "campaign_key",
+    "hero_image_url",
+    "hero_image_alt",
+    "done_subject",
+    "done_preheader",
+    "done_subtitle",
+    "related_intro",
+    "r1_name",
+    "r1_label",
+    "r1_price",
+    "r1_url",
+    "r1_style",
+    "r2_name",
+    "r2_label",
+    "r2_price",
+    "r2_url",
+    "r2_style",
+    "r3_name",
+    "r3_label",
+    "r3_price",
+    "r3_url",
+    "r3_style",
+    "r4_name",
+    "r4_label",
+    "r4_price",
+    "r4_url",
+    "r4_style",
+    "popular1_name",
+    "popular1_url",
+    "popular2_name",
+    "popular2_url",
+    "popular3_name",
+    "popular3_url",
+    "popular4_name",
+    "popular4_url",
+    "popular_style"
+  ],
+  "properties": {
+    "campaign_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hero_image_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hero_image_alt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "done_subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "done_preheader": {
+      "type": "string",
+      "minLength": 1
+    },
+    "done_subtitle": {
+      "type": "string",
+      "minLength": 1
+    },
+    "related_intro": {
+      "type": "string",
+      "minLength": 1
+    },
+    "r1_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "r1_label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "r1_price": {
+      "type": "string",
+      "minLength": 1
+    },
+    "r1_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "r1_style": {
+      "type": "string"
+    },
+    "r2_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "r2_label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "r2_price": {
+      "type": "string",
+      "minLength": 1
+    },
+    "r2_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "r2_style": {
+      "type": "string"
+    },
+    "r3_name": {
+      "type": "string"
+    },
+    "r3_label": {
+      "type": "string"
+    },
+    "r3_price": {
+      "type": "string"
+    },
+    "r3_url": {
+      "type": "string"
+    },
+    "r3_style": {
+      "type": "string"
+    },
+    "r4_name": {
+      "type": "string"
+    },
+    "r4_label": {
+      "type": "string"
+    },
+    "r4_price": {
+      "type": "string"
+    },
+    "r4_url": {
+      "type": "string"
+    },
+    "r4_style": {
+      "type": "string"
+    },
+    "popular1_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "popular1_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "popular2_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "popular2_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "popular3_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "popular3_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "popular4_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "popular4_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "popular_style": {
+      "type": "string"
+    }
+  }
+}
