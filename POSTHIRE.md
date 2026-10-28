@@ -28,3 +28,40 @@ Opnieuw importeren uit een nieuw pakket:
 node scripts/import-posthire.js "<uitgepakte map met feed/ en templates/>"
 npm run validate
 ```
+
+## Gecombineerde feed (test: trigger op het aanvraag-object)
+
+Een gepersonaliseerde feed-URL in Brevo kan alleen een **contactkenmerk** bevatten. Een contact kan meerdere
+aanvragen (objecten) hebben, dus voor de post-hire flow willen we de dienst van het **object** dat de
+automation start. Daarvoor staat per mail één globale feed met alle diensten klaar:
+
+| Mail | Bestand | Voorgestelde alias | Diensten | Grootte |
+|---|---|---|---|---|
+| 1a | `combined/nl/posthire-chosen.json` | `posthire_chosen_all` | 83 | ~194 KB |
+| 1b | `combined/nl/posthire-done.json` | `posthire_done_all` | 87 | ~213 KB |
+
+Vorm: `{ "services": [ { "slug": "aannemer", "subject_line": "…", … }, … ] }`, met dezelfde velden als de feeds
+per dienst plus `slug`. Opnieuw bouwen na elke wijziging in `feeds/nl/posthire-*`:
+`node scripts/build-combined-feeds.js`. Let op: Feed Studio bouwt deze bestanden (nog) niet bij het publiceren.
+
+Test in Brevo (object-based automation, e-mail in de automation zelf):
+
+```
+{% for s in feed.posthire_chosen_all.services %}{% if s.slug == OBJECT_DIENST %}
+  <h1>{{ s.subject_line }}</h1>
+  <p>{{ s.hero_subtitle }}</p>
+  <p>{{ s.service1_name }} · {{ s.service1_price }}</p>
+{% endif %}{% endfor %}
+```
+
+Vervang `OBJECT_DIENST` door de objectvariabele met de dienst van de aanvraag (invoegen via de variabelenknop in
+de editor; de exacte syntax hangt af van de objectnaam). Te controleren:
+
+1. Werkt de objectvariabele in een `if`-vergelijking, en bevat het object de kale slug (`schilder`) of een URL?
+2. Werkt het in een eigen HTML-template, of alleen in de drag-and-drop-editor?
+3. Accepteert Brevo een feed van ~200 KB?
+4. Kunnen onderwerp en preview-tekst dezelfde loop gebruiken?
+5. Zonder per-dienstfeed slaat Brevo de 4 gevoelige diensten niet meer automatisch over bij 1a: dat moet
+   een voorwaarde in de automation worden.
+
+Werkt dit, dan zetten we de twee templates om naar deze vorm (`feed.posthire_chosen_feed.x` -> `s.x` binnen de loop).
