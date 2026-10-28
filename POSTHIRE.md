@@ -40,24 +40,26 @@ automation start. Daarvoor staat per mail één globale feed met alle diensten k
 | 1a | `combined/nl/posthire-chosen.json` | `posthire_chosen_all` | 83 | ~194 KB |
 | 1b | `combined/nl/posthire-done.json` | `posthire_done_all` | 87 | ~213 KB |
 
-Vorm: `{ "services": [ { "slug": "aannemer", "subject_line": "…", … }, … ] }`, met dezelfde velden als de feeds
-per dienst plus `slug`. Opnieuw bouwen na elke wijziging in `feeds/nl/posthire-*`:
+Vorm: `{ "services": [ { "slug": "aannemer", "service_name": "Aannemers", "subject_line": "…", … }, … ] }`, met dezelfde
+velden als de feeds per dienst plus `slug` en `service_name`. `service_name` is de naam zoals in het veld
+"Service name" op het aanvraag-object (= `dim_services.name`, NL); de koppeling staat in `scripts/service-names-nl.json`. Opnieuw bouwen na elke wijziging in `feeds/nl/posthire-*`:
 `node scripts/build-combined-feeds.js`. Let op: Feed Studio bouwt deze bestanden (nog) niet bij het publiceren.
 
 Test in Brevo (object-based automation, e-mail in de automation zelf):
 
 ```
-{% for s in feed.posthire_chosen_all.services %}{% if s.slug == OBJECT_DIENST %}
+{% for s in feed.posthire_chosen_all.services %}{% if s.service_name == OBJECT_DIENST %}
   <h1>{{ s.subject_line }}</h1>
   <p>{{ s.hero_subtitle }}</p>
   <p>{{ s.service1_name }} · {{ s.service1_price }}</p>
 {% endif %}{% endfor %}
 ```
 
-Vervang `OBJECT_DIENST` door de objectvariabele met de dienst van de aanvraag (invoegen via de variabelenknop in
-de editor; de exacte syntax hangt af van de objectnaam). Te controleren:
+Vervang `OBJECT_DIENST` door de objectvariabele **Service name** (invoegen via de variabelenknop in de editor).
+Volledige testtemplates: `node scripts/build-combined-templates.js --test` ->
+`trustoo-posthire-{chosen,done}-combined-template.html` (met een gele balk die de waarde van het object toont). Te controleren:
 
-1. Werkt de objectvariabele in een `if`-vergelijking, en bevat het object de kale slug (`schilder`) of een URL?
+1. Werkt de objectvariabele in een `if`-vergelijking (hoofdlettergevoelig: "Dakdekkers")?
 2. Werkt het in een eigen HTML-template, of alleen in de drag-and-drop-editor?
 3. Accepteert Brevo een feed van ~200 KB?
 4. Kunnen onderwerp en preview-tekst dezelfde loop gebruiken?
