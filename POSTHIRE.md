@@ -29,41 +29,25 @@ node scripts/import-posthire.js "<uitgepakte map met feed/ en templates/>"
 npm run validate
 ```
 
-## Gecombineerde feed (test: trigger op het aanvraag-object)
+## Gecombineerde feed (object-based automation)
 
-Een gepersonaliseerde feed-URL in Brevo kan alleen een **contactkenmerk** bevatten. Een contact kan meerdere
-aanvragen (objecten) hebben, dus voor de post-hire flow willen we de dienst van het **object** dat de
-automation start. Daarvoor staat per mail één globale feed met alle diensten klaar:
-
-| Mail | Bestand | Voorgestelde alias | Diensten | Grootte |
-|---|---|---|---|---|
-| 1a | `combined/nl/posthire-chosen.json` | `posthire_chosen_all` | 83 | ~194 KB |
-| 1b | `combined/nl/posthire-done.json` | `posthire_done_all` | 87 | ~213 KB |
-
-Vorm: `{ "services": [ { "slug": "aannemer", "service_name": "Aannemers", "subject_line": "…", … }, … ] }`, met dezelfde
-velden als de feeds per dienst plus `slug` en `service_name`. `service_name` is de naam zoals in het veld
-"Service name" op het aanvraag-object (= `dim_services.name`, NL); de koppeling staat in `scripts/service-names-nl.json`. Opnieuw bouwen na elke wijziging in `feeds/nl/posthire-*`:
-`node scripts/build-combined-feeds.js`. Let op: Feed Studio bouwt deze bestanden (nog) niet bij het publiceren.
-
-Test in Brevo (object-based automation, e-mail in de automation zelf):
+Een gepersonaliseerde feed-URL in Brevo kan alleen een **contactkenmerk** bevatten, maar een contact kan meerdere
+aanvragen (objecten) hebben. Daarom gebruikt de post-hire flow de **gecombineerde feed**: Feed Studio schrijft bij
+elke publicatie naast de bestanden per dienst ook één bestand per mailtype, in dezelfde landmap:
 
 ```
-{% for s in feed.posthire_chosen_all.services %}{% if s.service_name == OBJECT_DIENST %}
-  <h1>{{ s.subject_line }}</h1>
-  <p>{{ s.hero_subtitle }}</p>
-  <p>{{ s.service1_name }} · {{ s.service1_price }}</p>
-{% endif %}{% endfor %}
+feeds/nl/posthire-chosen/<slug>.json   per dienst (contactkenmerk)
+feeds/nl/posthire-chosen.json          gecombineerd: { "services": [ { "slug", "service_name", ...velden } ] }
 ```
 
-Vervang `OBJECT_DIENST` door de objectvariabele **Service name** (invoegen via de variabelenknop in de editor).
-Volledige testtemplates: `node scripts/build-combined-templates.js --test` ->
-`trustoo-posthire-{chosen,done}-combined-template.html` (met een gele balk die de waarde van het object toont). Te controleren:
-
-1. Werkt de objectvariabele in een `if`-vergelijking (hoofdlettergevoelig: "Dakdekkers")?
-2. Werkt het in een eigen HTML-template, of alleen in de drag-and-drop-editor?
-3. Accepteert Brevo een feed van ~200 KB?
-4. Kunnen onderwerp en preview-tekst dezelfde loop gebruiken?
-5. Zonder per-dienstfeed slaat Brevo de 4 gevoelige diensten niet meer automatisch over bij 1a: dat moet
-   een voorwaarde in de automation worden.
-
-Werkt dit, dan zetten we de twee templates om naar deze vorm (`feed.posthire_chosen_feed.x` -> `s.x` binnen de loop).
+- Beide komen uit dezelfde gepubliceerde content en gaan in één commit live; de validator controleert dat elk
+  item gelijk is aan het losse bestand.
+- `service_name` is de naam zoals "Service name" op het aanvraag-object in Brevo ("Dakdekkers"). Die staat per
+  dienst in Feed Studio (Services → Brevo service name).
+- Brevo: maak een **global** data feed op `https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/posthire-chosen.json`
+  (alias `post_hire_chosen`). Het object is beschikbaar als `feed.request.attributes.<veld>`.
+- Template: Feed Studio → mailtype → tab "Brevo (combined)" → "Download combined template". De hele mail staat
+  in `{% for s in feed.post_hire_chosen.services %}{% if s.service_name == feed.request.attributes.service_name %}`
+  en elk veld is `{{ s.<veld> }}`.
+- Zonder per-dienstfeed slaat Brevo diensten zonder content niet meer vanzelf over: de mail is dan leeg. De 4
+  gevoelige diensten (1a) moeten daarom met een voorwaarde in de automation worden uitgesloten.

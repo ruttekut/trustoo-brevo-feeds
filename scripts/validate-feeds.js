@@ -14,6 +14,10 @@
  *  6. niet-lege URL-velden (naam eindigt op _url) beginnen met https://
  *  7. bestandsnaam is een veilige canonical slug
  *
+ * Gecombineerde feeds (feeds/<taal>/<mailtype>.json, geschreven door Feed Studio) bevatten
+ * { "services": [ { slug, service_name, ...velden } ] }: elk item moet aan hetzelfde schema voldoen
+ * en gelijk zijn aan feeds/<taal>/<mailtype>/<slug>.json als dat bestand bestaat.
+ *
  * Exitcode 1 bij fouten, 0 als alles geldig is.
  * Gebruikt uitsluitend ingebouwde Node.js-modules.
  */
@@ -100,7 +104,14 @@ function mailTypeOf(file) {
   return parts.length === 4 ? parts[2] : null;
 }
 
+// feeds/<taal>/<mailtype>.json (gecombineerde feed) -> mailtype
+function combinedMailTypeOf(file) {
+  const parts = rel(file).split('/');
+  return parts.length === 3 ? path.basename(parts[2], '.json') : null;
+}
+
 function validateFile(file, schemas) {
+  if (combinedMailTypeOf(file)) return validateCombinedFile(file, schemas);
   const errors = [];
   const name = rel(file);
   const base = path.basename(file, '.json');
@@ -113,8 +124,6 @@ function validateFile(file, schemas) {
     );
     return errors;
   }
-  const { requiredFields, allowedFields, urlFields } = schema;
-
   // 7. Bestandsnaam moet een veilige canonical slug zijn.
   if (path.basename(file) !== `${base}.json`) {
     errors.push(`${name}: bestandsnaam moet exact op '.json' eindigen (kleine letters).`);
@@ -144,6 +153,57 @@ function validateFile(file, schemas) {
     return errors;
   }
 
+  errors.push(...validateObject(name, data, schema, mailType));
+  return errors;
+}
+
+function validateCombinedFile(file, schemas) {
+  const errors = [];
+  const name = rel(file);
+  const mailType = combinedMailTypeOf(file);
+  const schema = schemas[mailType];
+  if (!schema) {
+    errors.push(`${name}: gecombineerde feed van een onbekend mailtype '${mailType}' (bekend: ${Object.keys(SCHEMAS).join(', ')}).`);
+    return errors;
+  }
+  let data;
+  try {
+    data = JSON.parse(fs.readFileSync(file, 'utf8'));
+  } catch (err) {
+    errors.push(`${name}: ongeldige JSON: ${err.message}`);
+    return errors;
+  }
+  if (data === null || typeof data !== 'object' || Array.isArray(data) || Object.keys(data).join() !== 'services' || !Array.isArray(data.services)) {
+    errors.push(`${name}: een gecombineerde feed is precies { "services": [ ... ] }.`);
+    return errors;
+  }
+  const seen = new Set();
+  data.services.forEach((item, idx) => {
+    const label = `${name} [${idx}]`;
+    if (item === null || typeof item !== 'object' || Array.isArray(item)) {
+      errors.push(`${label}: item moet een object zijn.`);
+      return;
+    }
+    const { slug, service_name: serviceName, ...feed } = item;
+    if (typeof slug !== 'string' || !SLUG_RE.test(slug)) errors.push(`${label}: 'slug' ontbreekt of is geen canonical slug.`);
+    else if (seen.has(slug)) errors.push(`${label}: slug '${slug}' komt dubbel voor.`);
+    else seen.add(slug);
+    if (typeof serviceName !== 'string') errors.push(`${label}: 'service_name' moet een string zijn.`);
+    errors.push(...validateObject(`${label} (${slug})`, feed, schema, mailType));
+    // Zelfde inhoud als het losse bestand, zodat de twee nooit uit elkaar lopen.
+    const single = path.join(path.dirname(file), mailType, `${slug}.json`);
+    if (typeof slug === 'string' && fs.existsSync(single)) {
+      const expected = JSON.parse(fs.readFileSync(single, 'utf8'));
+      if (JSON.stringify(expected) !== JSON.stringify(feed)) errors.push(`${label}: wijkt af van ${rel(single)}.`);
+    }
+  });
+  return errors;
+}
+
+// Controles 3-6 voor één feedobject (los bestand of item uit een gecombineerde feed).
+function validateObject(name, data, schema, mailType) {
+  const errors = [];
+  const { requiredFields, allowedFields, urlFields } = schema;
   const keys = Object.keys(data);
 
   // 3. Alle verplichte velden aanwezig.
@@ -221,7 +281,12 @@ function main() {
   }
 
   const counts = {};
+  let combinedCount = 0;
   for (const file of files) {
+    if (combinedMailTypeOf(file)) {
+      combinedCount++;
+      continue;
+    }
     const t = mailTypeOf(file);
     counts[t] = (counts[t] || 0) + 1;
   }
@@ -229,6 +294,7 @@ function main() {
   for (const [t, n] of Object.entries(counts)) {
     console.log(`  - ${t}: ${n} feed(s), ${schemas[t].requiredFields.length} velden per feed (${schemas[t].file})`);
   }
+  if (combinedCount > 0) console.log(`  - gecombineerde feeds: ${combinedCount}`);
   process.exit(0);
 }
 
