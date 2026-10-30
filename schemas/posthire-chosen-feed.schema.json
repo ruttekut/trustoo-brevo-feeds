@@ -1,17 +1,20 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://ruttekut.github.io/trustoo-brevo-feeds/schemas/posthire-chosen-feed.schema.json",
-  "title": "Trustoo Brevo e-mailfeed (post-hire mail 1a, CHOSEN)",
-  "description": "Plat JSON-object met de 36 velden die trustoo-posthire-chosen-template.html gebruikt (alias posthire_chosen_feed). Kaarten 3-4 en het blok 'Ook populair' worden verborgen via r*_style en popular_style ('display:none; mso-hide:all;'). Geen arrays of geneste objecten.",
+  "title": "Trustoo Brevo e-mailfeed (post-hire mail 1, CHOSEN en DONE)",
+  "description": "Plat JSON-object met de 39 velden die trustoo-posthire-chosen-template.html gebruikt (alias posthire_chosen_feed); done_* zijn de teksten bij status DONE. Kaarten 3-4 en het blok 'Ook populair' worden verborgen via service*_style en tiles_style ('display:none; mso-hide:all;'). Geen arrays of geneste objecten.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "title",
     "subject_line",
+    "done_subject_line",
     "preheader",
+    "done_preheader",
     "campaign_key",
     "hero_title_accent",
     "hero_subtitle",
+    "done_hero_subtitle",
     "services_intro",
     "service1_name",
     "service1_label",
@@ -52,7 +55,15 @@
       "type": "string",
       "minLength": 1
     },
+    "done_subject_line": {
+      "type": "string",
+      "minLength": 1
+    },
     "preheader": {
+      "type": "string",
+      "minLength": 1
+    },
+    "done_preheader": {
       "type": "string",
       "minLength": 1
     },
@@ -65,6 +76,10 @@
       "minLength": 1
     },
     "hero_subtitle": {
+      "type": "string",
+      "minLength": 1
+    },
+    "done_hero_subtitle": {
       "type": "string",
       "minLength": 1
     },
@@ -139,8 +154,7 @@
       "type": "string"
     },
     "service4_url": {
-      "type": "string",
-      "minLength": 1
+      "type": "string"
     },
     "service4_style": {
       "type": "string"

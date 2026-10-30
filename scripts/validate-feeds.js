@@ -41,9 +41,8 @@ const SCHEMAS = {
   'cross-sell-be': 'cross-sell-feed.schema.json',
   // Trustlocal.be (feeds/be-nl/cross-sell-reminder-be/): zelfde 58 velden, Brevo-alias cross_sell_reminder_feed_be
   'cross-sell-reminder-be': 'cross-sell-reminder-feed.schema.json',
-  // Post-hire flow: mail 1a (CHOSEN) en 1b (DONE), aliassen posthire_chosen_feed en posthire_done_feed
+  // Post-hire flow mail 1 (CHOSEN en DONE, done_*-teksten), alias posthire_chosen_feed
   'posthire-chosen': 'posthire-chosen-feed.schema.json',
-  'posthire-done': 'posthire-done-feed.schema.json',
 };
 
 // Slug: kleine letters, cijfers en losse koppeltekens. Geen hoofdletters,

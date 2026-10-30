@@ -1,10 +1,13 @@
 {
   "title": "🎉 Gefeliciteerd met je loopbaancoach",
   "subject_line": "🎉 Gefeliciteerd met je loopbaancoach",
+  "done_subject_line": "Fijn dat je loopbaancoach geregeld is",
   "preheader": "Mooi gedaan. Drie tips voor een goede start en wat je daarna misschien ook wilt regelen.",
+  "done_preheader": "En heb je straks nog iets anders nodig? Dit vragen mensen daarna vaak aan.",
   "campaign_key": "posthire_loopbaancoach",
   "hero_title_accent": "loopbaancoach",
   "hero_subtitle": "Fijn dat het gelukt is via Trustoo. Komt er nog meer bij kijken? Na een loopbaancoach vragen mensen vaak ook een psycholoog of financieel adviseur aan. Gratis en vrijblijvend.",
+  "done_hero_subtitle": "Je aanvraag voor een loopbaancoach is afgerond. Heb je straks nog iets anders nodig? Op Trustoo vergelijk je gratis de beste bedrijven bij jou in de buurt.",
   "services_intro": "Dit vragen mensen na een loopbaancoach vaak ook aan.",
   "service1_name": "Psycholoog",
   "service1_label": "Voor een luisterend oor",

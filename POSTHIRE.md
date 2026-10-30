@@ -1,26 +1,30 @@
-# Post-hire flow (mail 1a en 1b)
+# Post-hire flow (mail 1)
 
 Bron: pakket "Post-hire flow" van Talitha, aangepast door Daan (23-10-2026). Het pakket heeft vijf mails
 (1a, 1b, 1c, 2, 3) met één gedeelde feed `posthire_<dienst>.json` (106 velden, alias `posthire_feed`).
-Voor nu staan alleen **1a en 1b** in deze repo; 1c, 2 en 3 volgen na beoordeling.
+Hier staat **één** post-hire-mail (1a en 1b samengevoegd); 1c, 2 en 3 volgen na beoordeling.
 
 | Mail | Moment | Map | Alias | Template | Feeds | Velden |
 |---|---|---|---|---|---|---|
-| 1a | t=1 na status CHOSEN | `feeds/nl/posthire-chosen/` | `posthire_chosen_feed` | `trustoo-posthire-chosen-template.html` | 83 | 36 |
-| 1b | t=1 na status DONE | `feeds/nl/posthire-done/` | `posthire_done_feed` | `trustoo-posthire-done-template.html` | 87 | 37 |
+| 1 | t=1 na status CHOSEN of DONE | `feeds/nl/posthire-chosen/` | `posthire_chosen_feed` | `trustoo-posthire-chosen-template.html` | 86 | 39 |
 
-- Per mail staan alleen de velden die de template gebruikt in de feed. De alias in de templates is daarom
-  hernoemd van `posthire_feed` naar de alias per mail.
-- De veldnamen volgen dezelfde conventies als de andere mails: `title`, `subject_line`, `preheader`,
-  `hero_subtitle`, `hero_title_accent` (1a), `services_intro`, `service1-4_name/label/price/url/style` en
-  `tile1-4_name/url` met `tiles_style` voor "Ook populair op Trustoo". In het pakket heten ze `chosen_subject`,
-  `done_preheader`, `r1_name`, `popular1_name` enz.; `scripts/import-posthire.js` zet ze om.
-- psycholoog, relatietherapeut, mediator-scheiding en uitvaartverzorger hebben **geen** feed in
-  `posthire-chosen`: bij CHOSEN krijgen zij mail 1c. Zonder feed slaat Brevo ze over.
-- uitvaartverzorger heeft wel een feed in `posthire-done`; volgens de LEESMIJ houdt Pieter die mail in Brevo tegen.
+- De opmaak is die van mail 1a. De status komt van het aanvraag-object: `feed.request.attributes.status`.
+  - **CHOSEN** (via Trustoo gekozen): `subject_line`, `preheader`, `hero_subtitle`, titel "Gefeliciteerd 🎉 Je hebt
+    een … gekozen", tijdlijn en starttips "Zo gaat het soepel van start".
+  - **DONE** (niet via Trustoo gekozen): `done_subject_line`, `done_preheader`, `done_hero_subtitle` (de teksten van
+    mail 1b), titel "Fijn dat het geregeld is"; tijdlijn en starttips vallen weg.
+  - Cross-sellkaarten, "Ook populair op Trustoo" en de knoppen zijn bij beide gelijk.
+- Onderwerpregel in Brevo: `{% if feed.request.attributes.status == "DONE" %}{{ s.done_subject_line }}{% else %}{{ s.subject_line }}{% endif %}`
+  (binnen de loop van de gecombineerde template; preheader idem met `done_preheader` / `preheader`).
+- Per mail staan alleen de velden die de template gebruikt in de feed. De veldnamen volgen de conventies van de
+  andere mails (`title`, `subject_line`, `preheader`, `hero_subtitle`, `service1-4_*`, `tile1-4_*`, `tiles_style`);
+  `scripts/import-posthire.js` zet de pakketnamen om en zet de statusvoorwaarden in de template.
+- Uitvaartverzorger heeft geen feed (Pieter houdt die mail tegen). Psycholoog, relatietherapeut en
+  mediator-scheiding zitten erin voor DONE; **bij CHOSEN horen zij mail 1c te krijgen: sluit ze daar uit in de
+  automation** (de 1a-opmaak zegt "Gefeliciteerd").
 - Verborgen kaarten en het blok "Ook populair op Trustoo": `service1-4_style` en `tiles_style` zijn leeg of
   `display:none; mso-hide:all;`.
-- `campaign_key` (utm_campaign) is `posthire_<dienst>` en is gelijk voor 1a en 1b.
+- `campaign_key` (utm_campaign) is `posthire_<dienst>`.
 
 Opnieuw importeren uit een nieuw pakket:
 
@@ -42,12 +46,11 @@ feeds/nl/posthire-chosen.json          gecombineerd: { "services": [ { "slug", "
 
 - Beide komen uit dezelfde gepubliceerde content en gaan in één commit live; de validator controleert dat elk
   item gelijk is aan het losse bestand.
-- `service_name` is de naam zoals "Service name" op het aanvraag-object in Brevo ("Dakdekkers"). Die staat per
-  dienst in Feed Studio (Services → Brevo service name).
+- Brevo matcht op de slug: `s.slug == feed.request.attributes.service_url` (Service URL op het aanvraag-object, gelijk
+  aan LAST_REQUEST_SERVICE_URL). `service_name` staat er alleen ter informatie in.
 - Brevo: maak een **global** data feed op `https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/posthire-chosen.json`
   (alias `post_hire_chosen`). Het object is beschikbaar als `feed.request.attributes.<veld>`.
 - Template: Feed Studio → mailtype → tab "Brevo (combined)" → "Download combined template". De hele mail staat
-  in `{% for s in feed.post_hire_chosen.services %}{% if s.service_name == feed.request.attributes.service_name %}`
+  in `{% for s in feed.post_hire_chosen.services %}{% if s.slug == feed.request.attributes.service_url %}`
   en elk veld is `{{ s.<veld> }}`.
-- Zonder per-dienstfeed slaat Brevo diensten zonder content niet meer vanzelf over: de mail is dan leeg. De 4
-  gevoelige diensten (1a) moeten daarom met een voorwaarde in de automation worden uitgesloten.
+- Een dienst zonder content in de feed geeft een lege mail: sluit zulke diensten uit in de automation.

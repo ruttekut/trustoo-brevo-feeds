@@ -1,10 +1,13 @@
 {
   "title": "🎉 Gefeliciteerd met je taxateur",
   "subject_line": "🎉 Gefeliciteerd met je taxateur",
+  "done_subject_line": "Fijn dat je taxateur geregeld is",
   "preheader": "Mooi gedaan. Drie tips voor een goede start en wat je daarna misschien ook wilt regelen.",
+  "done_preheader": "En heb je straks nog iets anders nodig? Dit vragen mensen daarna vaak aan.",
   "campaign_key": "posthire_taxateur",
   "hero_title_accent": "taxateur",
   "hero_subtitle": "Fijn dat het gelukt is via Trustoo. Komt er nog meer bij kijken? Na een taxateur vragen mensen vaak ook een hypotheekadviseur of aankoopmakelaar aan. Gratis en vrijblijvend.",
+  "done_hero_subtitle": "Je aanvraag voor een taxateur is afgerond. Heb je straks nog iets anders nodig? Op Trustoo vergelijk je gratis de beste bedrijven bij jou in de buurt.",
   "services_intro": "Dit vragen mensen na een taxateur vaak ook aan.",
   "service1_name": "Hypotheekadviseur",
   "service1_label": "Voor je financiering",

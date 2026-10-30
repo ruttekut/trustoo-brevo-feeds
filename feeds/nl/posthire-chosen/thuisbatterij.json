@@ -1,10 +1,13 @@
 {
   "title": "🎉 Gefeliciteerd met je thuisbatterij-installateur",
   "subject_line": "🎉 Gefeliciteerd met je thuisbatterij-installateur",
+  "done_subject_line": "Fijn dat je thuisbatterij-installateur geregeld is",
   "preheader": "Mooi gedaan. Drie tips voor een goede start en wat je daarna misschien ook wilt regelen.",
+  "done_preheader": "En heb je straks nog iets anders nodig? Dit vragen mensen daarna vaak aan.",
   "campaign_key": "posthire_thuisbatterij",
   "hero_title_accent": "thuisbatterij-installateur",
   "hero_subtitle": "Fijn dat het gelukt is via Trustoo. Komt er nog meer bij kijken? Na een thuisbatterij-installateur vragen mensen vaak ook zonnepanelen of een laadpaalinstallateur aan. Gratis en vrijblijvend.",
+  "done_hero_subtitle": "Je aanvraag voor een thuisbatterij-installateur is afgerond. Heb je straks nog iets anders nodig? Op Trustoo vergelijk je gratis de beste bedrijven bij jou in de buurt.",
   "services_intro": "Dit vragen mensen na een thuisbatterij-installateur vaak ook aan.",
   "service1_name": "Zonnepanelen",
   "service1_label": "Voor eigen stroom",

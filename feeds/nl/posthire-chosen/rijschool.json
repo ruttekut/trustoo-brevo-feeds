@@ -1,10 +1,13 @@
 {
   "title": "🎉 Gefeliciteerd met je rijschool",
   "subject_line": "🎉 Gefeliciteerd met je rijschool",
+  "done_subject_line": "Fijn dat je rijschool geregeld is",
   "preheader": "Mooi gedaan. Drie tips voor een goede start en wat je daarna misschien ook wilt regelen.",
+  "done_preheader": "En heb je straks nog iets anders nodig? Dit vragen mensen daarna vaak aan.",
   "campaign_key": "posthire_rijschool",
   "hero_title_accent": "rijschool",
   "hero_subtitle": "Fijn dat het gelukt is via Trustoo. Komt er nog meer bij kijken? Na een rijschool vragen mensen vaak ook een verzekeringsadviseur of laadpaalinstallateur aan. Gratis en vrijblijvend.",
+  "done_hero_subtitle": "Je aanvraag voor een rijschool is afgerond. Heb je straks nog iets anders nodig? Op Trustoo vergelijk je gratis de beste bedrijven bij jou in de buurt.",
   "services_intro": "Dit vragen mensen na een rijschool vaak ook aan.",
   "service1_name": "Verzekeringsadviseur",
   "service1_label": "Voor je eerste auto",

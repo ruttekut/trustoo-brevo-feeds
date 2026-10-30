@@ -1,10 +1,13 @@
 {
   "title": "🎉 Gefeliciteerd met je verhuisbedrijf",
   "subject_line": "🎉 Gefeliciteerd met je verhuisbedrijf",
+  "done_subject_line": "Fijn dat je verhuisbedrijf geregeld is",
   "preheader": "Mooi gedaan. Drie tips voor een goede start en wat je daarna misschien ook wilt regelen.",
+  "done_preheader": "En heb je straks nog iets anders nodig? Dit vragen mensen daarna vaak aan.",
   "campaign_key": "posthire_verhuisbedrijf",
   "hero_title_accent": "verhuisbedrijf",
   "hero_subtitle": "Fijn dat het gelukt is via Trustoo. Komt er nog meer bij kijken? Na een verhuisbedrijf vragen mensen vaak ook een schoonmaakbedrijf of opslagruimte aan. Gratis en vrijblijvend.",
+  "done_hero_subtitle": "Je aanvraag voor een verhuisbedrijf is afgerond. Heb je straks nog iets anders nodig? Op Trustoo vergelijk je gratis de beste bedrijven bij jou in de buurt.",
   "services_intro": "Dit vragen mensen na een verhuisbedrijf vaak ook aan.",
   "service1_name": "Schoonmaakbedrijf",
   "service1_label": "Voor een schoon huis",
