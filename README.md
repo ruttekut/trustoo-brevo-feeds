@@ -2,15 +2,46 @@
 
 Openbare, statische JSON-datafeeds voor dynamische Brevo-e-mails van Trustoo.
 
-Elke e-mail gebruikt **één template**. De inhoud komt uit een JSON-bestand in deze repository,
-dat Brevo op het moment van verzenden ophaalt via een **Personalized Data Feed**. Zo kun je
-per service andere content laten zien zonder de template te dupliceren.
+Elke e-mail gebruikt **één template**. De inhoud komt uit JSON-bestanden in deze repository, die
+Brevo op het moment van verzenden ophaalt. Zo kun je per service andere content laten zien zonder
+de template te dupliceren. Er zijn twee manieren:
+
+- **Per dienst** (*personalized data feed*): één bestand per dienst,
+  `feeds/<taal>/<mailtype>/<slug>.json`. Brevo kiest het bestand via het contactattribuut
+  `LAST_REQUEST_SERVICE_URL`. Dit gebruiken de contact-gebaseerde mails.
+- **Gecombineerd** (*global data feed*): één bestand per mailtype met alle diensten,
+  `feeds/<taal>/<mailtype>.json`. De template kiest de dienst zelf, op basis van het object
+  dat een object-based automation start (bijvoorbeeld de aanvraag). Dit gebruikt de post-hire-mail.
+  Zie [Gecombineerde feeds](#gecombineerde-feeds-object-based-automations).
+
+De content wordt beheerd in **Trustoo Feed Studio** (aparte repository `trustoo-feed-studio`), dat
+de JSON-bestanden genereert en in één commit naar deze repository publiceert. Deze repository is dus
+vooral de *uitvoer*; zie [Wijzigingen publiceren](#wijzigingen-committen-en-publiceren).
 
 ## Doel
 
 - Eén e-mailtemplate, per service een eigen set teksten.
 - Content aanpassen zonder in Brevo te knutselen: je wijzigt een JSON-bestand en pusht.
 - Uitbreidbaar naar meerdere mailtypes en meerdere landen.
+
+## Mailtypes in deze repository
+
+Stand 2026-10-30 (`npm run validate` toont de actuele aantallen). "Alias" is de feedalias die de
+template gebruikt: `{{ feed.<alias>.<veld> }}`.
+
+| Mailtype | Map | Alias in template | Template | Schema | Feeds | Velden | Uitleg |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Servicetips | `feeds/nl/tips/` | `tip_feed` | [`trustoo-servicetips-template.html`](trustoo-servicetips-template.html) | [`email-feed`](schemas/email-feed.schema.json) | 87 | 50 | [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md) |
+| Reactivatie | `feeds/nl/reactivation/` | `reactivation_feed` | [`trustoo-reactivation-template.html`](trustoo-reactivation-template.html) | [`reactivation-feed`](schemas/reactivation-feed.schema.json) | 91 | 47 | [`REACTIVATION.md`](REACTIVATION.md) |
+| Cross-sell 1 | `feeds/nl/cross-sell/` | `cross_sell_feed` | [`trustoo-cross-sell-template.html`](trustoo-cross-sell-template.html) | [`cross-sell-feed`](schemas/cross-sell-feed.schema.json) | 91 | 50 | [`CROSS_SELL.md`](CROSS_SELL.md) |
+| Cross-sell reminder | `feeds/nl/cross-sell-reminder/` | `cross_sell_reminder_feed` | [`trustoo-cross-sell-reminder-template.html`](trustoo-cross-sell-reminder-template.html) | [`cross-sell-reminder-feed`](schemas/cross-sell-reminder-feed.schema.json) | 87 | 58 | [hieronder](#mailtype-cross-sell-reminder) |
+| Post-hire 1 | `feeds/nl/posthire-chosen/` + gecombineerd `feeds/nl/posthire-chosen.json` | `posthire_chosen_feed` (per dienst); in Brevo de global feed `post_hire_chosen` | [`trustoo-posthire-chosen-template.html`](trustoo-posthire-chosen-template.html) | [`posthire-chosen-feed`](schemas/posthire-chosen-feed.schema.json) | 86 | 39 | [`POSTHIRE.md`](POSTHIRE.md) |
+| Tips BE (Trustlocal.be) | `feeds/be-nl/tips-be/` | `tip_feed_be` | [`trustlocal-be-servicetips-template.html`](trustlocal-be-servicetips-template.html) | [`email-feed`](schemas/email-feed.schema.json) | 51 | 50 | [Structuur](#structuur) |
+| Cross-sell BE | `feeds/be-nl/cross-sell-be/` | `cross_sell_feed_be` | [`trustlocal-be-cross-sell-template.html`](trustlocal-be-cross-sell-template.html) | [`cross-sell-feed`](schemas/cross-sell-feed.schema.json) | 50 | 50 | [`CROSS_SELL.md`](CROSS_SELL.md) |
+| Cross-sell reminder BE | `feeds/be-nl/cross-sell-reminder-be/` | `cross_sell_reminder_feed_be` | [`trustlocal-be-cross-sell-reminder-template.html`](trustlocal-be-cross-sell-reminder-template.html) | [`cross-sell-reminder-feed`](schemas/cross-sell-reminder-feed.schema.json) | 50 | 58 | [`CROSS_SELL.md`](CROSS_SELL.md) |
+
+Of en hoe een mail in Brevo is ingericht (feed, automation, filters) wordt niet in deze repository
+bijgehouden; kijk daarvoor in Brevo zelf.
 
 ## Hoe `LAST_REQUEST_SERVICE_URL` aan een feedbestand wordt gekoppeld
 
@@ -32,7 +63,7 @@ Contacten met dezelfde waarde krijgen dus dezelfde content.
 | Publieke URL | <https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/tips/dakdekker.json> |
 | In de template | `{{ feed.tip_feed.title }}` |
 
-## Welke services staan er nu in
+## Servicetips: welke services staan er in
 
 87 feeds: 86 servicetips-feeds plus een neutrale fallback (`default`). Elke feed bevat negen
 tips in drie groepen. De veldnamen komen uit de template
@@ -103,7 +134,6 @@ feeds staan in
 `reactivation_feed`. Welke drie diensten per service als dienstkaart worden getoond, staat in
 [`scripts/reactivation-mapping.json`](scripts/reactivation-mapping.json). Alles over dit
 mailtype, inclusief de open punten voor verzending, staat in [`REACTIVATION.md`](REACTIVATION.md).
-De reactivatiemail is nog **niet** in Brevo ingericht.
 
 ## Mailtype cross-sell
 
@@ -116,41 +146,74 @@ Feeds: `feeds/nl/cross-sell/` (91 bestanden, 50 velden, schema
 `cross_sell_feed`. De kaartkeuze staat in
 [`scripts/cross-sell-mapping.json`](scripts/cross-sell-mapping.json), de copy in de generator
 [`scripts/build-cross-sell-feeds.js`](scripts/build-cross-sell-feeds.js). Alles over dit
-mailtype staat in [`CROSS_SELL.md`](CROSS_SELL.md). De feeds staan live op GitHub Pages; de
-cross-sellmail is nog **niet** in Brevo ingericht.
+mailtype staat in [`CROSS_SELL.md`](CROSS_SELL.md).
+
+## Mailtype cross-sell reminder
+
+Sinds 2026-10-06 (versie 3 van Daan en Talitha): de **reminder** na cross-sellmail 1. Feeds:
+`feeds/nl/cross-sell-reminder/` (87 bestanden, 58 velden, schema
+[`schemas/cross-sell-reminder-feed.schema.json`](schemas/cross-sell-reminder-feed.schema.json)), template
+[`trustoo-cross-sell-reminder-template.html`](trustoo-cross-sell-reminder-template.html), feedalias
+`cross_sell_reminder_feed`. De mail toont 1 tot 4 dienstkaarten met een prijsindicatie; bij minder dan
+vier kaarten zijn de velden van kaart 2-4 leeg en zetten `grid_style` / `stack_style` /
+`stack2_style` / `stack3_style` de blokken uit (daarom mogen die velden in het schema leeg zijn).
+Er is geen `default.json` in deze map. De Belgische variant staat in [`CROSS_SELL.md`](CROSS_SELL.md).
+
+## Mailtype post-hire
+
+Sinds 2026-10-27: **post-hire mail 1**, verstuurd na status CHOSEN (via Trustoo gekozen) of DONE
+(niet via Trustoo gekozen) van een aanvraag. Eén mail; de tekst wisselt op de status. Brevo gebruikt
+hiervoor de **gecombineerde** feed (zie hieronder). Feeds: `feeds/nl/posthire-chosen/` (86 bestanden,
+39 velden) en `feeds/nl/posthire-chosen.json`. Alles over deze mail staat in [`POSTHIRE.md`](POSTHIRE.md).
+
+## Gecombineerde feeds (object-based automations)
+
+Een *personalized* feed-URL in Brevo kan alleen een **contactattribuut** bevatten. Een contact kan
+meerdere aanvragen hebben, dus voor mails die een object-based automation verstuurt (de trigger is een
+object, bijvoorbeeld de aanvraag) schrijft Feed Studio bij elke publicatie naast de bestanden per dienst
+ook één bestand per mailtype, in dezelfde landmap:
+
+```text
+feeds/nl/posthire-chosen/<slug>.json   per dienst
+feeds/nl/posthire-chosen.json          gecombineerd
+```
+
+Vorm van het gecombineerde bestand (compacte JSON, diensten op slug gesorteerd):
+
+```json
+{ "services": [ { "slug": "aannemer", "service_name": "Aannemers", "title": "…", "subject_line": "…" } ] }
+```
+
+- Elk item is `slug` + `service_name` + precies het feedobject uit het losse bestand. Feed Studio bouwt
+  beide uit dezelfde gepubliceerde content in **één commit**; de validator controleert dat elk item
+  gelijk is aan `feeds/<taal>/<mailtype>/<slug>.json`.
+- `slug` is de bestandsnaam (gelijk aan `LAST_REQUEST_SERVICE_URL`). `service_name` is de
+  "Brevo service name" die per dienst in Feed Studio staat (ter informatie).
+- Een gecombineerd bestand ontstaat bij de eerstvolgende publicatie van dat mailtype vanuit Feed Studio.
+  Op 2026-10-30 bestaat alleen `feeds/nl/posthire-chosen.json`.
+- In Brevo wordt dit een **global** data feed (zonder attribuut in de URL). Hoe de template de juiste
+  dienst kiest staat in [`BREVO_SETUP.md`](BREVO_SETUP.md#object-based-automations-gecombineerde-feed).
 
 ## Structuur
 
 ```text
 feeds/
-└── nl/                       # taal/markt
-    ├── tips/                 # mailtype servicetips (50 velden)
-    │   ├── default.json      # neutrale fallbackcontent
-    │   ├── aannemer.json
-    │   ├── catering.json
-    │   ├── dakdekker.json
-    │   ├── ...               # 87 bestanden in totaal, één per service-slug
-    │   └── zonwering.json
-    ├── reactivation/         # mailtype reactivatie (47 velden)
-    │   ├── default.json
-    │   ├── aannemer.json
-    │   ├── ...               # 91 bestanden in totaal
-    │   └── zonwering.json
-    └── cross-sell/           # mailtype cross-sell (50 velden)
-        ├── default.json
-        ├── aannemer.json
-        ├── ...               # 91 bestanden in totaal
-        └── zonwering.json
+├── nl/                           # taal/markt: Trustoo.nl
+│   ├── tips/                     # servicetips (50 velden), 87 bestanden incl. default.json
+│   ├── reactivation/             # reactivatie (47 velden), 91 bestanden incl. default.json
+│   ├── cross-sell/               # cross-sell 1 (50 velden), 91 bestanden incl. default.json
+│   ├── cross-sell-reminder/      # cross-sell reminder (58 velden), 87 bestanden, geen default
+│   ├── posthire-chosen/          # post-hire 1 (39 velden), 86 bestanden, geen default
+│   └── posthire-chosen.json      # gecombineerde feed van post-hire 1
+└── be-nl/                        # Trustlocal.be (Nederlandstalig)
+    ├── tips-be/                  # 51 bestanden
+    ├── cross-sell-be/            # 50 bestanden
+    └── cross-sell-reminder-be/   # 50 bestanden
 ```
 
-Later eenvoudig uitbreidbaar naar andere mailtypes:
-
-```text
-feeds/nl/seasonal/dakdekker.json
-feeds/nl/follow-up/dakdekker.json
-```
-
-En naar andere markten (Trustlocal), met een eigen Brevo-feed en alias per land:
+Een nieuw mailtype krijgt een eigen map onder de taal (bijvoorbeeld `feeds/nl/<mailtype>/`), zie
+[Een nieuw mailtype toevoegen](#een-nieuw-mailtype-toevoegen). Andere markten krijgen een eigen taalmap
+met een eigen Brevo-feed en alias per land, zoals Trustlocal.be:
 
 ```text
 feeds/be-nl/tips-be/dakdekker.json        alias tip_feed_be        template trustlocal-be-servicetips-template.html
@@ -166,28 +229,41 @@ wijzen naar de servicepagina, omdat de blogs uit de sheet (`/opdracht/alarmsyste
 
 ## Een nieuwe service toevoegen
 
+Via Feed Studio (aanbevolen): Services → Add service (slug = de waarde van
+`LAST_REQUEST_SERVICE_URL`, voor object-based mails ook de "Brevo service name"), vul per mailtype de
+content in de matrix, markeer als ready en publiceer. Feed Studio schrijft het bestand per dienst en
+werkt de gecombineerde feed van dat mailtype bij.
+
+Met de hand (daarna importeren in Feed Studio, zie [Wijzigingen publiceren](#wijzigingen-committen-en-publiceren)):
+
 1. Kies de canonical slug. Die moet **exact** gelijk zijn aan de waarde van
    `LAST_REQUEST_SERVICE_URL` voor die service.
-2. Kopieer `feeds/nl/tips/default.json` naar `feeds/nl/tips/<slug>.json`.
+2. Kopieer een bestaande feed van hetzelfde mailtype (bijvoorbeeld `feeds/nl/tips/default.json`) naar
+   `feeds/<taal>/<mailtype>/<slug>.json`.
 3. Vul de teksten. Laat URL- en afbeeldingsvelden leeg als je geen echte, gecontroleerde
    Trustoo-URL hebt. Verzin geen links.
 4. Valideer lokaal: `npm run validate`.
 5. Commit en push. GitHub Pages publiceert het bestand automatisch.
 6. Test de URL in de browser.
 
-In Brevo hoef je hierna **niets** te wijzigen: de feed-URL is dynamisch, dus een nieuw bestand
-werkt direct voor contacten met die attribuutwaarde.
+Voor een personalized feed hoef je in Brevo hierna **niets** te wijzigen: de feed-URL is dynamisch, dus
+een nieuw bestand werkt direct voor contacten met die attribuutwaarde. Een gecombineerde feed krijgt
+de nieuwe dienst pas na een publicatie vanuit Feed Studio.
 
 ## Een nieuw mailtype toevoegen
 
-1. Maak een nieuwe map: `feeds/nl/<mailtype>/`.
-2. Zet daar minimaal `default.json` en de eerste servicefeeds in.
-3. Maak in Brevo een **nieuwe** data feed aan met een eigen alias, bijvoorbeeld
-   `trustoo_cross_sell`, met bron-URL `.../feeds/nl/cross-sell/<attribuut>.json`.
-4. Spreek de velden in die template aan via die alias:
-   `{{ feed.trustoo_cross_sell.title }}`.
-
-Zie [`BREVO_SETUP.md`](BREVO_SETUP.md) voor het volledige overzicht per mailtype.
+1. Zet in deze repository de template (`<merk>-<mailtype>-template.html`) en een schema
+   (`schemas/<mailtype>-feed.schema.json`, alle velden in `required`) neer.
+2. Voeg het mailtype toe aan `SCHEMAS` in [`scripts/validate-feeds.js`](scripts/validate-feeds.js)
+   (map → schema). Zonder die regel faalt de validatie op de nieuwe map.
+3. Maak het mailtype aan in Feed Studio (Email types → Create email type, of een seedbestand
+   `seed/<slug>-fields.json`; zie de README van Feed Studio). De slug van het mailtype is de mapnaam:
+   `feeds/<taal>/<slug>/`.
+4. Vul de content en publiceer vanuit Feed Studio (of zet bestaande feeds hier neer en importeer ze met
+   `npm run seed:github -- --type=<slug>`).
+5. Maak in Brevo een **nieuwe** data feed aan met een eigen alias en gebruik die alias in de template:
+   `{{ feed.<alias>.<veld> }}`. Voor een object-based automation: een global feed op de gecombineerde
+   feed. Zie [`BREVO_SETUP.md`](BREVO_SETUP.md).
 
 ## Naamgevingsregels
 
@@ -203,21 +279,23 @@ Zie [`BREVO_SETUP.md`](BREVO_SETUP.md) voor het volledige overzicht per mailtype
 
 **Mappen**
 
-- `feeds/<taal>/<mailtype>/` — taalcode in kleine letters (`nl`, `be`, `de`, `es`),
-  mailtype als slug (`tips`, `cross-sell`, `seasonal`, `follow-up`).
+- `feeds/<taal>/<mailtype>/` — taalcode in kleine letters, met land als dat nodig is (nu `nl` en
+  `be-nl`), mailtype als slug (`tips`, `cross-sell`, `tips-be`, …). De taalcode is gelijk aan de
+  locale in Feed Studio.
 
 **JSON-velden**
 
-- Exact de velden uit het schema van het mailtype: de 50 velden uit
-  [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json) voor `tips`, de 47 velden
-  uit [`schemas/reactivation-feed.schema.json`](schemas/reactivation-feed.schema.json) voor
-  `reactivation`. Niet meer, niet minder, en de namen niet wijzigen.
+- Exact de velden uit het schema van het mailtype (zie [Mailtypes](#mailtypes-in-deze-repository);
+  welk schema bij welke map hoort staat in `SCHEMAS` in [`scripts/validate-feeds.js`](scripts/validate-feeds.js)).
+  Niet meer, niet minder, en de namen niet wijzigen.
 - Alle waarden zijn strings. Een veld dat je niet gebruikt, krijgt een lege string `""` —
   je mag het niet weglaten.
 - Geen metadata zoals `service`, `mail_type` of `updated_at`. Geen arrays, geen geneste
   objecten.
-- URL-velden bevatten een absolute `https://`-URL of een lege string:
-  `hero_image_url`, `cta_url` en `tile1_url` tot en met `tile6_url`.
+- URL-velden (elke veldnaam die op `_url` eindigt) bevatten een absolute `https://`-URL of een
+  lege string.
+- Of een veld leeg mag zijn, staat in het schema: velden met `minLength: 1` moeten gevuld zijn. De
+  validator in deze repository controleert dat niet; Feed Studio wel (verplichte velden).
 
 **Brevo-feedalias**
 
@@ -235,8 +313,13 @@ Het script [`scripts/validate-feeds.js`](scripts/validate-feeds.js) loopt recurs
 `feeds/` en controleert per bestand tegen het schema van zijn mailtype (map
 `feeds/<taal>/<mailtype>/`): geldige JSON, alle velden aanwezig, geen onbekende velden, alle
 waarden strings, niet-lege URL-velden beginnen met `https://`, en een veilige canonical
-bestandsnaam. Bij een fout krijg je bestand en veld te zien en stopt het script met
-exitcode `1`.
+bestandsnaam. Een gecombineerde feed (`feeds/<taal>/<mailtype>.json`) moet precies
+`{ "services": [...] }` zijn; elk item heeft een unieke `slug`, een `service_name`, voldoet aan
+hetzelfde schema en is gelijk aan het losse bestand van die slug, als dat bestand bestaat (vergelijking
+via `JSON.stringify`, dus ook de veldvolgorde telt). Een losse feed die erbij komt of verdwijnt
+zonder dat de gecombineerde feed meeveranderde, ziet de validator **niet**. Bij een fout krijg je bestand en
+veld te zien en stopt het script met exitcode `1`. Een nieuw mailtype moet aan `SCHEMAS` in het
+script worden toegevoegd, anders faalt de validatie.
 
 Dezelfde validatie loopt automatisch via GitHub Actions bij iedere push en pull request:
 [`.github/workflows/validate-feeds.yml`](.github/workflows/validate-feeds.yml).
@@ -260,6 +343,25 @@ Let op `HTTP/2 200` en `content-type: application/json`. Krijg je `text/html`, d
 een foutpagina en niet naar je feed.
 
 ## Wijzigingen committen en publiceren
+
+**Normaal publiceer je vanuit Feed Studio** (Publishing → Publish changes): dat valideert, schrijft
+de bestanden per dienst én de gecombineerde feeds in één commit en controleert daarna of GitHub Pages
+ze serveert. Feed Studio's database is de bron van de content.
+
+Wijzig je bestanden hier rechtstreeks (met de hand of met een generator uit `scripts/`), importeer ze
+daarna in Feed Studio, anders loopt de database achter op wat live staat:
+
+```bash
+# in trustoo-feed-studio, NA de push en pas als GitHub Pages de nieuwe versie serveert
+npm run seed:github -- --type=<mailtype-slug>
+```
+
+Een rechtstreekse wijziging werkt een bestaande gecombineerde feed **niet** bij. Bij een gewijzigde
+feed faalt de validator; een toegevoegde of verwijderde feed ziet hij niet. Bouw de gecombineerde feed
+daarom na elke rechtstreekse wijziging opnieuw, vóór de push:
+`node scripts/rebuild-combined.js <taal> <mailtype>` (zelfde formaat als Feed Studio).
+
+Rechtstreeks committen:
 
 ```bash
 npm run validate
@@ -339,9 +441,26 @@ geregeld als iemand van rol wisselt of vertrekt.
 
 | Bestand | Inhoud |
 | --- | --- |
-| [`BREVO_SETUP.md`](BREVO_SETUP.md) | Stap voor stap de feed in Brevo instellen. |
-| [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md) | Alle 50 velden met de bijbehorende `{{ feed.tip_feed.* }}`-variabele. |
-| [`REACTIVATION.md`](REACTIVATION.md) | De reactivatiemail: velden, mapping van de dienstkaarten, keuzes en open punten. |
-| [`schemas/email-feed.schema.json`](schemas/email-feed.schema.json) | JSON Schema met de 50 toegestane velden van de servicetips-mail. |
-| [`schemas/reactivation-feed.schema.json`](schemas/reactivation-feed.schema.json) | JSON Schema met de 47 velden van de reactivatiemail. |
-| [`scripts/validate-feeds.js`](scripts/validate-feeds.js) | Validatiescript, alleen Node.js-standaardfunctionaliteit. |
+| [`BREVO_SETUP.md`](BREVO_SETUP.md) | De feeds in Brevo instellen: personalized feed per dienst, global feed voor object-based automations, fouten opsporen. |
+| [`TEMPLATE_FIELD_MAPPING.md`](TEMPLATE_FIELD_MAPPING.md) | Servicetips: alle 50 velden met de bijbehorende `{{ feed.tip_feed.* }}`-variabele. |
+| [`REACTIVATION.md`](REACTIVATION.md) | Reactivatiemail: velden, mapping van de dienstkaarten, keuzes en open punten. |
+| [`CROSS_SELL.md`](CROSS_SELL.md) | Cross-sellmail 1 (NL en BE) en de cross-sell reminder BE. De NL-reminder staat hierboven. |
+| [`POSTHIRE.md`](POSTHIRE.md) | Post-hire mail 1 (CHOSEN en DONE in één mail) en de gecombineerde feed. |
+| [`schemas/`](schemas/) | JSON Schema per mailtype (welk schema bij welke map hoort: `SCHEMAS` in `scripts/validate-feeds.js`). |
+| [`images/nl/tips/manifest.json`](images/nl/tips/manifest.json) | Per herobeeld: bronbestand, feed-slug, alt-tekst, naam en URL in de Brevo-gallery. |
+
+## Scripts
+
+Alle scripts draaien vanuit de root van deze repository. Daarna altijd `npm run validate`.
+
+| Script | Wat het doet |
+| --- | --- |
+| [`scripts/validate-feeds.js`](scripts/validate-feeds.js) | Valideert alle feeds en gecombineerde feeds (`npm run validate`, ook in CI). Alleen Node.js-standaardfunctionaliteit. |
+| [`scripts/build-cross-sell-feeds.js`](scripts/build-cross-sell-feeds.js) | Bouwt `feeds/nl/cross-sell/` uit [`scripts/cross-sell-mapping.json`](scripts/cross-sell-mapping.json) en de copy in het script. |
+| [`scripts/build-cross-sell-reminder-be.py`](scripts/build-cross-sell-reminder-be.py) | Bouwt `feeds/be-nl/cross-sell-reminder-be/` (Python; zie CROSS_SELL.md). |
+| [`scripts/import-reactivation-tsv.js`](scripts/import-reactivation-tsv.js) | Importeert een aangeleverde TSV naar `feeds/nl/reactivation/`. De kaartkeuze staat in [`scripts/reactivation-mapping.json`](scripts/reactivation-mapping.json). |
+| [`scripts/import-posthire.js`](scripts/import-posthire.js) | Importeert het post-hire-pakket (zip van Talitha en Daan) naar `feeds/nl/posthire-chosen/`, de template en het schema, en zet de statusvoorwaarden in de template. Bouwt de gecombineerde feed **niet** (zie POSTHIRE.md). |
+| [`scripts/rebuild-combined.js`](scripts/rebuild-combined.js) | Bouwt een gecombineerde feed (`feeds/<taal>/<mailtype>.json`) opnieuw uit de losse feeds, in het formaat van Feed Studio; `service_name` komt uit het bestaande bestand. Na elke rechtstreekse wijziging van een mailtype met een gecombineerde feed. |
+| [`scripts/upload-images-to-brevo.py`](scripts/upload-images-to-brevo.py) | Uploadt herobeelden naar de Brevo-gallery en schrijft de URL's in het manifest en de feeds. Leest `BREVO_API_KEY` uit de omgeving of uit `.env` (staat in `.gitignore`; voorbeeld in `.env.example`). Feed Studio heeft hiervoor ook een beeldenbibliotheek. |
+
+Na een generator: commit, push, en importeer in Feed Studio (zie [Wijzigingen publiceren](#wijzigingen-committen-en-publiceren)).

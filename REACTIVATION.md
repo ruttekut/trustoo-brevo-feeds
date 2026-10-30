@@ -7,8 +7,8 @@ zijn naast de aangevraagde dienst, en biedt twee uitwegen: aanvraag afronden of 
 aanvraag doen. Latere golven (2024, 2023, ouder) krijgen later eigen content; de feednaam blijft
 voorlopig `reactivation`.
 
-Status: feeds en template staan op `main` en zijn via GitHub Pages bereikbaar; er is nog geen
-Brevo-feed en geen Brevo-template aangemaakt. De content is op 2026-09-09 aangeleverd door de
+Status: feeds en template staan op `main` en zijn via GitHub Pages bereikbaar. Of de mail in Brevo is
+ingericht, wordt in deze repository niet bijgehouden. De content is op 2026-09-09 aangeleverd door de
 beheerder (tabel met 86 services) en vervangt de gegenereerde teksten van 2026-09-08.
 
 ## Bestanden

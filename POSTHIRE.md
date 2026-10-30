@@ -26,12 +26,31 @@ Hier staat **één** post-hire-mail (1a en 1b samengevoegd); 1c, 2 en 3 volgen n
   `display:none; mso-hide:all;`.
 - `campaign_key` (utm_campaign) is `posthire_<dienst>`.
 
-Opnieuw importeren uit een nieuw pakket:
+Content aanpassen: in Feed Studio (Post-hire 1), daarna publiceren. Dat werkt de losse feeds én de
+gecombineerde feed in één commit bij.
 
-```
-node scripts/import-posthire.js "<uitgepakte map met feed/ en templates/>"
-npm run validate
-```
+Opnieuw importeren uit een nieuw pakket (overschrijft de content van alle diensten):
+
+1. In deze repository:
+   ```
+   node scripts/import-posthire.js "<uitgepakte map met feed/ en templates/>"
+   node scripts/rebuild-combined.js nl posthire-chosen
+   npm run validate
+   ```
+   `rebuild-combined.js` zet de gecombineerde feed gelijk aan de nieuwe losse feeds (zelfde formaat als
+   Feed Studio); zonder die stap faalt de validatie.
+2. Komen er velden bij of gaan er weg: pas `seed/posthire-chosen-fields.json` in Feed Studio aan
+   (`required` gelijk aan `minLength` in het schema). Verdwijnen er velden, draai dan eerst
+   `npm run prune-fields -- --type=posthire-chosen --go` in Feed Studio.
+3. Commit en push; wacht tot GitHub Pages de nieuwe versie serveert. Dan in Feed Studio:
+   ```
+   npm run seed:github -- --type=posthire-chosen --force-template
+   npm run preflight -- --type=posthire-chosen
+   ```
+   De preflight hoort 0 wijzigingen te tonen. Toont hij een gewijzigde gecombineerde feed (bijvoorbeeld
+   een nieuwe dienst met een "Brevo service name"), publiceer dan met
+   `npm run publish:cli -- --type=posthire-chosen --note="…" --go`.
+4. Download de nieuwe Brevo-HTML in Feed Studio (tab Brevo (combined)) en zet hem in de automation.
 
 ## Gecombineerde feed (object-based automation)
 
@@ -45,12 +64,12 @@ feeds/nl/posthire-chosen.json          gecombineerd: { "services": [ { "slug", "
 ```
 
 - Beide komen uit dezelfde gepubliceerde content en gaan in één commit live; de validator controleert dat elk
-  item gelijk is aan het losse bestand.
+  item gelijk is aan het losse bestand (als dat bestaat; een toegevoegde of verwijderde losse feed ziet hij niet).
 - Brevo matcht op de slug: `s.slug == feed.request.attributes.service_url` (Service URL op het aanvraag-object, gelijk
   aan LAST_REQUEST_SERVICE_URL). `service_name` staat er alleen ter informatie in.
 - Brevo: maak een **global** data feed op `https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/posthire-chosen.json`
   (alias `post_hire_chosen`). Het object is beschikbaar als `feed.request.attributes.<veld>`.
-- Template: Feed Studio → mailtype → tab "Brevo (combined)" → "Download combined template" of "Copy Brevo HTML"
+- Template: Feed Studio → mailtype → tab "Brevo (combined)" → "Download combined template" of de kopieerknop "Brevo HTML"
   (wordt altijd opnieuw gemaakt uit de opgeslagen HTML-template, dus kan niet kwijtraken). De hele mail staat
   in `{% for s in feed.post_hire_chosen.services %}{% if s.slug == feed.request.attributes.service_url %}`
   en elk veld is `{{ s.<veld> }}`.

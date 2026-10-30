@@ -1,8 +1,14 @@
-# Brevo-instellingen: personalized data feed voor Trustoo-tipsmails
+# Brevo-instellingen voor de Trustoo-feeds
 
-Deze handleiding beschrijft hoe je in Brevo een **Personalized Data Feed** koppelt aan de
-JSON-bestanden in deze repository. Er is nog **niets** in Brevo gewijzigd — voer deze stappen
-zelf uit.
+Deze handleiding beschrijft hoe je in Brevo de JSON-bestanden in deze repository koppelt. Brevo
+wordt niet vanuit deze repository aangestuurd: voer deze stappen zelf uit in Brevo.
+
+- Stap 1 t/m 9: een **personalized data feed** per dienst, voor mails die op het contact draaien
+  (de dienst komt uit `LAST_REQUEST_SERVICE_URL`). Het voorbeeld is de servicetips-mail.
+- [Object-based automations: gecombineerde feed](#object-based-automations-gecombineerde-feed): een
+  **global data feed** voor mails die een object-based automation verstuurt (de dienst komt van het
+  object, bijvoorbeeld de aanvraag). Zo werkt de post-hire-mail.
+- [Fouten opsporen](#fouten-opsporen): waarom een mail niet aankomt of leeg is.
 
 > **Plan-vereiste:** een *personalized feed* is volgens Brevo alleen beschikbaar op de
 > **Professional**- en **Enterprise**-plannen. Een *global feed* (dezelfde inhoud voor iedereen)
@@ -125,16 +131,23 @@ vóórdat hij naar Brevo gaat.
 
 ## Stap 7 — Meerdere mailtypes: één alias per mailtype
 
-Elke Brevo-mail kan zijn eigen feedalias en eigen mailtypemap krijgen. Zo blijft de inhoud per
-mailtype los van elkaar te beheren:
+Elke Brevo-mail heeft zijn eigen feedalias en eigen mailtypemap. Brevo maakt de alias uit de
+feednaam; de template moet exact die alias gebruiken. De aliassen die de templates in deze repository
+verwachten:
 
-| Mailtype | Feednaam in Brevo | Alias | Bron-URL (attribuut via `{}`-kiezer) |
-| --- | --- | --- | --- |
-| Tips | `Tip feed` | `tip_feed` | `.../feeds/nl/tips/<attribuut>.json` |
-| Reactivatie (zie [`REACTIVATION.md`](REACTIVATION.md)) | `Reactivation feed` | `reactivation_feed` | `.../feeds/nl/reactivation/<attribuut>.json` |
-| Cross-sell | `Trustoo cross sell` | `trustoo_cross_sell` | `.../feeds/nl/cross-sell/<attribuut>.json` |
-| Seasonal | `Trustoo seasonal` | `trustoo_seasonal` | `.../feeds/nl/seasonal/<attribuut>.json` |
-| Follow-up | `Trustoo follow up` | `trustoo_follow_up` | `.../feeds/nl/follow-up/<attribuut>.json` |
+| Mailtype | Alias in de template | Bron-URL (attribuut via `{}`-kiezer) |
+| --- | --- | --- |
+| Servicetips | `tip_feed` | `.../feeds/nl/tips/<attribuut>.json` |
+| Reactivatie (zie [`REACTIVATION.md`](REACTIVATION.md)) | `reactivation_feed` | `.../feeds/nl/reactivation/<attribuut>.json` |
+| Cross-sell 1 (zie [`CROSS_SELL.md`](CROSS_SELL.md)) | `cross_sell_feed` | `.../feeds/nl/cross-sell/<attribuut>.json` |
+| Cross-sell reminder | `cross_sell_reminder_feed` | `.../feeds/nl/cross-sell-reminder/<attribuut>.json` |
+| Servicetips BE | `tip_feed_be` | `.../feeds/be-nl/tips-be/<attribuut>.json` |
+| Cross-sell BE | `cross_sell_feed_be` | `.../feeds/be-nl/cross-sell-be/<attribuut>.json` |
+| Cross-sell reminder BE | `cross_sell_reminder_feed_be` | `.../feeds/be-nl/cross-sell-reminder-be/<attribuut>.json` |
+| Post-hire 1 | global feed, zie [hieronder](#object-based-automations-gecombineerde-feed) | `.../feeds/nl/posthire-chosen.json` |
+
+Krijgt de feed in Brevo een andere alias (andere feednaam), pas dan de template aan of maak de feed
+opnieuw aan met de juiste naam.
 
 Je kunt ook één feed voor meerdere mails hergebruiken, maar dan delen die mails
 onvermijdelijk dezelfde inhoud. Aparte aliassen zijn overzichtelijker.
@@ -162,6 +175,93 @@ verwerken; volgens de Brevo API-documentatie wordt zo'n contact overgeslagen in 
 Zie de sectie *Voorkomen dat een ontbrekende feed een verzending breekt* in
 [`README.md`](README.md) voor de manieren om dit af te dekken.
 
+## Object-based automations: gecombineerde feed
+
+Een personalized feed-URL kan alleen een **contactattribuut** bevatten. Start een automation op een
+**object** (bijvoorbeeld "Request updated" met een filter op `status`), dan moet de mail de dienst van
+dát object tonen, niet die uit `LAST_REQUEST_SERVICE_URL` (een contact kan meerdere aanvragen hebben).
+Daarvoor gebruik je de gecombineerde feed: één bestand per mailtype met alle diensten. Feed Studio
+schrijft die bij elke publicatie (zie de README, *Gecombineerde feeds*). Zo is de post-hire-mail
+ingericht en getest (2026-10-30).
+
+### 1. Global data feed
+
+Settings → Data management → Data feeds → Add data feed, **zonder** attribuut in de URL:
+
+```text
+https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/<mailtype>.json
+```
+
+Kies een naam zodat Brevo de gewenste alias maakt. Voor post-hire is de alias `post_hire_chosen`
+(bron `.../feeds/nl/posthire-chosen.json`).
+
+### 2. Het object in de mail
+
+Brevo maakt het object dat de automation startte beschikbaar als een feed met de naam van het object;
+de velden staan onder `attributes`:
+
+```twig
+{{ feed.request.attributes.service_url }}
+{{ feed.request.attributes.status }}
+```
+
+Zo voegt de editor het zelf in: Text-blok → Add variable `{ }` → Object attributes → het object → het
+veld. Daar zie je ook de exacte veldnamen. Getest en **niet** werkend: `{{ params.<veld> }}`,
+`{{ request.<veld> }}` en `{{ feed.request.<veld> }}` zonder `attributes` (allemaal leeg).
+Objectvariabelen werken volgens Brevo alleen in e-mails van een object-based automation, niet in
+campagnes of contact-based automations.
+
+### 3. De template
+
+De hele mail staat in een loop over de gecombineerde feed en toont alleen de dienst waarvan de slug
+gelijk is aan het objectveld met de dienst-URL (dezelfde slug als `LAST_REQUEST_SERVICE_URL`):
+
+```twig
+{% for s in feed.post_hire_chosen.services %}{% if s.slug == feed.request.attributes.service_url %}
+  … {{ s.subject_line }} … {{ s.hero_subtitle }} …
+{% endif %}{% endfor %}
+```
+
+Maak deze HTML niet met de hand: Feed Studio → mailtype → tab **Brevo (combined)** maakt hem uit de
+opgeslagen template (knop "Download combined template" en de kopieerknop "Brevo HTML"; daar vul je ook de
+alias van de global feed en de objectnaam in). Plak de HTML in de e-mail **binnen** de automation.
+
+Gebruik **niet** de gewone template van het mailtype (tab "HTML template" in Feed Studio of
+`<merk>-<mailtype>-template.html` hier): die verwijst naar de per-dienstfeed
+(`{{ feed.posthire_chosen_feed.… }}`) die in Brevo niet bestaat, en dan verstuurt Brevo de mail niet
+(zie [Fouten opsporen](#fouten-opsporen)).
+
+### 4. Onderwerp en preview-tekst
+
+Die velden staan buiten de HTML en hebben hun eigen loop. Kopieer ze uit hetzelfde tabblad
+("Brevo subject line" en "Brevo preview text"). Voor post-hire, met de wissel op de status:
+
+```twig
+{% for s in feed.post_hire_chosen.services %}{% if s.slug == feed.request.attributes.service_url %}{% if feed.request.attributes.status == "DONE" %}{{ s.done_subject_line }}{% else %}{{ s.subject_line }}{% endif %}{% endif %}{% endfor %}
+```
+
+Preview-tekst: hetzelfde met `done_preheader` / `preheader`.
+
+### 5. Let op
+
+- Heeft het object een dienst die niet in de gecombineerde feed staat, dan matcht niets en komt er een
+  **lege** mail aan (geen fout). Sluit zulke diensten uit met een filter in de automation.
+- Een *Dynamic content*-blok met databron `feed.request.associations.…` is voor records die aan het
+  object gekoppeld zijn (bijvoorbeeld het contact), niet voor de velden van het object zelf.
+
+## Fouten opsporen
+
+Brevo legt per verzending events vast, ook voor mails uit automations: `requests` (verzendpoging),
+`delivered`, `opened`, `clicks` en `error` met een reden. Op te vragen via de Brevo API
+`GET /v3/smtp/statistics/events` (filter op e-mailadres), of in Claude via de Brevo-koppeling
+(`campaign_analytics_get_email_event_report`).
+
+| Wat je ziet | Oorzaak |
+| --- | --- |
+| `error` met `feed not found, feed <alias>` | De template verwijst naar een feedalias die in Brevo niet bestaat. Brevo verstuurt de mail dan **niet**. Controleer de alias, of je de juiste (gecombineerde) template gebruikt. |
+| Geen `requests`-event na de trigger | Brevo heeft de mail niet geprobeerd te versturen: de automation is niet gestart of de e-mailstap is niet bereikt. Kijk in de automation zelf. |
+| `delivered`, maar de mail is leeg | De dienst is niet gevonden: geen bestand voor die slug (personalized feed) of geen item met die slug (gecombineerde feed). |
+
 ## Bronnen
 
 - [About data feeds in Brevo](https://help.brevo.com/hc/en-us/articles/24815592958098-About-data-feeds-in-Brevo)
@@ -169,3 +269,4 @@ Zie de sectie *Voorkomen dat een ontbrekende feed een verzending breekt* in
 - [Personalize your email content with real-time data (data feed)](https://help.brevo.com/hc/en-us/articles/9854758414098-Personalize-your-email-content-with-real-time-data-data-feed)
 - [Personalize your messages with dynamic content (Brevo Template Language)](https://help.brevo.com/hc/en-us/articles/4402386448530--Manual-Personalize-your-messages-with-dynamic-content-Brevo-Template-Language)
 - [Getting started with external feeds (Brevo API docs)](https://developers.brevo.com/docs/getting-started-with-external-feeds)
+- [Personalize your emails with object attributes](https://help.brevo.com/hc/en-us/articles/34676182667922)

@@ -5,9 +5,9 @@ consumenten die **kort geleden** een aanvraag deden (NL). De mail laat vier dien
 mensen rond hetzelfde project (verbouwen, verduurzamen, verhuizen, een feest, een woning kopen,
 ...) vaak ook aanvragen. De verzendtiming wordt getest op circa 3, 7 en 14 dagen na de aanvraag.
 
-Status (2026-09-22): feeds, schema, template en generator staan op `main` en zijn via GitHub Pages
-bereikbaar; in Feed Studio staan de 91 entries als gepubliceerd. Er is nog **geen** Brevo-feed en
-geen Brevo-template aangemaakt (zie "Brevo instellen").
+Status: feeds, schema, template en generator staan op `main` en zijn via GitHub Pages bereikbaar; in
+Feed Studio staan de 91 entries als gepubliceerd. Of de mail in Brevo is ingericht, wordt in deze
+repository niet bijgehouden (inrichting: zie "Brevo instellen").
 
 ## Bestanden
 
