@@ -14,8 +14,8 @@ Hier staat **één** post-hire-mail (1a en 1b samengevoegd); 1c, 2 en 3 volgen n
   - **DONE** (niet via Trustoo gekozen): `done_subject_line`, `done_preheader`, `done_hero_subtitle` (de teksten van
     mail 1b), titel "Fijn dat het geregeld is"; tijdlijn en starttips vallen weg.
   - Cross-sellkaarten, "Ook populair op Trustoo" en de knoppen zijn bij beide gelijk.
-- Onderwerpregel in Brevo: `{% if feed.request.attributes.status == "DONE" %}{{ s.done_subject_line }}{% else %}{{ s.subject_line }}{% endif %}`
-  (binnen de loop van de gecombineerde template; preheader idem met `done_preheader` / `preheader`).
+- Onderwerpregel en preview-tekst in Brevo staan buiten de HTML en hebben hun eigen loop met dezelfde statuswissel.
+  Kopieer ze uit Feed Studio → Post-hire 1 → tab "Brevo (combined)" ("Brevo subject line" / "Brevo preview text").
 - Per mail staan alleen de velden die de template gebruikt in de feed. De veldnamen volgen de conventies van de
   andere mails (`title`, `subject_line`, `preheader`, `hero_subtitle`, `service1-4_*`, `tile1-4_*`, `tiles_style`);
   `scripts/import-posthire.js` zet de pakketnamen om en zet de statusvoorwaarden in de template.
@@ -50,7 +50,8 @@ feeds/nl/posthire-chosen.json          gecombineerd: { "services": [ { "slug", "
   aan LAST_REQUEST_SERVICE_URL). `service_name` staat er alleen ter informatie in.
 - Brevo: maak een **global** data feed op `https://ruttekut.github.io/trustoo-brevo-feeds/feeds/nl/posthire-chosen.json`
   (alias `post_hire_chosen`). Het object is beschikbaar als `feed.request.attributes.<veld>`.
-- Template: Feed Studio → mailtype → tab "Brevo (combined)" → "Download combined template". De hele mail staat
+- Template: Feed Studio → mailtype → tab "Brevo (combined)" → "Download combined template" of "Copy Brevo HTML"
+  (wordt altijd opnieuw gemaakt uit de opgeslagen HTML-template, dus kan niet kwijtraken). De hele mail staat
   in `{% for s in feed.post_hire_chosen.services %}{% if s.slug == feed.request.attributes.service_url %}`
   en elk veld is `{{ s.<veld> }}`.
 - Een dienst zonder content in de feed geeft een lege mail: sluit zulke diensten uit in de automation.
